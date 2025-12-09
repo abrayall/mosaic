@@ -1,0 +1,300 @@
+/**
+ * Mosaic Design System - Progress Indicators
+ *
+ * Progress bars and circular progress indicators.
+ */
+
+/* ==========================================================================
+   Progress Bar
+   ========================================================================== */
+.mosaic-progress {
+    width: 100%;
+    height: 8px;
+    background-color: var(--mosaic-bg-header);
+    border-radius: var(--mosaic-radius-full);
+    overflow: hidden;
+}
+
+.mosaic-progress-bar {
+    height: 100%;
+    border-radius: var(--mosaic-radius-full);
+    transition: width var(--mosaic-transition-slow);
+    background-color: var(--mosaic-primary);
+}
+
+/* ==========================================================================
+   Progress Bar Variants
+   ========================================================================== */
+.mosaic-progress-success .mosaic-progress-bar {
+    background: linear-gradient(90deg, var(--mosaic-success), #00d84a);
+}
+
+.mosaic-progress-warning .mosaic-progress-bar {
+    background: linear-gradient(90deg, var(--mosaic-warning), #ffb900);
+}
+
+.mosaic-progress-critical .mosaic-progress-bar {
+    background: linear-gradient(90deg, var(--mosaic-critical), #ff4444);
+}
+
+.mosaic-progress-info .mosaic-progress-bar {
+    background: linear-gradient(90deg, var(--mosaic-info-dark), var(--mosaic-info));
+}
+
+/* ==========================================================================
+   Progress Bar Sizes
+   ========================================================================== */
+.mosaic-progress-sm {
+    height: 4px;
+}
+
+.mosaic-progress-lg {
+    height: 12px;
+}
+
+.mosaic-progress-xl {
+    height: 20px;
+}
+
+/* ==========================================================================
+   Progress Bar with Label
+   ========================================================================== */
+.mosaic-progress-labeled {
+    position: relative;
+}
+
+.mosaic-progress-labeled .mosaic-progress {
+    height: 20px;
+}
+
+.mosaic-progress-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: var(--mosaic-font-size-xs);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    z-index: 1;
+}
+
+.mosaic-progress-labeled .mosaic-progress-bar {
+    position: relative;
+}
+
+/* ==========================================================================
+   Progress with Text
+   ========================================================================== */
+.mosaic-progress-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mosaic-space-xs);
+}
+
+.mosaic-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mosaic-progress-title {
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-medium);
+    color: var(--mosaic-text);
+}
+
+.mosaic-progress-value {
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text-secondary);
+}
+
+/* ==========================================================================
+   Striped Progress Bar
+   ========================================================================== */
+.mosaic-progress-striped .mosaic-progress-bar {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+}
+
+.mosaic-progress-striped.mosaic-progress-animated .mosaic-progress-bar {
+    animation: mosaic-progress-stripes 1s linear infinite;
+}
+
+@keyframes mosaic-progress-stripes {
+    from {
+        background-position: 1rem 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+/* ==========================================================================
+   Indeterminate Progress Bar
+   ========================================================================== */
+.mosaic-progress-indeterminate .mosaic-progress-bar {
+    width: 30%;
+    animation: mosaic-progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes mosaic-progress-indeterminate {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(250%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* ==========================================================================
+   Circular Progress
+   ========================================================================== */
+.mosaic-progress-circle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mosaic-progress-circle svg {
+    transform: rotate(-90deg);
+}
+
+.mosaic-progress-circle-track {
+    fill: none;
+    stroke: var(--mosaic-bg-header);
+}
+
+.mosaic-progress-circle-bar {
+    fill: none;
+    stroke: var(--mosaic-primary);
+    stroke-linecap: round;
+    transition: stroke-dashoffset var(--mosaic-transition-slow);
+}
+
+.mosaic-progress-circle-success .mosaic-progress-circle-bar {
+    stroke: var(--mosaic-success);
+}
+
+.mosaic-progress-circle-warning .mosaic-progress-circle-bar {
+    stroke: var(--mosaic-warning);
+}
+
+.mosaic-progress-circle-critical .mosaic-progress-circle-bar {
+    stroke: var(--mosaic-critical);
+}
+
+.mosaic-progress-circle-value {
+    position: absolute;
+    font-size: var(--mosaic-font-size-lg);
+    font-weight: var(--mosaic-font-weight-bold);
+    color: var(--mosaic-text);
+}
+
+.mosaic-progress-circle-sm .mosaic-progress-circle-value {
+    font-size: var(--mosaic-font-size-sm);
+}
+
+.mosaic-progress-circle-lg .mosaic-progress-circle-value {
+    font-size: var(--mosaic-font-size-2xl);
+}
+
+/* ==========================================================================
+   Step Progress
+   ========================================================================== */
+.mosaic-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+}
+
+.mosaic-steps::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 24px;
+    right: 24px;
+    height: 2px;
+    background-color: var(--mosaic-border);
+    z-index: 0;
+}
+
+.mosaic-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.mosaic-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--mosaic-bg);
+    border: 2px solid var(--mosaic-border);
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text-tertiary);
+    transition: all var(--mosaic-transition-normal);
+}
+
+.mosaic-step-label {
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-tertiary);
+    text-align: center;
+    max-width: 100px;
+}
+
+/* Step states */
+.mosaic-step-completed .mosaic-step-indicator {
+    background-color: var(--mosaic-success);
+    border-color: var(--mosaic-success);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-step-completed .mosaic-step-label {
+    color: var(--mosaic-success);
+}
+
+.mosaic-step-active .mosaic-step-indicator {
+    background-color: var(--mosaic-primary);
+    border-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-step-active .mosaic-step-label {
+    color: var(--mosaic-primary);
+    font-weight: var(--mosaic-font-weight-semibold);
+}
+
+/* Connecting line progress */
+.mosaic-step-completed + .mosaic-step::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--mosaic-success);
+    z-index: 0;
+}

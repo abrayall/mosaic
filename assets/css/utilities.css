@@ -1,0 +1,194 @@
+/**
+ * Mosaic Design System - Utility Classes
+ *
+ * Single-purpose utility classes for quick styling adjustments.
+ */
+
+/* ==========================================================================
+   Display
+   ========================================================================== */
+.mosaic-hidden { display: none !important; }
+.mosaic-block { display: block; }
+.mosaic-inline { display: inline; }
+.mosaic-inline-block { display: inline-block; }
+.mosaic-inline-flex { display: inline-flex; }
+
+/* Responsive visibility */
+@media (max-width: 782px) {
+    .mosaic-hide-mobile { display: none !important; }
+}
+
+@media (min-width: 783px) {
+    .mosaic-hide-desktop { display: none !important; }
+}
+
+/* ==========================================================================
+   Text Alignment
+   ========================================================================== */
+.mosaic-text-left { text-align: left; }
+.mosaic-text-center { text-align: center; }
+.mosaic-text-right { text-align: right; }
+
+/* ==========================================================================
+   Text Transformation
+   ========================================================================== */
+.mosaic-uppercase { text-transform: uppercase; }
+.mosaic-lowercase { text-transform: lowercase; }
+.mosaic-capitalize { text-transform: capitalize; }
+
+/* ==========================================================================
+   Font Weight
+   ========================================================================== */
+.mosaic-font-normal { font-weight: var(--mosaic-font-weight-normal); }
+.mosaic-font-medium { font-weight: var(--mosaic-font-weight-medium); }
+.mosaic-font-semibold { font-weight: var(--mosaic-font-weight-semibold); }
+.mosaic-font-bold { font-weight: var(--mosaic-font-weight-bold); }
+
+/* ==========================================================================
+   Text Colors
+   ========================================================================== */
+.mosaic-color-text { color: var(--mosaic-text); }
+.mosaic-color-secondary { color: var(--mosaic-text-secondary); }
+.mosaic-color-muted { color: var(--mosaic-text-tertiary); }
+.mosaic-color-primary { color: var(--mosaic-primary); }
+.mosaic-color-success { color: var(--mosaic-success); }
+.mosaic-color-warning { color: var(--mosaic-warning); }
+.mosaic-color-critical { color: var(--mosaic-critical); }
+
+/* ==========================================================================
+   Background Colors
+   ========================================================================== */
+.mosaic-bg-white { background-color: var(--mosaic-bg); }
+.mosaic-bg-alt { background-color: var(--mosaic-bg-alt); }
+.mosaic-bg-header { background-color: var(--mosaic-bg-header); }
+.mosaic-bg-primary { background-color: var(--mosaic-primary); }
+.mosaic-bg-success-light { background-color: var(--mosaic-success-light); }
+.mosaic-bg-warning-light { background-color: var(--mosaic-warning-light); }
+.mosaic-bg-critical-light { background-color: var(--mosaic-critical-light); }
+
+/* ==========================================================================
+   Margin
+   ========================================================================== */
+.mosaic-m-0 { margin: 0; }
+.mosaic-m-xs { margin: var(--mosaic-space-xs); }
+.mosaic-m-sm { margin: var(--mosaic-space-sm); }
+.mosaic-m-md { margin: var(--mosaic-space-md); }
+.mosaic-m-lg { margin: var(--mosaic-space-lg); }
+.mosaic-m-xl { margin: var(--mosaic-space-xl); }
+
+.mosaic-mt-0 { margin-top: 0; }
+.mosaic-mt-sm { margin-top: var(--mosaic-space-sm); }
+.mosaic-mt-md { margin-top: var(--mosaic-space-md); }
+.mosaic-mt-lg { margin-top: var(--mosaic-space-lg); }
+.mosaic-mt-xl { margin-top: var(--mosaic-space-xl); }
+.mosaic-mt-2xl { margin-top: var(--mosaic-space-2xl); }
+.mosaic-mt-3xl { margin-top: var(--mosaic-space-3xl); }
+
+.mosaic-mb-0 { margin-bottom: 0; }
+.mosaic-mb-sm { margin-bottom: var(--mosaic-space-sm); }
+.mosaic-mb-md { margin-bottom: var(--mosaic-space-md); }
+.mosaic-mb-lg { margin-bottom: var(--mosaic-space-lg); }
+.mosaic-mb-xl { margin-bottom: var(--mosaic-space-xl); }
+.mosaic-mb-2xl { margin-bottom: var(--mosaic-space-2xl); }
+.mosaic-mb-3xl { margin-bottom: var(--mosaic-space-3xl); }
+
+.mosaic-ml-auto { margin-left: auto; }
+.mosaic-mr-auto { margin-right: auto; }
+.mosaic-mx-auto { margin-left: auto; margin-right: auto; }
+
+/* ==========================================================================
+   Padding
+   ========================================================================== */
+.mosaic-p-0 { padding: 0; }
+.mosaic-p-xs { padding: var(--mosaic-space-xs); }
+.mosaic-p-sm { padding: var(--mosaic-space-sm); }
+.mosaic-p-md { padding: var(--mosaic-space-md); }
+.mosaic-p-lg { padding: var(--mosaic-space-lg); }
+.mosaic-p-xl { padding: var(--mosaic-space-xl); }
+.mosaic-p-2xl { padding: var(--mosaic-space-2xl); }
+
+.mosaic-px-md { padding-left: var(--mosaic-space-md); padding-right: var(--mosaic-space-md); }
+.mosaic-px-lg { padding-left: var(--mosaic-space-lg); padding-right: var(--mosaic-space-lg); }
+.mosaic-px-xl { padding-left: var(--mosaic-space-xl); padding-right: var(--mosaic-space-xl); }
+
+.mosaic-py-md { padding-top: var(--mosaic-space-md); padding-bottom: var(--mosaic-space-md); }
+.mosaic-py-lg { padding-top: var(--mosaic-space-lg); padding-bottom: var(--mosaic-space-lg); }
+.mosaic-py-xl { padding-top: var(--mosaic-space-xl); padding-bottom: var(--mosaic-space-xl); }
+
+/* ==========================================================================
+   Width
+   ========================================================================== */
+.mosaic-w-full { width: 100%; }
+.mosaic-w-auto { width: auto; }
+.mosaic-max-w-sm { max-width: 320px; }
+.mosaic-max-w-md { max-width: 480px; }
+.mosaic-max-w-lg { max-width: 640px; }
+.mosaic-max-w-xl { max-width: 800px; }
+
+/* ==========================================================================
+   Border
+   ========================================================================== */
+.mosaic-border { border: 1px solid var(--mosaic-border); }
+.mosaic-border-top { border-top: 1px solid var(--mosaic-border); }
+.mosaic-border-bottom { border-bottom: 1px solid var(--mosaic-border); }
+.mosaic-border-0 { border: 0; }
+
+.mosaic-rounded { border-radius: var(--mosaic-radius-md); }
+.mosaic-rounded-lg { border-radius: var(--mosaic-radius-lg); }
+.mosaic-rounded-full { border-radius: var(--mosaic-radius-full); }
+
+/* ==========================================================================
+   Shadow
+   ========================================================================== */
+.mosaic-shadow { box-shadow: var(--mosaic-shadow-md); }
+.mosaic-shadow-lg { box-shadow: var(--mosaic-shadow-lg); }
+.mosaic-shadow-none { box-shadow: none; }
+
+/* ==========================================================================
+   Cursor
+   ========================================================================== */
+.mosaic-cursor-pointer { cursor: pointer; }
+.mosaic-cursor-default { cursor: default; }
+.mosaic-cursor-not-allowed { cursor: not-allowed; }
+
+/* ==========================================================================
+   Overflow
+   ========================================================================== */
+.mosaic-overflow-hidden { overflow: hidden; }
+.mosaic-overflow-auto { overflow: auto; }
+.mosaic-overflow-x-auto { overflow-x: auto; }
+
+/* ==========================================================================
+   Position
+   ========================================================================== */
+.mosaic-relative { position: relative; }
+.mosaic-absolute { position: absolute; }
+.mosaic-sticky { position: sticky; }
+
+/* ==========================================================================
+   Vertical Alignment
+   ========================================================================== */
+.mosaic-align-top { vertical-align: top; }
+.mosaic-align-middle { vertical-align: middle; }
+.mosaic-align-bottom { vertical-align: bottom; }
+
+/* ==========================================================================
+   Truncate
+   ========================================================================== */
+.mosaic-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mosaic-break-word {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ==========================================================================
+   Whitespace
+   ========================================================================== */
+.mosaic-nowrap { white-space: nowrap; }
+.mosaic-pre { white-space: pre; }
+.mosaic-pre-wrap { white-space: pre-wrap; }

@@ -1,0 +1,303 @@
+/**
+ * Mosaic Design System - Tables
+ *
+ * Table styles with sticky headers, striped rows, and responsive layouts.
+ * Extends WordPress wp-list-table patterns.
+ */
+
+/* ==========================================================================
+   Base Table
+   ========================================================================== */
+.mosaic-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Table Header
+   ========================================================================== */
+.mosaic-table thead th {
+    background-color: var(--mosaic-bg-header);
+    color: var(--mosaic-text);
+    font-weight: var(--mosaic-font-weight-semibold);
+    font-size: var(--mosaic-font-size-md);
+    text-align: left;
+    padding: var(--mosaic-space-md);
+    border-bottom: 1px solid var(--mosaic-border);
+    white-space: nowrap;
+}
+
+/* Sticky header */
+.mosaic-table-sticky thead th {
+    position: sticky;
+    top: 0;
+    z-index: var(--mosaic-z-sticky);
+}
+
+/* Sortable headers */
+.mosaic-table th.mosaic-sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.mosaic-table th.mosaic-sortable:hover {
+    background-color: var(--mosaic-bg-hover);
+}
+
+.mosaic-table th.mosaic-sortable::after {
+    content: '';
+    display: inline-block;
+    margin-left: var(--mosaic-space-xs);
+    opacity: 0.3;
+}
+
+.mosaic-table th.mosaic-sort-asc::after {
+    content: '\25B2';
+    opacity: 1;
+    color: var(--mosaic-primary);
+}
+
+.mosaic-table th.mosaic-sort-desc::after {
+    content: '\25BC';
+    opacity: 1;
+    color: var(--mosaic-primary);
+}
+
+/* ==========================================================================
+   Table Body
+   ========================================================================== */
+.mosaic-table tbody td {
+    padding: var(--mosaic-space-md);
+    border-bottom: 1px solid var(--mosaic-border-light);
+    vertical-align: middle;
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text);
+}
+
+.mosaic-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ==========================================================================
+   Striped Rows
+   ========================================================================== */
+.mosaic-table-striped tbody tr:nth-child(odd) {
+    background-color: var(--mosaic-bg);
+}
+
+.mosaic-table-striped tbody tr:nth-child(even) {
+    background-color: var(--mosaic-bg-alt);
+}
+
+/* ==========================================================================
+   Hover Effect
+   ========================================================================== */
+.mosaic-table-hover tbody tr:hover {
+    background-color: var(--mosaic-bg-hover);
+}
+
+/* ==========================================================================
+   Table Footer
+   ========================================================================== */
+.mosaic-table tfoot td {
+    background-color: var(--mosaic-bg-header);
+    padding: var(--mosaic-space-md);
+    border-top: 1px solid var(--mosaic-border);
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-secondary);
+}
+
+/* ==========================================================================
+   Cell Alignment
+   ========================================================================== */
+.mosaic-table th.mosaic-text-center,
+.mosaic-table td.mosaic-text-center {
+    text-align: center;
+}
+
+.mosaic-table th.mosaic-text-right,
+.mosaic-table td.mosaic-text-right {
+    text-align: right;
+}
+
+/* ==========================================================================
+   Actions Column
+   ========================================================================== */
+.mosaic-table .mosaic-col-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.mosaic-table-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+}
+
+.mosaic-table-actions .mosaic-btn-icon {
+    opacity: 0.7;
+    transition: opacity var(--mosaic-transition-fast);
+}
+
+.mosaic-table-actions .mosaic-btn-icon:hover {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Row States
+   ========================================================================== */
+.mosaic-table tbody tr.mosaic-row-selected {
+    background-color: var(--mosaic-primary-light) !important;
+}
+
+.mosaic-table tbody tr.mosaic-row-success {
+    background-color: var(--mosaic-success-light) !important;
+}
+
+.mosaic-table tbody tr.mosaic-row-warning {
+    background-color: var(--mosaic-warning-light) !important;
+}
+
+.mosaic-table tbody tr.mosaic-row-critical {
+    background-color: var(--mosaic-critical-light) !important;
+}
+
+.mosaic-table tbody tr.mosaic-row-disabled {
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+.mosaic-table-empty {
+    text-align: center;
+    padding: var(--mosaic-space-4xl) var(--mosaic-space-xl);
+    color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-table-empty .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--mosaic-space-md);
+    opacity: 0.5;
+}
+
+.mosaic-table-empty-title {
+    font-size: var(--mosaic-font-size-lg);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text-secondary);
+    margin-bottom: var(--mosaic-space-sm);
+}
+
+.mosaic-table-empty-message {
+    font-size: var(--mosaic-font-size-base);
+    margin-bottom: var(--mosaic-space-lg);
+}
+
+/* ==========================================================================
+   Compact Table
+   ========================================================================== */
+.mosaic-table-compact thead th,
+.mosaic-table-compact tbody td {
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+}
+
+/* ==========================================================================
+   Bordered Table
+   ========================================================================== */
+.mosaic-table-bordered thead th,
+.mosaic-table-bordered tbody td {
+    border: 1px solid var(--mosaic-border);
+}
+
+/* ==========================================================================
+   Table Container (for horizontal scroll)
+   ========================================================================== */
+.mosaic-table-container {
+    overflow-x: auto;
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+}
+
+.mosaic-table-container .mosaic-table {
+    border: none;
+    border-radius: 0;
+}
+
+/* ==========================================================================
+   Responsive Table (Card Layout on Mobile)
+   ========================================================================== */
+@media (max-width: 782px) {
+    .mosaic-table-responsive {
+        border: none;
+    }
+
+    .mosaic-table-responsive thead {
+        display: none;
+    }
+
+    .mosaic-table-responsive tbody tr {
+        display: block;
+        background-color: var(--mosaic-bg);
+        border: 1px solid var(--mosaic-border);
+        border-radius: var(--mosaic-radius-lg);
+        margin-bottom: var(--mosaic-space-md);
+        padding: var(--mosaic-space-md);
+    }
+
+    .mosaic-table-responsive tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--mosaic-space-sm) 0;
+        border-bottom: 1px solid var(--mosaic-border-light);
+    }
+
+    .mosaic-table-responsive tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .mosaic-table-responsive tbody td::before {
+        content: attr(data-label);
+        font-weight: var(--mosaic-font-weight-semibold);
+        color: var(--mosaic-text-secondary);
+        flex-shrink: 0;
+        margin-right: var(--mosaic-space-md);
+    }
+
+    .mosaic-table-responsive .mosaic-col-actions {
+        justify-content: flex-end;
+        padding-top: var(--mosaic-space-md);
+    }
+
+    .mosaic-table-responsive .mosaic-col-actions::before {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   WordPress Integration
+   ========================================================================== */
+.mosaic-wrap .wp-list-table {
+    border-radius: var(--mosaic-radius-lg);
+    overflow: hidden;
+}
+
+.mosaic-wrap .wp-list-table thead th {
+    background-color: var(--mosaic-bg-header);
+    border-bottom-color: var(--mosaic-border);
+}
+
+.mosaic-wrap .wp-list-table.striped > tbody > tr:nth-child(odd) {
+    background-color: var(--mosaic-bg);
+}
+
+.mosaic-wrap .wp-list-table.striped > tbody > tr:nth-child(even) {
+    background-color: var(--mosaic-bg-alt);
+}

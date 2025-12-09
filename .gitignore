@@ -1,0 +1,8 @@
+# Build artifacts
+build/
+
+# Version file (generated at build time)
+version.properties
+
+# OS files
+.DS_Store

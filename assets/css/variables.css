@@ -1,0 +1,136 @@
+/**
+ * Mosaic Design System - CSS Variables
+ *
+ * Design tokens for consistent theming across all plugins.
+ * These variables are the single source of truth for colors, spacing, typography, and more.
+ */
+
+:root {
+    /* ==========================================================================
+       Colors - Primary
+       ========================================================================== */
+    --mosaic-primary: #2271b1;
+    --mosaic-primary-hover: #135e96;
+    --mosaic-primary-dark: #0a4166;
+    --mosaic-primary-light: #e5f3ff;
+
+    /* ==========================================================================
+       Colors - Status
+       ========================================================================== */
+    --mosaic-success: #00a32a;
+    --mosaic-success-dark: #007a20;
+    --mosaic-success-light: #d5f3e5;
+
+    --mosaic-warning: #dba617;
+    --mosaic-warning-dark: #b98900;
+    --mosaic-warning-light: #fcf0d2;
+
+    --mosaic-critical: #d63638;
+    --mosaic-critical-dark: #b91c1c;
+    --mosaic-critical-light: #fcdddd;
+
+    --mosaic-info: #72aee6;
+    --mosaic-info-dark: #4f94d4;
+    --mosaic-info-light: #e7f4fd;
+
+    /* ==========================================================================
+       Colors - Neutral
+       ========================================================================== */
+    --mosaic-text: #1d2327;
+    --mosaic-text-secondary: #50575e;
+    --mosaic-text-tertiary: #646970;
+    --mosaic-text-disabled: #8c8f94;
+    --mosaic-text-inverse: #ffffff;
+
+    --mosaic-border: #ccd0d4;
+    --mosaic-border-light: #dcdcde;
+    --mosaic-border-dark: #8c8f94;
+
+    --mosaic-bg: #ffffff;
+    --mosaic-bg-alt: #f6f7f7;
+    --mosaic-bg-header: #f0f0f1;
+    --mosaic-bg-hover: #f6f7f7;
+
+    /* ==========================================================================
+       Spacing
+       ========================================================================== */
+    --mosaic-space-xs: 4px;
+    --mosaic-space-sm: 8px;
+    --mosaic-space-md: 12px;
+    --mosaic-space-lg: 16px;
+    --mosaic-space-xl: 20px;
+    --mosaic-space-2xl: 24px;
+    --mosaic-space-3xl: 32px;
+    --mosaic-space-4xl: 40px;
+
+    /* ==========================================================================
+       Typography
+       ========================================================================== */
+    --mosaic-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --mosaic-font-mono: Menlo, Consolas, monaco, monospace;
+
+    --mosaic-font-size-xs: 11px;
+    --mosaic-font-size-sm: 12px;
+    --mosaic-font-size-md: 13px;
+    --mosaic-font-size-base: 14px;
+    --mosaic-font-size-lg: 15px;
+    --mosaic-font-size-xl: 16px;
+    --mosaic-font-size-2xl: 20px;
+    --mosaic-font-size-3xl: 24px;
+    --mosaic-font-size-4xl: 28px;
+    --mosaic-font-size-5xl: 32px;
+    --mosaic-font-size-6xl: 42px;
+
+    --mosaic-font-weight-normal: 400;
+    --mosaic-font-weight-medium: 500;
+    --mosaic-font-weight-semibold: 600;
+    --mosaic-font-weight-bold: 700;
+
+    --mosaic-line-height-tight: 1.2;
+    --mosaic-line-height-normal: 1.4;
+    --mosaic-line-height-relaxed: 1.6;
+
+    /* ==========================================================================
+       Border Radius
+       ========================================================================== */
+    --mosaic-radius-sm: 3px;
+    --mosaic-radius-md: 4px;
+    --mosaic-radius-lg: 8px;
+    --mosaic-radius-xl: 12px;
+    --mosaic-radius-full: 9999px;
+
+    /* ==========================================================================
+       Shadows
+       ========================================================================== */
+    --mosaic-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --mosaic-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --mosaic-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --mosaic-shadow-xl: 0 6px 12px rgba(0, 0, 0, 0.12);
+    --mosaic-shadow-2xl: 0 10px 40px rgba(0, 0, 0, 0.3);
+    --mosaic-shadow-primary: 0 4px 8px rgba(34, 113, 177, 0.2);
+
+    /* ==========================================================================
+       Transitions
+       ========================================================================== */
+    --mosaic-transition-fast: 0.15s ease;
+    --mosaic-transition-normal: 0.2s ease;
+    --mosaic-transition-slow: 0.3s ease;
+
+    /* ==========================================================================
+       Z-Index Scale
+       ========================================================================== */
+    --mosaic-z-dropdown: 1000;
+    --mosaic-z-sticky: 1020;
+    --mosaic-z-fixed: 1030;
+    --mosaic-z-modal-backdrop: 1040;
+    --mosaic-z-modal: 100000;
+    --mosaic-z-tooltip: 100010;
+
+    /* ==========================================================================
+       Breakpoints (for reference - use in media queries)
+       ========================================================================== */
+    /* --mosaic-breakpoint-sm: 480px; */
+    /* --mosaic-breakpoint-md: 783px; */
+    /* --mosaic-breakpoint-lg: 1024px; */
+    /* --mosaic-breakpoint-xl: 1280px; */
+}

@@ -1,0 +1,274 @@
+/**
+ * Mosaic Design System - Base Styles
+ *
+ * Foundation styles including typography, links, and WordPress admin integration.
+ */
+
+/* ==========================================================================
+   WordPress Admin Integration
+   ========================================================================== */
+.mosaic-wrap {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+}
+
+.mosaic-wrap * {
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+.mosaic-heading-1 {
+    font-size: var(--mosaic-font-size-5xl);
+    font-weight: var(--mosaic-font-weight-normal);
+    color: var(--mosaic-text);
+    line-height: var(--mosaic-line-height-tight);
+    margin: 0 0 var(--mosaic-space-lg) 0;
+}
+
+.mosaic-heading-2 {
+    font-size: var(--mosaic-font-size-4xl);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    line-height: var(--mosaic-line-height-tight);
+    margin: 0 0 var(--mosaic-space-lg) 0;
+}
+
+.mosaic-heading-3 {
+    font-size: var(--mosaic-font-size-3xl);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    line-height: var(--mosaic-line-height-tight);
+    margin: 0 0 var(--mosaic-space-md) 0;
+}
+
+.mosaic-heading-4 {
+    font-size: var(--mosaic-font-size-2xl);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    line-height: var(--mosaic-line-height-normal);
+    margin: 0 0 var(--mosaic-space-md) 0;
+}
+
+.mosaic-text {
+    font-size: var(--mosaic-font-size-lg);
+    color: var(--mosaic-text);
+    line-height: var(--mosaic-line-height-relaxed);
+}
+
+.mosaic-text-sm {
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-secondary);
+    line-height: var(--mosaic-line-height-normal);
+}
+
+.mosaic-text-muted {
+    color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-text-mono {
+    font-family: var(--mosaic-font-mono);
+    font-size: var(--mosaic-font-size-md);
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+.mosaic-link {
+    color: var(--mosaic-primary);
+    text-decoration: none;
+    transition: color var(--mosaic-transition-fast);
+}
+
+.mosaic-link:hover {
+    color: var(--mosaic-primary-hover);
+    text-decoration: underline;
+}
+
+.mosaic-link:focus {
+    outline: 2px solid var(--mosaic-primary);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Page Layout
+   ========================================================================== */
+.mosaic-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--mosaic-space-xl);
+    flex-wrap: wrap;
+    gap: var(--mosaic-space-md);
+}
+
+.mosaic-page-header-title {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-md);
+}
+
+.mosaic-page-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-section {
+    margin-bottom: var(--mosaic-space-3xl);
+}
+
+.mosaic-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--mosaic-space-lg);
+    flex-wrap: wrap;
+    gap: var(--mosaic-space-sm);
+}
+
+/* ==========================================================================
+   Grid System
+   ========================================================================== */
+.mosaic-grid {
+    display: grid;
+    gap: var(--mosaic-space-xl);
+}
+
+.mosaic-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.mosaic-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.mosaic-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.mosaic-grid-auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.mosaic-grid-auto-wide {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Responsive grid */
+@media (max-width: 782px) {
+    .mosaic-grid-2,
+    .mosaic-grid-3,
+    .mosaic-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 783px) and (max-width: 1024px) {
+    .mosaic-grid-3,
+    .mosaic-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ==========================================================================
+   Flex Utilities
+   ========================================================================== */
+.mosaic-flex {
+    display: flex;
+}
+
+.mosaic-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mosaic-flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mosaic-flex-start {
+    display: flex;
+    align-items: flex-start;
+}
+
+.mosaic-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.mosaic-gap-xs { gap: var(--mosaic-space-xs); }
+.mosaic-gap-sm { gap: var(--mosaic-space-sm); }
+.mosaic-gap-md { gap: var(--mosaic-space-md); }
+.mosaic-gap-lg { gap: var(--mosaic-space-lg); }
+.mosaic-gap-xl { gap: var(--mosaic-space-xl); }
+
+/* ==========================================================================
+   Dividers
+   ========================================================================== */
+.mosaic-divider {
+    border: 0;
+    border-top: 1px solid var(--mosaic-border);
+    margin: var(--mosaic-space-xl) 0;
+}
+
+.mosaic-divider-light {
+    border-top-color: var(--mosaic-border-light);
+}
+
+/* ==========================================================================
+   Icons (Dashicons Integration)
+   ========================================================================== */
+.mosaic-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.mosaic-icon-sm {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+}
+
+.mosaic-icon-lg {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+}
+
+.mosaic-icon-xl {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+}
+
+/* Icon colors */
+.mosaic-icon-primary { color: var(--mosaic-primary); }
+.mosaic-icon-success { color: var(--mosaic-success); }
+.mosaic-icon-warning { color: var(--mosaic-warning); }
+.mosaic-icon-critical { color: var(--mosaic-critical); }
+.mosaic-icon-muted { color: var(--mosaic-text-tertiary); }
+
+/* ==========================================================================
+   Screen Reader Only
+   ========================================================================== */
+.mosaic-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

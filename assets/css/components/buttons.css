@@ -1,0 +1,299 @@
+/**
+ * Mosaic Design System - Buttons
+ *
+ * Button styles for primary, secondary, danger, and link variants.
+ * Extends WordPress button classes with consistent styling.
+ */
+
+/* ==========================================================================
+   Base Button
+   ========================================================================== */
+.mosaic-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mosaic-space-sm);
+    padding: 6px 16px;
+    font-size: var(--mosaic-font-size-md);
+    font-weight: var(--mosaic-font-weight-medium);
+    line-height: 1.5;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: var(--mosaic-radius-md);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-normal);
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.mosaic-btn:focus {
+    outline: 2px solid var(--mosaic-primary);
+    outline-offset: 2px;
+}
+
+.mosaic-btn:disabled,
+.mosaic-btn.mosaic-btn-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Button Variants
+   ========================================================================== */
+
+/* Primary Button */
+.mosaic-btn-primary {
+    background-color: var(--mosaic-primary);
+    border-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-btn-primary:hover {
+    background-color: var(--mosaic-primary-hover);
+    border-color: var(--mosaic-primary-hover);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-btn-primary:active {
+    background-color: var(--mosaic-primary-dark);
+    border-color: var(--mosaic-primary-dark);
+}
+
+/* Secondary Button */
+.mosaic-btn-secondary {
+    background-color: var(--mosaic-bg-alt);
+    border-color: var(--mosaic-border-dark);
+    color: var(--mosaic-text);
+}
+
+.mosaic-btn-secondary:hover {
+    background-color: #e5e5e5;
+    border-color: var(--mosaic-text-tertiary);
+    color: var(--mosaic-text);
+}
+
+.mosaic-btn-secondary:active {
+    background-color: #dcdcdc;
+}
+
+/* Danger Button */
+.mosaic-btn-danger {
+    background-color: var(--mosaic-critical);
+    border-color: var(--mosaic-critical);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-btn-danger:hover {
+    background-color: var(--mosaic-critical-dark);
+    border-color: var(--mosaic-critical-dark);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-btn-danger:active {
+    background-color: #a01a1c;
+}
+
+/* Success Button */
+.mosaic-btn-success {
+    background-color: var(--mosaic-success);
+    border-color: var(--mosaic-success);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-btn-success:hover {
+    background-color: var(--mosaic-success-dark);
+    border-color: var(--mosaic-success-dark);
+    color: var(--mosaic-text-inverse);
+}
+
+/* Warning Button */
+.mosaic-btn-warning {
+    background-color: var(--mosaic-warning);
+    border-color: var(--mosaic-warning);
+    color: var(--mosaic-text);
+}
+
+.mosaic-btn-warning:hover {
+    background-color: var(--mosaic-warning-dark);
+    border-color: var(--mosaic-warning-dark);
+}
+
+/* Ghost/Outline Button */
+.mosaic-btn-ghost {
+    background-color: transparent;
+    border-color: var(--mosaic-primary);
+    color: var(--mosaic-primary);
+}
+
+.mosaic-btn-ghost:hover {
+    background-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+}
+
+/* Link Button */
+.mosaic-btn-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--mosaic-primary);
+    text-decoration: none;
+    font-weight: var(--mosaic-font-weight-normal);
+}
+
+.mosaic-btn-link:hover {
+    color: var(--mosaic-primary-hover);
+    text-decoration: underline;
+}
+
+.mosaic-btn-link:focus {
+    outline: none;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Button Sizes
+   ========================================================================== */
+.mosaic-btn-sm {
+    padding: 4px 8px;
+    font-size: var(--mosaic-font-size-sm);
+}
+
+.mosaic-btn-lg {
+    padding: 10px 24px;
+    font-size: var(--mosaic-font-size-base);
+}
+
+/* ==========================================================================
+   Icon Buttons
+   ========================================================================== */
+.mosaic-btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: var(--mosaic-radius-md);
+}
+
+.mosaic-btn-icon.mosaic-btn-sm {
+    width: 24px;
+    height: 24px;
+}
+
+.mosaic-btn-icon.mosaic-btn-lg {
+    width: 40px;
+    height: 40px;
+}
+
+/* Icon inside button */
+.mosaic-btn .dashicons,
+.mosaic-btn .mosaic-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+}
+
+.mosaic-btn-sm .dashicons,
+.mosaic-btn-sm .mosaic-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+/* ==========================================================================
+   Button Groups
+   ========================================================================== */
+.mosaic-btn-group {
+    display: inline-flex;
+    gap: 0;
+}
+
+.mosaic-btn-group .mosaic-btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+
+.mosaic-btn-group .mosaic-btn:first-child {
+    border-radius: var(--mosaic-radius-md) 0 0 var(--mosaic-radius-md);
+    margin-left: 0;
+}
+
+.mosaic-btn-group .mosaic-btn:last-child {
+    border-radius: 0 var(--mosaic-radius-md) var(--mosaic-radius-md) 0;
+}
+
+/* Spaced button group */
+.mosaic-btn-group-spaced {
+    display: inline-flex;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-btn-group-spaced .mosaic-btn {
+    border-radius: var(--mosaic-radius-md);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Loading State
+   ========================================================================== */
+.mosaic-btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.mosaic-btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -8px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: mosaic-btn-spin 0.6s linear infinite;
+}
+
+.mosaic-btn-primary.mosaic-btn-loading::after,
+.mosaic-btn-danger.mosaic-btn-loading::after,
+.mosaic-btn-success.mosaic-btn-loading::after {
+    border-color: var(--mosaic-text-inverse);
+    border-right-color: transparent;
+}
+
+@keyframes mosaic-btn-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   WordPress Button Integration
+   ========================================================================== */
+
+/* Apply Mosaic styles to WordPress buttons within .mosaic-wrap */
+.mosaic-wrap .button.button-primary {
+    background-color: var(--mosaic-primary);
+    border-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+    transition: all var(--mosaic-transition-normal);
+}
+
+.mosaic-wrap .button.button-primary:hover {
+    background-color: var(--mosaic-primary-hover);
+    border-color: var(--mosaic-primary-hover);
+}
+
+.mosaic-wrap .button.button-link-delete {
+    background-color: var(--mosaic-critical);
+    border-color: var(--mosaic-critical);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-wrap .button.button-link-delete:hover {
+    background-color: var(--mosaic-critical-dark);
+    border-color: var(--mosaic-critical-dark);
+}

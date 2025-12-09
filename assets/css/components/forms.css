@@ -1,0 +1,376 @@
+/**
+ * Mosaic Design System - Forms
+ *
+ * Form elements including inputs, selects, checkboxes, and toggle switches.
+ */
+
+/* ==========================================================================
+   Form Layout
+   ========================================================================== */
+.mosaic-form {
+    max-width: 640px;
+}
+
+.mosaic-form-wide {
+    max-width: none;
+}
+
+.mosaic-form-group {
+    margin-bottom: var(--mosaic-space-xl);
+}
+
+.mosaic-form-row {
+    display: flex;
+    gap: var(--mosaic-space-lg);
+    margin-bottom: var(--mosaic-space-xl);
+}
+
+.mosaic-form-row > * {
+    flex: 1;
+}
+
+@media (max-width: 782px) {
+    .mosaic-form-row {
+        flex-direction: column;
+    }
+}
+
+/* ==========================================================================
+   Labels
+   ========================================================================== */
+.mosaic-label {
+    display: block;
+    margin-bottom: var(--mosaic-space-xs);
+    font-size: var(--mosaic-font-size-base);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+}
+
+.mosaic-label-required::after {
+    content: ' *';
+    color: var(--mosaic-critical);
+}
+
+.mosaic-label-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    font-weight: var(--mosaic-font-weight-normal);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Help Text
+   ========================================================================== */
+.mosaic-help-text {
+    display: block;
+    margin-top: var(--mosaic-space-xs);
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-tertiary);
+}
+
+/* ==========================================================================
+   Text Inputs
+   ========================================================================== */
+.mosaic-input {
+    display: block;
+    width: 100%;
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-base);
+    font-family: inherit;
+    line-height: 1.5;
+    color: var(--mosaic-text);
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border-dark);
+    border-radius: var(--mosaic-radius-md);
+    transition: border-color var(--mosaic-transition-fast),
+                box-shadow var(--mosaic-transition-fast);
+}
+
+.mosaic-input:hover {
+    border-color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-input:focus {
+    outline: none;
+    border-color: var(--mosaic-primary);
+    box-shadow: 0 0 0 1px var(--mosaic-primary);
+}
+
+.mosaic-input:disabled {
+    background-color: var(--mosaic-bg-alt);
+    color: var(--mosaic-text-disabled);
+    cursor: not-allowed;
+}
+
+.mosaic-input::placeholder {
+    color: var(--mosaic-text-disabled);
+}
+
+/* Input sizes */
+.mosaic-input-sm {
+    padding: var(--mosaic-space-xs) var(--mosaic-space-sm);
+    font-size: var(--mosaic-font-size-sm);
+}
+
+.mosaic-input-lg {
+    padding: var(--mosaic-space-md) var(--mosaic-space-lg);
+    font-size: var(--mosaic-font-size-lg);
+}
+
+/* ==========================================================================
+   Select
+   ========================================================================== */
+.mosaic-select {
+    display: block;
+    width: 100%;
+    padding: var(--mosaic-space-sm) var(--mosaic-space-3xl) var(--mosaic-space-sm) var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-base);
+    font-family: inherit;
+    line-height: 1.5;
+    color: var(--mosaic-text);
+    background-color: var(--mosaic-bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23646970' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    border: 1px solid var(--mosaic-border-dark);
+    border-radius: var(--mosaic-radius-md);
+    cursor: pointer;
+    appearance: none;
+    transition: border-color var(--mosaic-transition-fast),
+                box-shadow var(--mosaic-transition-fast);
+}
+
+.mosaic-select:hover {
+    border-color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-select:focus {
+    outline: none;
+    border-color: var(--mosaic-primary);
+    box-shadow: 0 0 0 1px var(--mosaic-primary);
+}
+
+.mosaic-select:disabled {
+    background-color: var(--mosaic-bg-alt);
+    color: var(--mosaic-text-disabled);
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Textarea
+   ========================================================================== */
+.mosaic-textarea {
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    padding: var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-base);
+    font-family: inherit;
+    line-height: 1.5;
+    color: var(--mosaic-text);
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border-dark);
+    border-radius: var(--mosaic-radius-md);
+    resize: vertical;
+    transition: border-color var(--mosaic-transition-fast),
+                box-shadow var(--mosaic-transition-fast);
+}
+
+.mosaic-textarea:focus {
+    outline: none;
+    border-color: var(--mosaic-primary);
+    box-shadow: 0 0 0 1px var(--mosaic-primary);
+}
+
+/* ==========================================================================
+   Checkbox & Radio
+   ========================================================================== */
+.mosaic-checkbox,
+.mosaic-radio {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--mosaic-primary);
+}
+
+.mosaic-checkbox-group,
+.mosaic-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-checkbox-group-inline,
+.mosaic-radio-group-inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--mosaic-space-lg);
+}
+
+/* ==========================================================================
+   Toggle Switch
+   ========================================================================== */
+.mosaic-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    cursor: pointer;
+}
+
+.mosaic-toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.mosaic-toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background-color: var(--mosaic-border-dark);
+    border-radius: var(--mosaic-radius-full);
+    transition: background-color var(--mosaic-transition-slow);
+}
+
+.mosaic-toggle-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--mosaic-bg);
+    border-radius: 50%;
+    box-shadow: var(--mosaic-shadow-sm);
+    transition: transform var(--mosaic-transition-slow);
+}
+
+.mosaic-toggle-input:checked + .mosaic-toggle-switch {
+    background-color: var(--mosaic-success);
+}
+
+.mosaic-toggle-input:checked + .mosaic-toggle-switch .mosaic-toggle-slider {
+    transform: translateX(20px);
+}
+
+.mosaic-toggle-input:focus + .mosaic-toggle-switch {
+    box-shadow: 0 0 0 2px var(--mosaic-primary-light);
+}
+
+.mosaic-toggle-input:disabled + .mosaic-toggle-switch {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mosaic-toggle-label {
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text);
+}
+
+/* Toggle variants */
+.mosaic-toggle-warning .mosaic-toggle-input:checked + .mosaic-toggle-switch {
+    background-color: var(--mosaic-warning);
+}
+
+.mosaic-toggle-danger .mosaic-toggle-input:checked + .mosaic-toggle-switch {
+    background-color: var(--mosaic-critical);
+}
+
+/* ==========================================================================
+   Input Groups
+   ========================================================================== */
+.mosaic-input-group {
+    display: flex;
+}
+
+.mosaic-input-group .mosaic-input {
+    flex: 1;
+    border-radius: var(--mosaic-radius-md) 0 0 var(--mosaic-radius-md);
+}
+
+.mosaic-input-group .mosaic-btn {
+    border-radius: 0 var(--mosaic-radius-md) var(--mosaic-radius-md) 0;
+    margin-left: -1px;
+}
+
+.mosaic-input-group-prepend,
+.mosaic-input-group-append {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--mosaic-space-md);
+    background-color: var(--mosaic-bg-alt);
+    border: 1px solid var(--mosaic-border-dark);
+    color: var(--mosaic-text-secondary);
+    font-size: var(--mosaic-font-size-base);
+}
+
+.mosaic-input-group-prepend {
+    border-right: none;
+    border-radius: var(--mosaic-radius-md) 0 0 var(--mosaic-radius-md);
+}
+
+.mosaic-input-group-prepend + .mosaic-input {
+    border-radius: 0 var(--mosaic-radius-md) var(--mosaic-radius-md) 0;
+}
+
+.mosaic-input-group-append {
+    border-left: none;
+    border-radius: 0 var(--mosaic-radius-md) var(--mosaic-radius-md) 0;
+    margin-left: -1px;
+}
+
+/* ==========================================================================
+   Validation States
+   ========================================================================== */
+.mosaic-input-success {
+    border-color: var(--mosaic-success);
+}
+
+.mosaic-input-success:focus {
+    box-shadow: 0 0 0 1px var(--mosaic-success);
+}
+
+.mosaic-input-error {
+    border-color: var(--mosaic-critical);
+}
+
+.mosaic-input-error:focus {
+    box-shadow: 0 0 0 1px var(--mosaic-critical);
+}
+
+.mosaic-error-message {
+    display: block;
+    margin-top: var(--mosaic-space-xs);
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-critical);
+}
+
+.mosaic-success-message {
+    display: block;
+    margin-top: var(--mosaic-space-xs);
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-success);
+}
+
+/* ==========================================================================
+   Form Actions
+   ========================================================================== */
+.mosaic-form-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-md);
+    padding-top: var(--mosaic-space-xl);
+    border-top: 1px solid var(--mosaic-border);
+    margin-top: var(--mosaic-space-xl);
+}
+
+.mosaic-form-actions-right {
+    justify-content: flex-end;
+}
+
+.mosaic-form-actions-between {
+    justify-content: space-between;
+}

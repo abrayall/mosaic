@@ -1,0 +1,319 @@
+/**
+ * Mosaic Design System - Loaders & Spinners
+ *
+ * Loading indicators including spinners, skeleton loaders, and loading overlays.
+ */
+
+/* ==========================================================================
+   Spinner
+   ========================================================================== */
+.mosaic-spinner {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--mosaic-border);
+    border-top-color: var(--mosaic-primary);
+    border-radius: 50%;
+    animation: mosaic-spin 0.8s linear infinite;
+}
+
+@keyframes mosaic-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Spinner sizes */
+.mosaic-spinner-xs {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+}
+
+.mosaic-spinner-sm {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+}
+
+.mosaic-spinner-lg {
+    width: 48px;
+    height: 48px;
+    border-width: 4px;
+}
+
+.mosaic-spinner-xl {
+    width: 64px;
+    height: 64px;
+    border-width: 5px;
+}
+
+/* Spinner colors */
+.mosaic-spinner-white {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: var(--mosaic-text-inverse);
+}
+
+.mosaic-spinner-success {
+    border-color: var(--mosaic-success-light);
+    border-top-color: var(--mosaic-success);
+}
+
+.mosaic-spinner-warning {
+    border-color: var(--mosaic-warning-light);
+    border-top-color: var(--mosaic-warning);
+}
+
+.mosaic-spinner-critical {
+    border-color: var(--mosaic-critical-light);
+    border-top-color: var(--mosaic-critical);
+}
+
+/* ==========================================================================
+   Rotating Icon
+   ========================================================================== */
+.mosaic-icon-spin {
+    animation: mosaic-spin 1s linear infinite;
+}
+
+.mosaic-icon-spin-slow {
+    animation: mosaic-spin 2s linear infinite;
+}
+
+/* ==========================================================================
+   Dots Loader
+   ========================================================================== */
+.mosaic-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mosaic-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--mosaic-primary);
+    border-radius: 50%;
+    animation: mosaic-bounce 1.4s ease-in-out infinite both;
+}
+
+.mosaic-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.mosaic-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes mosaic-bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* Dots sizes */
+.mosaic-dots-sm .mosaic-dot {
+    width: 6px;
+    height: 6px;
+}
+
+.mosaic-dots-lg .mosaic-dot {
+    width: 12px;
+    height: 12px;
+}
+
+/* ==========================================================================
+   Loading Overlay
+   ========================================================================== */
+.mosaic-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mosaic-space-md);
+    z-index: var(--mosaic-z-modal-backdrop);
+}
+
+.mosaic-loading-overlay-dark {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.mosaic-loading-text {
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text-secondary);
+}
+
+.mosaic-loading-overlay-dark .mosaic-loading-text {
+    color: var(--mosaic-text-inverse);
+}
+
+/* ==========================================================================
+   Skeleton Loader
+   ========================================================================== */
+.mosaic-skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--mosaic-bg-alt) 25%,
+        var(--mosaic-bg-header) 50%,
+        var(--mosaic-bg-alt) 75%
+    );
+    background-size: 200% 100%;
+    animation: mosaic-skeleton-shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--mosaic-radius-md);
+}
+
+@keyframes mosaic-skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Skeleton variants */
+.mosaic-skeleton-text {
+    height: 16px;
+    margin-bottom: var(--mosaic-space-sm);
+}
+
+.mosaic-skeleton-text:last-child {
+    width: 60%;
+}
+
+.mosaic-skeleton-heading {
+    height: 24px;
+    width: 50%;
+    margin-bottom: var(--mosaic-space-md);
+}
+
+.mosaic-skeleton-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.mosaic-skeleton-avatar-lg {
+    width: 64px;
+    height: 64px;
+}
+
+.mosaic-skeleton-thumbnail {
+    width: 100%;
+    height: 120px;
+}
+
+.mosaic-skeleton-button {
+    width: 100px;
+    height: 36px;
+}
+
+.mosaic-skeleton-card {
+    padding: var(--mosaic-space-xl);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+}
+
+/* ==========================================================================
+   Skeleton Table
+   ========================================================================== */
+.mosaic-skeleton-table {
+    width: 100%;
+}
+
+.mosaic-skeleton-table-row {
+    display: flex;
+    gap: var(--mosaic-space-md);
+    padding: var(--mosaic-space-md);
+    border-bottom: 1px solid var(--mosaic-border-light);
+}
+
+.mosaic-skeleton-table-cell {
+    flex: 1;
+    height: 16px;
+}
+
+.mosaic-skeleton-table-cell:first-child {
+    flex: 0 0 40%;
+}
+
+.mosaic-skeleton-table-cell:last-child {
+    flex: 0 0 100px;
+}
+
+/* ==========================================================================
+   Content Placeholder
+   ========================================================================== */
+.mosaic-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--mosaic-space-4xl);
+    text-align: center;
+    color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-placeholder-icon {
+    margin-bottom: var(--mosaic-space-md);
+}
+
+.mosaic-placeholder-icon .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    opacity: 0.5;
+}
+
+.mosaic-placeholder-title {
+    font-size: var(--mosaic-font-size-lg);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text-secondary);
+    margin-bottom: var(--mosaic-space-sm);
+}
+
+.mosaic-placeholder-message {
+    font-size: var(--mosaic-font-size-base);
+    max-width: 400px;
+    margin-bottom: var(--mosaic-space-lg);
+}
+
+/* ==========================================================================
+   Inline Loading
+   ========================================================================== */
+.mosaic-loading-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    color: var(--mosaic-text-secondary);
+    font-size: var(--mosaic-font-size-sm);
+}
+
+/* ==========================================================================
+   Page Loading
+   ========================================================================== */
+.mosaic-page-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    gap: var(--mosaic-space-lg);
+}
+
+.mosaic-page-loading-text {
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text-secondary);
+}

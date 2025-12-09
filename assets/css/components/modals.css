@@ -1,0 +1,360 @@
+/**
+ * Mosaic Design System - Modals & Dialogs
+ *
+ * Modal dialogs including alerts, confirms, prompts, and custom modals.
+ */
+
+/* ==========================================================================
+   Modal Overlay
+   ========================================================================== */
+.mosaic-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--mosaic-z-modal);
+    padding: var(--mosaic-space-xl);
+    animation: mosaic-fade-in 0.2s ease-out;
+}
+
+@keyframes mosaic-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   Modal Container
+   ========================================================================== */
+.mosaic-modal {
+    background-color: var(--mosaic-bg);
+    border-radius: var(--mosaic-radius-lg);
+    box-shadow: var(--mosaic-shadow-2xl);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: mosaic-slide-in 0.2s ease-out;
+}
+
+@keyframes mosaic-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal sizes */
+.mosaic-modal-sm {
+    max-width: 360px;
+}
+
+.mosaic-modal-lg {
+    max-width: 720px;
+}
+
+.mosaic-modal-xl {
+    max-width: 960px;
+}
+
+.mosaic-modal-full {
+    max-width: calc(100vw - 48px);
+    max-height: calc(100vh - 48px);
+}
+
+/* ==========================================================================
+   Modal Header
+   ========================================================================== */
+.mosaic-modal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-md);
+    padding: var(--mosaic-space-xl) var(--mosaic-space-2xl);
+    border-bottom: 1px solid var(--mosaic-border-light);
+    flex-shrink: 0;
+}
+
+.mosaic-modal-icon {
+    flex-shrink: 0;
+}
+
+.mosaic-modal-icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.mosaic-modal-icon-info .dashicons {
+    color: var(--mosaic-info-dark);
+}
+
+.mosaic-modal-icon-success .dashicons {
+    color: var(--mosaic-success);
+}
+
+.mosaic-modal-icon-warning .dashicons {
+    color: var(--mosaic-warning);
+}
+
+.mosaic-modal-icon-alert .dashicons,
+.mosaic-modal-icon-error .dashicons {
+    color: var(--mosaic-critical);
+}
+
+.mosaic-modal-title {
+    flex: 1;
+    font-size: var(--mosaic-font-size-xl);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    margin: 0;
+}
+
+.mosaic-modal-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: var(--mosaic-radius-md);
+    color: var(--mosaic-text-tertiary);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-modal-close:hover {
+    background-color: var(--mosaic-bg-alt);
+    color: var(--mosaic-text);
+}
+
+.mosaic-modal-close .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* ==========================================================================
+   Modal Body
+   ========================================================================== */
+.mosaic-modal-body {
+    padding: var(--mosaic-space-xl) var(--mosaic-space-2xl);
+    overflow-y: auto;
+    flex: 1;
+    color: var(--mosaic-text);
+    font-size: var(--mosaic-font-size-lg);
+    line-height: var(--mosaic-line-height-relaxed);
+}
+
+.mosaic-modal-body p {
+    margin: 0 0 var(--mosaic-space-md) 0;
+}
+
+.mosaic-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Modal Footer
+   ========================================================================== */
+.mosaic-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--mosaic-space-sm);
+    padding: var(--mosaic-space-lg) var(--mosaic-space-2xl);
+    border-top: 1px solid var(--mosaic-border-light);
+    background-color: var(--mosaic-bg-alt);
+    flex-shrink: 0;
+}
+
+.mosaic-modal-footer-left {
+    justify-content: flex-start;
+}
+
+.mosaic-modal-footer-between {
+    justify-content: space-between;
+}
+
+.mosaic-modal-footer-center {
+    justify-content: center;
+}
+
+/* ==========================================================================
+   Dialog Variants (Alert, Confirm, Prompt)
+   ========================================================================== */
+.mosaic-dialog {
+    max-width: 420px;
+}
+
+.mosaic-dialog .mosaic-modal-body {
+    text-align: center;
+    padding: var(--mosaic-space-2xl);
+}
+
+.mosaic-dialog .mosaic-modal-header {
+    border-bottom: none;
+    justify-content: center;
+    padding-bottom: 0;
+}
+
+.mosaic-dialog .mosaic-modal-icon .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+}
+
+.mosaic-dialog .mosaic-modal-footer {
+    justify-content: center;
+    border-top: none;
+    background-color: transparent;
+}
+
+/* Prompt input */
+.mosaic-dialog-input {
+    width: 100%;
+    margin-top: var(--mosaic-space-lg);
+}
+
+/* ==========================================================================
+   Confirmation Dialog
+   ========================================================================== */
+.mosaic-confirm-dialog .mosaic-modal-footer {
+    gap: var(--mosaic-space-md);
+}
+
+/* ==========================================================================
+   Slide Panel (Side Sheet)
+   ========================================================================== */
+.mosaic-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--mosaic-z-modal);
+    animation: mosaic-fade-in 0.2s ease-out;
+}
+
+.mosaic-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 480px;
+    background-color: var(--mosaic-bg);
+    box-shadow: var(--mosaic-shadow-2xl);
+    display: flex;
+    flex-direction: column;
+    z-index: var(--mosaic-z-modal);
+    animation: mosaic-slide-in-right 0.3s ease-out;
+}
+
+@keyframes mosaic-slide-in-right {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.mosaic-panel-lg {
+    max-width: 640px;
+}
+
+.mosaic-panel-xl {
+    max-width: 800px;
+}
+
+.mosaic-panel-header {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-md);
+    padding: var(--mosaic-space-lg) var(--mosaic-space-xl);
+    border-bottom: 1px solid var(--mosaic-border);
+    flex-shrink: 0;
+}
+
+.mosaic-panel-title {
+    flex: 1;
+    font-size: var(--mosaic-font-size-lg);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    margin: 0;
+}
+
+.mosaic-panel-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: var(--mosaic-radius-md);
+    color: var(--mosaic-text-tertiary);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-panel-close:hover {
+    background-color: var(--mosaic-bg-alt);
+    color: var(--mosaic-text);
+}
+
+.mosaic-panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--mosaic-space-xl);
+}
+
+.mosaic-panel-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    padding: var(--mosaic-space-lg) var(--mosaic-space-xl);
+    border-top: 1px solid var(--mosaic-border);
+    background-color: var(--mosaic-bg-alt);
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Mobile Responsiveness
+   ========================================================================== */
+@media (max-width: 782px) {
+    .mosaic-modal-overlay {
+        padding: var(--mosaic-space-md);
+        align-items: flex-end;
+    }
+
+    .mosaic-modal {
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: var(--mosaic-radius-lg) var(--mosaic-radius-lg) 0 0;
+    }
+
+    .mosaic-panel {
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,327 @@
+/**
+ * Mosaic Design System - Cards
+ *
+ * Card components including stat cards, info cards, and content cards.
+ */
+
+/* ==========================================================================
+   Base Card
+   ========================================================================== */
+.mosaic-card {
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    box-shadow: var(--mosaic-shadow-md);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Card Parts
+   ========================================================================== */
+.mosaic-card-header {
+    padding: var(--mosaic-space-lg) var(--mosaic-space-xl);
+    border-bottom: 1px solid var(--mosaic-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--mosaic-space-md);
+}
+
+.mosaic-card-header-title {
+    font-size: var(--mosaic-font-size-lg);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-card-body {
+    padding: var(--mosaic-space-xl);
+}
+
+.mosaic-card-footer {
+    padding: var(--mosaic-space-lg) var(--mosaic-space-xl);
+    border-top: 1px solid var(--mosaic-border);
+    background-color: var(--mosaic-bg-alt);
+}
+
+/* ==========================================================================
+   Card Variants
+   ========================================================================== */
+
+/* Flat card (no shadow) */
+.mosaic-card-flat {
+    box-shadow: none;
+}
+
+/* Hoverable card */
+.mosaic-card-hover {
+    transition: all var(--mosaic-transition-slow);
+    cursor: pointer;
+}
+
+.mosaic-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--mosaic-shadow-xl);
+}
+
+/* Clickable/interactive card */
+.mosaic-card-interactive {
+    transition: all var(--mosaic-transition-normal);
+    cursor: pointer;
+}
+
+.mosaic-card-interactive:hover {
+    border-color: var(--mosaic-primary);
+    box-shadow: var(--mosaic-shadow-primary);
+}
+
+.mosaic-card-interactive.mosaic-card-active {
+    border: 2px solid var(--mosaic-primary);
+    box-shadow: var(--mosaic-shadow-primary);
+}
+
+/* ==========================================================================
+   Stat Card
+   ========================================================================== */
+.mosaic-stat-card {
+    background: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    padding: var(--mosaic-space-2xl);
+    box-shadow: var(--mosaic-shadow-md);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--mosaic-transition-slow);
+}
+
+.mosaic-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.mosaic-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--mosaic-shadow-xl);
+}
+
+/* Stat card label */
+.mosaic-stat-card-label {
+    font-size: var(--mosaic-font-size-md);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 var(--mosaic-space-sm) 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mosaic-stat-card-label .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+/* Stat card value */
+.mosaic-stat-card-value {
+    font-size: var(--mosaic-font-size-6xl);
+    font-weight: var(--mosaic-font-weight-bold);
+    color: var(--mosaic-text);
+    line-height: 1;
+    margin: 0;
+}
+
+/* Stat card meta */
+.mosaic-stat-card-meta {
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-tertiary);
+    margin-top: var(--mosaic-space-sm);
+}
+
+/* Stat card variants */
+.mosaic-stat-card-primary::before {
+    background: linear-gradient(180deg, var(--mosaic-primary), var(--mosaic-primary-hover));
+}
+
+.mosaic-stat-card-success::before {
+    background: linear-gradient(180deg, var(--mosaic-success), var(--mosaic-success-dark));
+}
+
+.mosaic-stat-card-warning::before {
+    background: linear-gradient(180deg, var(--mosaic-warning), var(--mosaic-warning-dark));
+}
+
+.mosaic-stat-card-critical::before {
+    background: linear-gradient(180deg, var(--mosaic-critical), var(--mosaic-critical-dark));
+}
+
+/* Stat card clickable (for filtering) */
+.mosaic-stat-card-clickable {
+    cursor: pointer;
+}
+
+.mosaic-stat-card-clickable.mosaic-stat-card-active {
+    border: 2px solid var(--mosaic-primary);
+    box-shadow: var(--mosaic-shadow-primary);
+}
+
+/* ==========================================================================
+   Status Card (for health/status displays)
+   ========================================================================== */
+.mosaic-status-card {
+    background: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    padding: var(--mosaic-space-2xl);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--mosaic-space-xl);
+}
+
+.mosaic-status-card-healthy {
+    border-left: 4px solid var(--mosaic-success);
+}
+
+.mosaic-status-card-warning {
+    border-left: 4px solid var(--mosaic-warning);
+}
+
+.mosaic-status-card-critical {
+    border-left: 4px solid var(--mosaic-critical);
+}
+
+.mosaic-status-card-icon {
+    flex-shrink: 0;
+}
+
+.mosaic-status-card-icon .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.mosaic-status-card-healthy .mosaic-status-card-icon {
+    color: var(--mosaic-success);
+}
+
+.mosaic-status-card-warning .mosaic-status-card-icon {
+    color: var(--mosaic-warning);
+}
+
+.mosaic-status-card-critical .mosaic-status-card-icon {
+    color: var(--mosaic-critical);
+}
+
+.mosaic-status-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.mosaic-status-card-title {
+    font-size: var(--mosaic-font-size-lg);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    margin: 0 0 var(--mosaic-space-xs) 0;
+}
+
+.mosaic-status-card-message {
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text-secondary);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Metric Tile
+   ========================================================================== */
+.mosaic-metric-tile {
+    background: var(--mosaic-bg-alt);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    padding: var(--mosaic-space-2xl);
+    box-shadow: var(--mosaic-shadow-md);
+    transition: all var(--mosaic-transition-slow);
+}
+
+.mosaic-metric-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--mosaic-shadow-xl);
+}
+
+.mosaic-metric-tile-label {
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--mosaic-space-sm);
+}
+
+.mosaic-metric-tile-value {
+    font-size: var(--mosaic-font-size-3xl);
+    font-weight: var(--mosaic-font-weight-bold);
+    color: var(--mosaic-text);
+}
+
+.mosaic-metric-tile-unit {
+    font-size: var(--mosaic-font-size-base);
+    font-weight: var(--mosaic-font-weight-normal);
+    color: var(--mosaic-text-tertiary);
+    margin-left: var(--mosaic-space-xs);
+}
+
+/* ==========================================================================
+   Stats Grid
+   ========================================================================== */
+.mosaic-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--mosaic-space-xl);
+    margin-bottom: var(--mosaic-space-3xl);
+}
+
+@media (max-width: 782px) {
+    .mosaic-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--mosaic-space-sm);
+    }
+
+    .mosaic-stat-card {
+        padding: var(--mosaic-space-md);
+    }
+
+    .mosaic-stat-card-value {
+        font-size: var(--mosaic-font-size-3xl);
+    }
+}
+
+/* ==========================================================================
+   Info Card
+   ========================================================================== */
+.mosaic-info-card {
+    background: var(--mosaic-info-light);
+    border: 1px solid var(--mosaic-info);
+    border-radius: var(--mosaic-radius-lg);
+    padding: var(--mosaic-space-lg);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--mosaic-space-md);
+}
+
+.mosaic-info-card .dashicons {
+    color: var(--mosaic-info-dark);
+    flex-shrink: 0;
+}
+
+.mosaic-info-card-content {
+    flex: 1;
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text);
+}

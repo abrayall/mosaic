@@ -1,0 +1,24 @@
+/**
+ * Mosaic Design System
+ *
+ * A comprehensive UI framework for WordPress plugins.
+ * This file imports all Mosaic components for easy inclusion.
+ *
+ * @version 1.0.0
+ */
+
+/* Foundation */
+@import 'variables.css';
+@import 'base.css';
+@import 'utilities.css';
+
+/* Components */
+@import 'components/buttons.css';
+@import 'components/tables.css';
+@import 'components/cards.css';
+@import 'components/tabs.css';
+@import 'components/forms.css';
+@import 'components/badges.css';
+@import 'components/modals.css';
+@import 'components/progress.css';
+@import 'components/loaders.css';

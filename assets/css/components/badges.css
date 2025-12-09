@@ -1,0 +1,291 @@
+/**
+ * Mosaic Design System - Badges
+ *
+ * Status badges, labels, and tags for displaying status information.
+ */
+
+/* ==========================================================================
+   Base Badge
+   ========================================================================== */
+.mosaic-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+    padding: 3px 8px;
+    font-size: var(--mosaic-font-size-xs);
+    font-weight: var(--mosaic-font-weight-semibold);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-radius: var(--mosaic-radius-sm);
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Badge Variants
+   ========================================================================== */
+
+/* Default/neutral badge */
+.mosaic-badge-default {
+    background-color: var(--mosaic-bg-header);
+    color: var(--mosaic-text-secondary);
+}
+
+/* Primary badge */
+.mosaic-badge-primary {
+    background-color: var(--mosaic-primary-light);
+    color: var(--mosaic-primary-dark);
+}
+
+/* Success badge */
+.mosaic-badge-success {
+    background-color: var(--mosaic-success-light);
+    color: var(--mosaic-success);
+}
+
+/* Warning badge */
+.mosaic-badge-warning {
+    background-color: var(--mosaic-warning-light);
+    color: #996800;
+}
+
+/* Critical/error badge */
+.mosaic-badge-critical,
+.mosaic-badge-error {
+    background-color: var(--mosaic-critical-light);
+    color: var(--mosaic-critical);
+}
+
+/* Info badge */
+.mosaic-badge-info {
+    background-color: var(--mosaic-info-light);
+    color: var(--mosaic-info-dark);
+}
+
+/* ==========================================================================
+   Solid Badges (filled background)
+   ========================================================================== */
+.mosaic-badge-solid.mosaic-badge-primary {
+    background-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-badge-solid.mosaic-badge-success {
+    background-color: var(--mosaic-success);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-badge-solid.mosaic-badge-warning {
+    background-color: var(--mosaic-warning);
+    color: var(--mosaic-text);
+}
+
+.mosaic-badge-solid.mosaic-badge-critical,
+.mosaic-badge-solid.mosaic-badge-error {
+    background-color: var(--mosaic-critical);
+    color: var(--mosaic-text-inverse);
+}
+
+/* ==========================================================================
+   Badge with Icon
+   ========================================================================== */
+.mosaic-badge .dashicons {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* ==========================================================================
+   Health Badge (larger, more prominent)
+   ========================================================================== */
+.mosaic-health-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+    padding: var(--mosaic-space-xs) var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-semibold);
+    border-radius: var(--mosaic-radius-md);
+}
+
+.mosaic-health-badge .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.mosaic-health-badge-healthy {
+    background-color: var(--mosaic-success-light);
+    color: var(--mosaic-success);
+}
+
+.mosaic-health-badge-warning {
+    background-color: var(--mosaic-warning-light);
+    color: var(--mosaic-warning);
+}
+
+.mosaic-health-badge-critical {
+    background-color: var(--mosaic-critical-light);
+    color: var(--mosaic-critical);
+}
+
+.mosaic-health-badge-unknown {
+    background-color: var(--mosaic-bg-header);
+    color: var(--mosaic-text-tertiary);
+}
+
+/* ==========================================================================
+   Status Indicator (dot)
+   ========================================================================== */
+.mosaic-status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.mosaic-status-dot-success {
+    background-color: var(--mosaic-success);
+}
+
+.mosaic-status-dot-warning {
+    background-color: var(--mosaic-warning);
+}
+
+.mosaic-status-dot-critical {
+    background-color: var(--mosaic-critical);
+}
+
+.mosaic-status-dot-inactive {
+    background-color: var(--mosaic-text-disabled);
+}
+
+/* Pulsing animation for active status */
+.mosaic-status-dot-pulse {
+    animation: mosaic-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mosaic-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ==========================================================================
+   Count Badge
+   ========================================================================== */
+.mosaic-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    font-size: var(--mosaic-font-size-xs);
+    font-weight: var(--mosaic-font-weight-semibold);
+    border-radius: var(--mosaic-radius-full);
+    background-color: var(--mosaic-bg-header);
+    color: var(--mosaic-text-secondary);
+}
+
+.mosaic-count-badge-primary {
+    background-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-count-badge-success {
+    background-color: var(--mosaic-success);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-count-badge-warning {
+    background-color: var(--mosaic-warning);
+    color: var(--mosaic-text);
+}
+
+.mosaic-count-badge-critical {
+    background-color: var(--mosaic-critical);
+    color: var(--mosaic-text-inverse);
+}
+
+/* ==========================================================================
+   Tag (removable badge)
+   ========================================================================== */
+.mosaic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+    padding: var(--mosaic-space-xs) var(--mosaic-space-sm);
+    font-size: var(--mosaic-font-size-sm);
+    background-color: var(--mosaic-bg-alt);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-md);
+    color: var(--mosaic-text);
+}
+
+.mosaic-tag-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    color: var(--mosaic-text-tertiary);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-tag-remove:hover {
+    background-color: var(--mosaic-critical-light);
+    color: var(--mosaic-critical);
+}
+
+.mosaic-tag-remove .dashicons {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* ==========================================================================
+   Version Badge
+   ========================================================================== */
+.mosaic-version-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    font-size: var(--mosaic-font-size-xs);
+    font-family: var(--mosaic-font-mono);
+    font-weight: var(--mosaic-font-weight-medium);
+    background-color: var(--mosaic-bg-alt);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-sm);
+    color: var(--mosaic-text-secondary);
+}
+
+.mosaic-version-badge-current {
+    background-color: var(--mosaic-success-light);
+    border-color: var(--mosaic-success);
+    color: var(--mosaic-success);
+}
+
+.mosaic-version-badge-outdated {
+    background-color: var(--mosaic-warning-light);
+    border-color: var(--mosaic-warning);
+    color: #996800;
+}
+
+/* ==========================================================================
+   Badge Group
+   ========================================================================== */
+.mosaic-badge-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--mosaic-space-xs);
+}
