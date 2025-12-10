@@ -89,6 +89,9 @@
                 this.activate(this.tabs[0].dataset.tab);
             }
 
+            // Mark as initialized (enables CSS for overflow menu)
+            this.container.dataset.mosaicInitialized = 'true';
+
             // Handle resize for overflow
             if (this.options.overflowEnabled) {
                 window.addEventListener('resize', this.debounce(() => this.checkOverflow(), 150));
@@ -151,6 +154,15 @@
             this.container.dispatchEvent(new CustomEvent('mosaic:tab:change', {
                 detail: { current: tabId, previous: previousTab }
             }));
+
+            // Re-initialize any nested tabs that are now visible
+            const activeContent = this.contents.find(c => c.dataset.tab === tabId);
+            if (activeContent) {
+                activeContent.querySelectorAll('[data-mosaic-tabs]').forEach(nestedTabs => {
+                    // Trigger resize event to recalculate overflow
+                    window.dispatchEvent(new Event('resize'));
+                });
+            }
         }
 
         setupHashNavigation() {
@@ -196,24 +208,25 @@
                 overflowContainer.appendChild(this.overflowMenu);
             }
 
+            // Store reference for click handler
+            const menu = this.overflowMenu;
+            const container = overflowContainer;
+
             // Toggle overflow menu
-            overflowBtn.addEventListener('click', (e) => {
+            overflowBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                const isOpen = this.overflowMenu.classList.contains('mosaic-show');
                 // Close all other overflow menus first
-                document.querySelectorAll('.mosaic-tabs-overflow-menu.mosaic-show').forEach(menu => {
-                    menu.classList.remove('mosaic-show');
+                document.querySelectorAll('.mosaic-tabs-overflow-menu.mosaic-show').forEach(m => {
+                    if (m !== menu) m.classList.remove('mosaic-show');
                 });
-                if (!isOpen) {
-                    this.overflowMenu.classList.add('mosaic-show');
-                }
+                menu.classList.toggle('mosaic-show');
             });
 
             // Close on outside click
-            document.addEventListener('click', (e) => {
-                if (!this.overflowContainer.contains(e.target)) {
-                    this.overflowMenu.classList.remove('mosaic-show');
+            document.addEventListener('click', function(e) {
+                if (!container.contains(e.target)) {
+                    menu.classList.remove('mosaic-show');
                 }
             });
 
@@ -347,6 +360,10 @@
      */
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-mosaic-tabs]').forEach(container => {
+            // Skip if already initialized
+            if (container.dataset.mosaicInitialized) {
+                return;
+            }
             const options = {};
             if (container.dataset.mosaicTabsHash !== undefined) {
                 options.hashNavigation = true;

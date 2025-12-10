@@ -188,7 +188,7 @@
     padding: var(--mosaic-space-xl);
     background-color: var(--mosaic-bg);
     border: 1px solid var(--mosaic-border);
-    border-radius: 0 0 var(--mosaic-radius-lg) var(--mosaic-radius-lg);
+    border-radius: 0;
 }
 
 .mosaic-tab-content.mosaic-tab-content-active {
@@ -273,27 +273,32 @@
     gap: var(--mosaic-space-xl);
 }
 
+.mosaic-tabs-vertical .mosaic-tabs-wrapper {
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
 .mosaic-tabs-vertical .mosaic-tabs {
     flex-direction: column;
-    border-bottom: none;
-    border-right: 1px solid var(--mosaic-border);
-    padding-right: var(--mosaic-space-xl);
-    min-width: 200px;
+    gap: var(--mosaic-space-xs);
+    overflow: visible;
 }
 
 .mosaic-tabs-vertical .mosaic-tab {
     border: 1px solid transparent;
     border-radius: var(--mosaic-radius-md);
     justify-content: flex-start;
+    padding: var(--mosaic-space-sm) var(--mosaic-space-lg);
 }
 
 .mosaic-tabs-vertical .mosaic-tab.mosaic-tab-active {
     background-color: var(--mosaic-primary-light);
     border-color: var(--mosaic-primary);
-    margin-bottom: 0;
+    border-bottom: 1px solid var(--mosaic-primary);
 }
 
 .mosaic-tabs-vertical .mosaic-tab-content {
+    display: none;
     flex: 1;
     padding: 0;
     background: transparent;
@@ -301,25 +306,45 @@
     border-radius: 0;
 }
 
+.mosaic-tabs-vertical .mosaic-tab-content.mosaic-tab-content-active {
+    display: block;
+}
+
+/* Hide mobile select for vertical tabs */
+.mosaic-tabs-vertical .mosaic-tabs-mobile-select {
+    display: none;
+}
+
 /* ==========================================================================
    Pill Tabs (alternative style)
    ========================================================================== */
-.mosaic-tabs-pills {
-    border-bottom: none;
+.mosaic-tabs-pills .mosaic-tabs-wrapper {
+    margin-bottom: var(--mosaic-space-xl);
+}
+
+.mosaic-tabs-pills .mosaic-tabs {
+    display: inline-flex;
     background-color: var(--mosaic-bg-alt);
     padding: var(--mosaic-space-xs);
     border-radius: var(--mosaic-radius-lg);
-    display: inline-flex;
+    gap: var(--mosaic-space-xs);
 }
 
 .mosaic-tabs-pills .mosaic-tab {
     border: none;
     border-radius: var(--mosaic-radius-md);
     background: transparent;
+    padding: var(--mosaic-space-sm) var(--mosaic-space-lg);
 }
 
 .mosaic-tabs-pills .mosaic-tab.mosaic-tab-active {
     background-color: var(--mosaic-bg);
     box-shadow: var(--mosaic-shadow-sm);
-    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.mosaic-tabs-pills .mosaic-tab-content {
+    border: none;
+    background: transparent;
+    padding: 0;
 }

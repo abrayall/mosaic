@@ -117,10 +117,23 @@
 
 .mosaic-modal-title {
     flex: 1;
-    font-size: var(--mosaic-font-size-xl);
+    font-size: var(--mosaic-font-size-2xl);
     font-weight: var(--mosaic-font-weight-semibold);
     color: var(--mosaic-text);
     margin: 0;
+}
+
+/* Colored titles for dialog types */
+.mosaic-modal-title-success {
+    color: var(--mosaic-success);
+}
+
+.mosaic-modal-title-warning {
+    color: var(--mosaic-warning-dark, #996800);
+}
+
+.mosaic-modal-title-error {
+    color: var(--mosaic-critical);
 }
 
 .mosaic-modal-close {
@@ -158,7 +171,7 @@
     overflow-y: auto;
     flex: 1;
     color: var(--mosaic-text);
-    font-size: var(--mosaic-font-size-lg);
+    font-size: var(--mosaic-font-size-xl);
     line-height: var(--mosaic-line-height-relaxed);
 }
 
@@ -216,6 +229,16 @@
 .mosaic-dialog .mosaic-modal-header {
     border-bottom: none;
     padding-bottom: 0;
+}
+
+/* Header with only close button (no title) */
+.mosaic-dialog .mosaic-modal-header:not(:has(.mosaic-modal-icon)):has(.mosaic-modal-title:empty) {
+    justify-content: flex-end;
+    padding: var(--mosaic-space-md) var(--mosaic-space-lg);
+}
+
+.mosaic-dialog .mosaic-modal-title:empty {
+    display: none;
 }
 
 .mosaic-dialog .mosaic-modal-footer {

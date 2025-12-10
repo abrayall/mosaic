@@ -52,10 +52,11 @@
 
         // Only show header if there's a title, icon, or close button
         const showHeader = options.title || options.icon || options.closable;
+        const titleClass = options.type ? `mosaic-modal-title mosaic-modal-title-${options.type}` : 'mosaic-modal-title';
         const headerHTML = showHeader ? `
             <div class="${defaults.headerClass}">
                 ${iconHTML}
-                <h2 class="mosaic-modal-title">${options.title || ''}</h2>
+                <h2 class="${titleClass}">${options.title || ''}</h2>
                 ${closeHTML}
             </div>
         ` : '';
@@ -158,14 +159,16 @@
     /**
      * Show an alert dialog
      * @param {string} message - The message to display
-     * @param {string|object} options - Title string or options object { title, closable }
+     * @param {string|object} options - Title string or options object { title, icon, closable }
      */
     Mosaic.alert = function(message, options = {}) {
         const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title: opts.title || '',
+            title: opts.title || 'Notice',
             message,
-            closable: opts.closable || false,
+            type: opts.icon ? 'info' : null,
+            icon: opts.icon,
+            closable: opts.closable !== false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -178,9 +181,11 @@
     Mosaic.success = function(message, options = {}) {
         const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title: opts.title || '',
+            title: opts.title || 'Success',
             message,
-            closable: opts.closable || false,
+            type: 'success',
+            icon: opts.icon,
+            closable: opts.closable !== false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -193,9 +198,11 @@
     Mosaic.warning = function(message, options = {}) {
         const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title: opts.title || '',
+            title: opts.title || 'Warning',
             message,
-            closable: opts.closable || false,
+            type: 'warning',
+            icon: opts.icon,
+            closable: opts.closable !== false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -208,9 +215,11 @@
     Mosaic.error = function(message, options = {}) {
         const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title: opts.title || '',
+            title: opts.title || 'Error',
             message,
-            closable: opts.closable || false,
+            type: 'error',
+            icon: opts.icon,
+            closable: opts.closable !== false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -220,10 +229,14 @@
     /**
      * Show a confirm dialog
      */
-    Mosaic.confirm = function(message, title = '') {
+    Mosaic.confirm = function(message, options = {}) {
+        const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title,
+            title: opts.title || 'Confirm',
             message,
+            type: opts.icon ? 'info' : null,
+            icon: opts.icon,
+            closable: true,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' },
                 { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary-outline' }
@@ -234,12 +247,16 @@
     /**
      * Show a destructive confirm dialog
      */
-    Mosaic.confirmDanger = function(message, title = '') {
+    Mosaic.confirmDanger = function(message, options = {}) {
+        const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title,
+            title: opts.title || 'Confirm',
             message,
+            type: 'error',
+            icon: opts.icon,
+            closable: true,
             buttons: [
-                { label: 'Delete', action: 'confirm', class: 'mosaic-btn-danger' },
+                { label: 'Confirm', action: 'confirm', class: 'mosaic-btn-danger' },
                 { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary-outline' }
             ]
         });
@@ -248,13 +265,17 @@
     /**
      * Show a prompt dialog
      */
-    Mosaic.prompt = function(message, defaultValue = '', title = '') {
+    Mosaic.prompt = function(message, defaultValue = '', options = {}) {
+        const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title,
+            title: opts.title || 'Input',
             message,
+            type: opts.icon ? 'info' : null,
+            icon: opts.icon,
+            closable: true,
             input: true,
             inputValue: defaultValue,
-            inputPlaceholder: '',
+            inputPlaceholder: opts.placeholder || '',
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' },
                 { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary-outline' }
@@ -278,6 +299,142 @@
             buttons: options.buttons || [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
+        });
+    };
+
+    /**
+     * Show a modal with custom content
+     * @param {object} options - Modal options
+     * @param {string} options.title - Modal title
+     * @param {string|HTMLElement} options.content - HTML string or DOM element
+     * @param {string} options.size - Size: 'sm', 'lg', 'xl', 'full' (default: none)
+     * @param {boolean} options.closable - Show close button (default: true)
+     * @param {boolean} options.closeOnOverlay - Close when clicking overlay (default: true)
+     * @param {boolean} options.closeOnEscape - Close on Escape key (default: true)
+     * @param {array} options.buttons - Optional footer buttons
+     * @param {function} options.onOpen - Callback when modal opens, receives modal element
+     * @param {function} options.onClose - Callback when modal closes, receives action
+     * @returns {Promise} Resolves with action when closed
+     */
+    Mosaic.modal = function(options = {}) {
+        return new Promise((resolve) => {
+            const closable = options.closable !== false;
+            const closeOnOverlay = options.closeOnOverlay !== false;
+            const closeOnEscape = options.closeOnEscape !== false;
+
+            // Build size class
+            const sizeClass = options.size ? `mosaic-modal-${options.size}` : '';
+
+            // Build close button
+            const closeHTML = closable ? `
+                <button type="button" class="mosaic-modal-close" data-action="close">
+                    <span class="dashicons dashicons-no-alt"></span>
+                </button>
+            ` : '';
+
+            // Build header
+            const headerHTML = (options.title || closable) ? `
+                <div class="${defaults.headerClass}">
+                    <h2 class="mosaic-modal-title">${options.title || ''}</h2>
+                    ${closeHTML}
+                </div>
+            ` : '';
+
+            // Build footer with buttons
+            let footerHTML = '';
+            if (options.buttons && options.buttons.length > 0) {
+                const buttonsHTML = options.buttons.map(btn => `
+                    <button type="button" class="mosaic-btn ${btn.class || 'mosaic-btn-secondary'}" data-action="${btn.action}">
+                        ${btn.label}
+                    </button>
+                `).join('');
+                footerHTML = `<div class="${defaults.footerClass}">${buttonsHTML}</div>`;
+            }
+
+            // Build modal HTML
+            const html = `
+                <div class="${defaults.overlayClass}">
+                    <div class="mosaic-modal ${sizeClass}">
+                        ${headerHTML}
+                        <div class="${defaults.bodyClass}"></div>
+                        ${footerHTML}
+                    </div>
+                </div>
+            `;
+
+            // Create and append modal
+            const container = document.createElement('div');
+            container.innerHTML = html;
+            const overlay = container.firstElementChild;
+            document.body.appendChild(overlay);
+
+            const modal = overlay.querySelector('.mosaic-modal');
+            const body = overlay.querySelector('.mosaic-modal-body');
+
+            // Insert content
+            if (typeof options.content === 'string') {
+                body.innerHTML = options.content;
+            } else if (options.content instanceof HTMLElement) {
+                body.appendChild(options.content);
+            }
+
+            // Close function
+            function close(result) {
+                overlay.style.animation = 'mosaic-fade-out 0.15s ease-out forwards';
+                modal.style.animation = 'mosaic-slide-out 0.15s ease-out forwards';
+                setTimeout(() => {
+                    overlay.remove();
+                    if (options.onClose) {
+                        options.onClose(result);
+                    }
+                    resolve(result);
+                }, 150);
+            }
+
+            // Expose close method on modal element
+            modal.close = close;
+
+            // Button handlers
+            const buttons = overlay.querySelectorAll('[data-action]');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    close(btn.dataset.action);
+                });
+            });
+
+            // Overlay click
+            if (closeOnOverlay) {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        close('overlay');
+                    }
+                });
+            }
+
+            // Escape key
+            if (closeOnEscape) {
+                const escHandler = (e) => {
+                    if (e.key === 'Escape') {
+                        document.removeEventListener('keydown', escHandler);
+                        close('escape');
+                    }
+                };
+                document.addEventListener('keydown', escHandler);
+            }
+
+            // Callback when opened
+            if (options.onOpen) {
+                setTimeout(() => options.onOpen(modal, body), 100);
+            }
+        });
+    };
+
+    /**
+     * Close all open modals
+     */
+    Mosaic.closeModals = function() {
+        document.querySelectorAll('.mosaic-modal-overlay').forEach(overlay => {
+            overlay.remove();
         });
     };
 
