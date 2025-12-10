@@ -16,7 +16,11 @@ add_action( 'admin_enqueue_scripts', function() {
     wp_enqueue_script( 'mosaic-tabs', $mosaic_url . 'assets/js/modules/tabs.js', array(), $version, true );
     wp_enqueue_script( 'mosaic-clipboard', $mosaic_url . 'assets/js/modules/clipboard.js', array(), $version, true );
     wp_enqueue_script( 'mosaic-ajax', $mosaic_url . 'assets/js/modules/ajax.js', array( 'jquery' ), $version, true );
+    wp_enqueue_script( 'mosaic-media', $mosaic_url . 'assets/js/modules/media.js', array(), $version, true );
     wp_enqueue_script( 'mosaic', $mosaic_url . Mosaic::js(), array(), $version, true );
+
+    // For media selector, also enqueue WordPress media library
+    wp_enqueue_media();
 
     // Pass context for AJAX
     wp_localize_script( 'mosaic', 'mosaicContext', array(
@@ -28,16 +32,21 @@ add_action( 'admin_enqueue_scripts', function() {
 
 ## Dialogs
 
-All dialog methods return Promises.
+All dialog methods return Promises. Dialogs are simple message boxes without icons by default, with right-aligned buttons.
 
 ### Alert Dialogs
 
 ```javascript
 // Basic alert
 Mosaic.alert('Something happened');
+
+// With title
 Mosaic.alert('Custom message', 'Custom Title');
 
-// Typed alerts
+// With options (closable adds X button)
+Mosaic.alert('This can be dismissed', { title: 'Notice', closable: true });
+
+// Typed alerts (same styling, semantic distinction)
 Mosaic.success('Operation completed!');
 Mosaic.warning('Please check your input');
 Mosaic.error('Something went wrong');
@@ -45,11 +54,13 @@ Mosaic.error('Something went wrong');
 
 ### Confirm Dialogs
 
+OK button appears on the left, Cancel on the right:
+
 ```javascript
 // Standard confirm
 Mosaic.confirm('Are you sure?').then(confirmed => {
     if (confirmed) {
-        // User clicked Confirm
+        // User clicked OK
     }
 });
 
@@ -77,19 +88,30 @@ Mosaic.prompt('Enter your name:', 'Default Value').then(value => {
 
 ```javascript
 Mosaic.dialog({
-    title: 'Custom Dialog',
+    title: 'Custom Dialog',        // Optional title
     message: 'Choose an action:',
-    type: 'info',           // info, success, warning, error
-    icon: 'admin-generic',  // dashicon name
+    closable: true,                // Show X close button
+    type: 'warning',               // Optional: info, success, warning, error
+    icon: 'admin-generic',         // Optional: dashicon name
     buttons: [
-        { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary' },
+        { label: 'Publish', action: 'confirm', class: 'mosaic-btn-primary' },
         { label: 'Save Draft', action: 'draft', class: 'mosaic-btn-secondary' },
-        { label: 'Publish', action: 'confirm', class: 'mosaic-btn-primary' }
+        { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary-outline' }
     ]
 }).then(action => {
-    // action = 'cancel', 'draft', or 'confirm'
+    // action = 'confirm', 'draft', or 'cancel'
 });
 ```
+
+### Button Classes
+
+| Class | Style |
+|-------|-------|
+| `mosaic-btn-primary` | Solid blue (primary action) |
+| `mosaic-btn-secondary` | Gray background |
+| `mosaic-btn-secondary-outline` | Transparent with border (cancel) |
+| `mosaic-btn-danger` | Solid red (destructive) |
+| `mosaic-btn-danger-outline` | Red border (destructive secondary) |
 
 ## AJAX
 
@@ -217,6 +239,30 @@ document.querySelector('#my-tabs').addEventListener('mosaic:tab:change', (e) => 
 });
 ```
 
+### Hash Navigation
+
+Persist the active tab in the URL hash so users stay on the same tab after refresh:
+
+```javascript
+// Enable via JavaScript
+const tabs = Mosaic.tabs('#my-tabs', {
+    hashNavigation: true
+});
+```
+
+Or enable via data attribute:
+
+```html
+<div data-mosaic-tabs data-mosaic-tabs-hash>
+    <!-- tabs content -->
+</div>
+```
+
+With hash navigation enabled:
+- The URL updates to `#tab-id` when switching tabs
+- On page load, the tab matching the URL hash is activated
+- Browser back/forward buttons navigate between tabs
+
 ### Tab Options
 
 | Option | Default | Description |
@@ -227,6 +273,7 @@ document.querySelector('#my-tabs').addEventListener('mosaic:tab:change', (e) => 
 | `contentActiveClass` | `'mosaic-tab-content-active'` | Class for active content |
 | `overflowEnabled` | `true` | Show overflow menu on small screens |
 | `mobileSelectEnabled` | `true` | Show select dropdown on mobile |
+| `hashNavigation` | `false` | Persist active tab in URL hash |
 | `onChange` | `null` | Callback function |
 
 ## Clipboard
@@ -323,6 +370,93 @@ Mosaic.init('#my-container');
 Mosaic.init(document.getElementById('dynamic-content'));
 ```
 
+## Loading States
+
+Add loading overlays to any element with a spinning indicator.
+
+### Element Loading
+
+```javascript
+// Start loading on any element
+Mosaic.startLoading('#my-table');
+Mosaic.startLoading('.my-card');
+Mosaic.startLoading(document.querySelector('.tab-content'));
+
+// Stop loading
+Mosaic.stopLoading('#my-table');
+
+// With options
+Mosaic.startLoading('#content', { size: 'sm' });  // Small spinner
+Mosaic.startLoading('#content', { size: 'lg' });  // Large spinner
+Mosaic.startLoading('#content', { dark: true });  // Dark overlay
+```
+
+### Page Loading
+
+Cover the entire `.mosaic` container:
+
+```javascript
+// Show full-page loading
+Mosaic.startPage();
+
+// Do async work...
+await fetch('/api/data');
+
+// Hide loading
+Mosaic.stopPage();
+
+// With options
+Mosaic.startPage({ dark: true });
+```
+
+### CSS Classes
+
+You can also add classes directly:
+
+```html
+<!-- Any element -->
+<div class="mosaic-card mosaic-loading">...</div>
+<table class="mosaic-table mosaic-loading">...</table>
+<div class="mosaic-tab-content mosaic-loading">...</div>
+
+<!-- Size variants -->
+<div class="mosaic-card mosaic-loading mosaic-loading-sm">...</div>
+<div class="mosaic-card mosaic-loading mosaic-loading-lg">...</div>
+
+<!-- Dark overlay -->
+<div class="mosaic-card mosaic-loading mosaic-loading-dark">...</div>
+```
+
+### Standalone Spinners
+
+For inline or custom layouts:
+
+```html
+<!-- Basic spinner -->
+<div class="mosaic-spinner"></div>
+
+<!-- Sizes -->
+<div class="mosaic-spinner mosaic-spinner-xs"></div>
+<div class="mosaic-spinner mosaic-spinner-sm"></div>
+<div class="mosaic-spinner mosaic-spinner-lg"></div>
+<div class="mosaic-spinner mosaic-spinner-xl"></div>
+
+<!-- Colors -->
+<div class="mosaic-spinner mosaic-spinner-success"></div>
+<div class="mosaic-spinner mosaic-spinner-warning"></div>
+<div class="mosaic-spinner mosaic-spinner-critical"></div>
+
+<!-- Dots loader -->
+<div class="mosaic-dots">
+    <span class="mosaic-dot"></span>
+    <span class="mosaic-dot"></span>
+    <span class="mosaic-dot"></span>
+</div>
+
+<!-- Rotating icon -->
+<span class="dashicons dashicons-update mosaic-icon-spin"></span>
+```
+
 ## Re-initializing Dynamic Content
 
 When adding content dynamically, re-initialize Mosaic components:
@@ -336,4 +470,95 @@ Mosaic.init(container);
 
 // Or initialize specific features
 Mosaic.initCopyButtons();
+```
+
+## Media Selector
+
+WordPress media library integration for selecting images and files.
+
+**Requirement:** Call `wp_enqueue_media()` on your admin page.
+
+### PHP (Rendering)
+
+```php
+// Basic image selector
+echo Mosaic::media_selector( 'featured_image', array(
+    'label' => 'Featured Image',
+    'value' => get_post_meta( $post_id, 'featured_image', true ),
+) );
+
+// With all options
+echo Mosaic::media_selector( 'logo', array(
+    'label'       => 'Company Logo',
+    'value'       => $attachment_id,
+    'button_text' => 'Choose Logo',
+    'remove_text' => 'Remove',
+    'type'        => 'image',  // image, video, audio, file
+    'preview'     => true,
+    'help'        => 'Recommended size: 200x50px',
+    'class'       => '',       // Add mosaic-media-selector-sm, -lg, or -compact
+) );
+
+// File selector (non-image)
+echo Mosaic::media_selector( 'document', array(
+    'label'       => 'PDF Document',
+    'type'        => 'file',
+    'button_text' => 'Select File',
+) );
+```
+
+### Size Variants
+
+| Class | Preview Size |
+|-------|--------------|
+| (default) | 150x150px |
+| `mosaic-media-selector-sm` | 80x80px |
+| `mosaic-media-selector-lg` | 200x200px |
+| `mosaic-media-selector-compact` | Full width, stacked layout |
+
+### JavaScript API
+
+```javascript
+// Get current attachment ID
+const id = Mosaic.media.get('.mosaic-media-selector');
+const id = Mosaic.media.get('#logo-selector');
+
+// Programmatically set attachment
+Mosaic.media.set('.mosaic-media-selector', attachmentId);
+
+// Clear selection
+Mosaic.media.clear('.mosaic-media-selector');
+
+// Initialize dynamically added selectors
+Mosaic.media.init();
+Mosaic.media.initSelector(element);
+```
+
+### Events
+
+```javascript
+// When user selects media
+element.addEventListener('mosaic:media:select', (e) => {
+    console.log('Selected:', e.detail.attachment);
+    console.log('ID:', e.detail.attachment.id);
+    console.log('URL:', e.detail.attachment.url);
+    console.log('Filename:', e.detail.attachment.filename);
+});
+
+// When user removes media
+element.addEventListener('mosaic:media:remove', (e) => {
+    console.log('Media removed');
+});
+```
+
+### Saving the Value
+
+The hidden input contains the attachment ID. Save it like any form field:
+
+```php
+// In your save handler
+if ( isset( $_POST['featured_image'] ) ) {
+    $attachment_id = absint( $_POST['featured_image'] );
+    update_post_meta( $post_id, 'featured_image', $attachment_id );
+}
 ```

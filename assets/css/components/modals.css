@@ -204,26 +204,24 @@
 }
 
 .mosaic-dialog .mosaic-modal-body {
-    text-align: center;
-    padding: var(--mosaic-space-2xl);
+    text-align: left;
+    padding: var(--mosaic-space-xl) var(--mosaic-space-2xl);
+    font-weight: var(--mosaic-font-weight-semibold);
+}
+
+.mosaic-dialog .mosaic-modal-header:empty {
+    display: none;
 }
 
 .mosaic-dialog .mosaic-modal-header {
     border-bottom: none;
-    justify-content: center;
     padding-bottom: 0;
 }
 
-.mosaic-dialog .mosaic-modal-icon .dashicons {
-    font-size: 48px;
-    width: 48px;
-    height: 48px;
-}
-
 .mosaic-dialog .mosaic-modal-footer {
-    justify-content: center;
-    border-top: none;
-    background-color: transparent;
+    justify-content: flex-end;
+    border-top: 1px solid var(--mosaic-border-light);
+    background-color: var(--mosaic-bg-alt);
 }
 
 /* Prompt input */

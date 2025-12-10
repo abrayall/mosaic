@@ -63,17 +63,41 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
 } );
 ```
 
-### 3. Use the components
+### 3. Wrap your page in the `.mosaic` container
 
 ```php
-// Now you can use Mosaic anywhere in your plugin
-$table = new Mosaic_Table();
-$table->set_columns( array( 'name' => 'Name', 'status' => 'Status' ) );
-$table->add_row( array(
-    'name'   => 'Example',
-    'status' => Mosaic::health_badge( 'healthy' ),
+function my_plugin_page() {
+    ?>
+    <div class="wrap mosaic">
+        <h1>My Plugin</h1>
+
+        <?php
+        // Your Mosaic components here
+        $table = new Mosaic_Table();
+        $table->set_columns( array( 'name' => 'Name', 'status' => 'Status' ) );
+        $table->add_row( array(
+            'name'   => 'Example',
+            'status' => Mosaic::health_badge( 'healthy' ),
+        ) );
+        echo $table->render();
+        ?>
+    </div>
+    <?php
+}
+```
+
+The `.mosaic` class:
+- Applies `box-sizing: border-box` to all children
+- Scopes WordPress button/table overrides to your plugin only
+- Provides the foundation for theming
+
+Or use the helper method:
+
+```php
+echo Mosaic::page_header( 'My Plugin', array(
+    'actions' => Mosaic::button( 'Add New', array( 'variant' => 'primary' ) ),
 ) );
-echo $table->render();
+// Returns: <div class="wrap mosaic">...
 ```
 
 That's it. No magic - just include what you need and enqueue the assets.
@@ -165,6 +189,11 @@ const tabs = Mosaic.tabs('#my-tabs', {
 ### CSS Classes
 
 ```html
+<!-- Page Container -->
+<div class="wrap mosaic">
+    <!-- All Mosaic content goes here -->
+</div>
+
 <!-- Buttons -->
 <button class="mosaic-btn mosaic-btn-primary">Primary</button>
 <button class="mosaic-btn mosaic-btn-secondary">Secondary</button>

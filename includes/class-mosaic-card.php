@@ -56,6 +56,9 @@ class Mosaic_Card {
             'class'       => '',
             'variant'     => '', // flat, hover, interactive
             'active'      => false,
+            'collapsible' => false,
+            'collapsed'   => false,
+            'dismissible' => false,
         ) );
     }
 
@@ -117,6 +120,18 @@ class Mosaic_Card {
             $classes[] = 'mosaic-card-active';
         }
 
+        if ( $this->options['collapsible'] ) {
+            $classes[] = 'mosaic-card-collapsible';
+        }
+
+        if ( $this->options['collapsed'] ) {
+            $classes[] = 'mosaic-card-collapsed';
+        }
+
+        if ( $this->options['dismissible'] ) {
+            $classes[] = 'mosaic-card-dismissible';
+        }
+
         if ( $this->options['class'] ) {
             $classes[] = $this->options['class'];
         }
@@ -133,7 +148,12 @@ class Mosaic_Card {
 
         // Header
         if ( ! empty( $this->header ) ) {
-            $html .= '<div class="mosaic-card-header">';
+            $header_classes = array( 'mosaic-card-header' );
+            if ( $this->options['collapsible'] ) {
+                $header_classes[] = 'mosaic-card-header-collapsible';
+            }
+
+            $html .= sprintf( '<div class="%s">', implode( ' ', $header_classes ) );
             $html .= '<h3 class="mosaic-card-header-title">';
             if ( $this->header['icon'] ) {
                 $html .= sprintf(
@@ -143,10 +163,36 @@ class Mosaic_Card {
             }
             $html .= esc_html( $this->header['title'] );
             $html .= '</h3>';
+
+            // Header actions area
+            $html .= '<div class="mosaic-card-header-actions">';
+
             if ( $this->header['actions'] ) {
                 $html .= $this->header['actions'];
             }
-            $html .= '</div>';
+
+            // Collapse toggle
+            if ( $this->options['collapsible'] ) {
+                $html .= '<button type="button" class="mosaic-card-collapse-btn" aria-label="Toggle">';
+                $html .= '<span class="dashicons dashicons-arrow-down-alt2"></span>';
+                $html .= '</button>';
+            }
+
+            // Dismiss button
+            if ( $this->options['dismissible'] ) {
+                $html .= '<button type="button" class="mosaic-card-close-btn" aria-label="Close">';
+                $html .= '<span class="dashicons dashicons-no-alt"></span>';
+                $html .= '</button>';
+            }
+
+            $html .= '</div>'; // .mosaic-card-header-actions
+            $html .= '</div>'; // .mosaic-card-header
+        }
+
+        // Collapsible wrapper
+        if ( $this->options['collapsible'] ) {
+            $style = $this->options['collapsed'] ? ' style="max-height:0;overflow:hidden;visibility:hidden;"' : '';
+            $html .= '<div class="mosaic-card-collapsible-content"' . $style . '>';
         }
 
         // Body
@@ -157,6 +203,10 @@ class Mosaic_Card {
         // Footer
         if ( $this->footer ) {
             $html .= '<div class="mosaic-card-footer">' . $this->footer . '</div>';
+        }
+
+        if ( $this->options['collapsible'] ) {
+            $html .= '</div>'; // .mosaic-card-collapsible-content
         }
 
         $html .= '</div>';
@@ -263,8 +313,9 @@ class Mosaic_Card {
      */
     public static function status( $status, $title, $message = '', $options = array() ) {
         $defaults = array(
-            'id'    => '',
-            'class' => '',
+            'id'          => '',
+            'class'       => '',
+            'dismissible' => false,
         );
 
         $options = wp_parse_args( $options, $defaults );
@@ -278,6 +329,10 @@ class Mosaic_Card {
         $icon = isset( $icons[ $status ] ) ? $icons[ $status ] : 'info';
 
         $classes = array( 'mosaic-status-card', 'mosaic-status-card-' . $status );
+
+        if ( $options['dismissible'] ) {
+            $classes[] = 'mosaic-status-card-dismissible';
+        }
 
         if ( $options['class'] ) {
             $classes[] = $options['class'];
@@ -303,7 +358,15 @@ class Mosaic_Card {
             $html .= sprintf( '<p class="mosaic-status-card-message">%s</p>', esc_html( $message ) );
         }
 
-        $html .= '</div></div>';
+        $html .= '</div>';
+
+        if ( $options['dismissible'] ) {
+            $html .= '<button type="button" class="mosaic-status-card-close" aria-label="Dismiss">';
+            $html .= '<span class="dashicons dashicons-no-alt"></span>';
+            $html .= '</button>';
+        }
+
+        $html .= '</div>';
 
         return $html;
     }

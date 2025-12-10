@@ -27,8 +27,30 @@
 }
 
 .mosaic-btn:focus {
-    outline: 2px solid var(--mosaic-primary);
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--mosaic-primary);
+}
+
+.mosaic-btn-danger:focus,
+.mosaic-btn-danger-outline:focus {
+    box-shadow: 0 0 0 2px var(--mosaic-critical);
+}
+
+.mosaic-btn-success:focus {
+    box-shadow: 0 0 0 2px var(--mosaic-success);
+}
+
+.mosaic-btn-warning:focus {
+    box-shadow: 0 0 0 2px var(--mosaic-warning);
+}
+
+.mosaic-btn-secondary:focus,
+.mosaic-btn-secondary-outline:focus {
+    box-shadow: 0 0 0 2px var(--mosaic-border-dark);
+}
+
+.mosaic-btn-link:focus {
+    box-shadow: none;
 }
 
 .mosaic-btn:disabled,
@@ -77,7 +99,24 @@
     background-color: #dcdcdc;
 }
 
-/* Danger Button */
+/* Secondary Outline Button (for cancel actions) */
+.mosaic-btn-secondary-outline {
+    background-color: transparent;
+    border-color: var(--mosaic-border-dark);
+    color: var(--mosaic-text);
+}
+
+.mosaic-btn-secondary-outline:hover {
+    background-color: var(--mosaic-bg-alt);
+    border-color: var(--mosaic-text-tertiary);
+    color: var(--mosaic-text);
+}
+
+.mosaic-btn-secondary-outline:active {
+    background-color: #e5e5e5;
+}
+
+/* Danger Button (solid) */
 .mosaic-btn-danger {
     background-color: var(--mosaic-critical);
     border-color: var(--mosaic-critical);
@@ -92,6 +131,24 @@
 
 .mosaic-btn-danger:active {
     background-color: #a01a1c;
+}
+
+/* Danger Outline Button (for delete actions) */
+.mosaic-btn-danger-outline {
+    background-color: transparent;
+    border-color: var(--mosaic-critical);
+    color: var(--mosaic-critical);
+}
+
+.mosaic-btn-danger-outline:hover {
+    background-color: var(--mosaic-critical);
+    border-color: var(--mosaic-critical);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-btn-danger-outline:active {
+    background-color: var(--mosaic-critical-dark);
+    border-color: var(--mosaic-critical-dark);
 }
 
 /* Success Button */
@@ -274,26 +331,26 @@
    WordPress Button Integration
    ========================================================================== */
 
-/* Apply Mosaic styles to WordPress buttons within .mosaic-wrap */
-.mosaic-wrap .button.button-primary {
+/* Apply Mosaic styles to WordPress buttons within .mosaic */
+.mosaic .button.button-primary {
     background-color: var(--mosaic-primary);
     border-color: var(--mosaic-primary);
     color: var(--mosaic-text-inverse);
     transition: all var(--mosaic-transition-normal);
 }
 
-.mosaic-wrap .button.button-primary:hover {
+.mosaic .button.button-primary:hover {
     background-color: var(--mosaic-primary-hover);
     border-color: var(--mosaic-primary-hover);
 }
 
-.mosaic-wrap .button.button-link-delete {
+.mosaic .button.button-link-delete {
     background-color: var(--mosaic-critical);
     border-color: var(--mosaic-critical);
     color: var(--mosaic-text-inverse);
 }
 
-.mosaic-wrap .button.button-link-delete:hover {
+.mosaic .button.button-link-delete:hover {
     background-color: var(--mosaic-critical-dark);
     border-color: var(--mosaic-critical-dark);
 }

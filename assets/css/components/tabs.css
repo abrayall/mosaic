@@ -17,8 +17,9 @@
 .mosaic-tabs-wrapper {
     display: flex;
     align-items: flex-end;
-    border-bottom: 1px solid var(--mosaic-border);
     position: relative;
+    margin-bottom: -1px;
+    z-index: 1;
 }
 
 /* ==========================================================================
@@ -44,10 +45,9 @@
     padding: var(--mosaic-space-md) var(--mosaic-space-2xl);
     background-color: var(--mosaic-bg-alt);
     border: 1px solid var(--mosaic-border);
-    border-bottom: none;
     border-radius: var(--mosaic-radius-lg) var(--mosaic-radius-lg) 0 0;
     font-size: var(--mosaic-font-size-base);
-    font-weight: var(--mosaic-font-weight-medium);
+    font-weight: var(--mosaic-font-weight-semibold);
     color: var(--mosaic-text-secondary);
     cursor: pointer;
     transition: all var(--mosaic-transition-normal);
@@ -62,16 +62,18 @@
 
 .mosaic-tab:focus {
     outline: none;
-    box-shadow: inset 0 0 0 2px var(--mosaic-primary);
+}
+
+.mosaic-tab:focus-visible {
+    outline: 2px solid var(--mosaic-primary);
+    outline-offset: -2px;
 }
 
 /* Active tab */
 .mosaic-tab.mosaic-tab-active {
     background-color: var(--mosaic-bg);
     color: var(--mosaic-primary);
-    font-weight: var(--mosaic-font-weight-semibold);
-    border-bottom: 2px solid var(--mosaic-bg);
-    margin-bottom: -1px;
+    border-bottom: 1px solid var(--mosaic-bg);
 }
 
 /* Tab icon */
@@ -112,6 +114,7 @@
 .mosaic-tabs-overflow {
     position: relative;
     margin-left: auto;
+    z-index: var(--mosaic-z-dropdown);
 }
 
 .mosaic-tabs-overflow-btn {
@@ -121,7 +124,6 @@
     padding: var(--mosaic-space-md) var(--mosaic-space-lg);
     background-color: var(--mosaic-bg-alt);
     border: 1px solid var(--mosaic-border);
-    border-bottom: none;
     border-radius: var(--mosaic-radius-lg) var(--mosaic-radius-lg) 0 0;
     font-size: var(--mosaic-font-size-base);
     font-weight: var(--mosaic-font-weight-medium);
@@ -183,26 +185,32 @@
    ========================================================================== */
 .mosaic-tab-content {
     display: none;
-    padding: var(--mosaic-space-xl) 0;
+    padding: var(--mosaic-space-xl);
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: 0 0 var(--mosaic-radius-lg) var(--mosaic-radius-lg);
 }
 
 .mosaic-tab-content.mosaic-tab-content-active {
     display: block;
 }
 
-/* Optional: fade animation */
+/* Hide overflow button until JS calculates which tabs overflow */
+[data-mosaic-tabs]:not([data-mosaic-initialized]) .mosaic-tabs-overflow {
+    display: none !important;
+}
+
+/* Simple fade animation */
 .mosaic-tab-content.mosaic-tab-content-active {
-    animation: mosaic-tab-fade-in 0.2s ease-out;
+    animation: mosaic-tab-fade-in 0.15s ease-out;
 }
 
 @keyframes mosaic-tab-fade-in {
     from {
         opacity: 0;
-        transform: translateY(8px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -216,13 +224,35 @@
 }
 
 .mosaic-tabs-mobile-select select {
+    display: block;
     width: 100%;
-    padding: var(--mosaic-space-md);
+    padding: var(--mosaic-space-md) var(--mosaic-space-3xl) var(--mosaic-space-md) var(--mosaic-space-md);
     font-size: var(--mosaic-font-size-base);
-    border: 1px solid var(--mosaic-border);
-    border-radius: var(--mosaic-radius-md);
-    background-color: var(--mosaic-bg);
+    font-family: inherit;
+    font-weight: var(--mosaic-font-weight-medium);
+    line-height: 1.5;
     color: var(--mosaic-text);
+    background-color: var(--mosaic-bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23646970' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    border: 1px solid var(--mosaic-border-dark);
+    border-radius: var(--mosaic-radius-md);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color var(--mosaic-transition-fast),
+                box-shadow var(--mosaic-transition-fast);
+}
+
+.mosaic-tabs-mobile-select select:hover {
+    border-color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-tabs-mobile-select select:focus {
+    outline: none;
+    border-color: var(--mosaic-primary);
+    box-shadow: 0 0 0 1px var(--mosaic-primary);
 }
 
 @media (max-width: 782px) {
@@ -266,6 +296,9 @@
 .mosaic-tabs-vertical .mosaic-tab-content {
     flex: 1;
     padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
 }
 
 /* ==========================================================================

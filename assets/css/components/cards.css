@@ -239,6 +239,41 @@
     margin: 0;
 }
 
+/* Dismissible Status Card */
+.mosaic-status-card-dismissible {
+    position: relative;
+    padding-right: var(--mosaic-space-4xl);
+}
+
+.mosaic-status-card-close {
+    position: absolute;
+    top: var(--mosaic-space-md);
+    right: var(--mosaic-space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--mosaic-radius-sm);
+    color: var(--mosaic-text-tertiary);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-status-card-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: var(--mosaic-text);
+}
+
+.mosaic-status-card-close .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
 /* ==========================================================================
    Metric Tile
    ========================================================================== */
@@ -324,4 +359,236 @@
     flex: 1;
     font-size: var(--mosaic-font-size-base);
     color: var(--mosaic-text);
+}
+
+/* Info Card Variants */
+.mosaic-info-card-info {
+    background: var(--mosaic-info-light);
+    border-color: var(--mosaic-info);
+}
+
+.mosaic-info-card-info .dashicons {
+    color: var(--mosaic-info-dark);
+}
+
+.mosaic-info-card-success {
+    background: var(--mosaic-success-light);
+    border-color: var(--mosaic-success);
+}
+
+.mosaic-info-card-success .dashicons {
+    color: var(--mosaic-success-dark);
+}
+
+.mosaic-info-card-warning {
+    background: var(--mosaic-warning-light);
+    border-color: var(--mosaic-warning);
+}
+
+.mosaic-info-card-warning .dashicons {
+    color: var(--mosaic-warning-dark);
+}
+
+.mosaic-info-card-error {
+    background: var(--mosaic-critical-light);
+    border-color: var(--mosaic-critical);
+}
+
+.mosaic-info-card-error .dashicons {
+    color: var(--mosaic-critical-dark);
+}
+
+/* Dismissible Info Card */
+.mosaic-info-card-dismissible {
+    position: relative;
+    padding-right: var(--mosaic-space-3xl);
+}
+
+.mosaic-info-card-close {
+    position: absolute;
+    top: var(--mosaic-space-md);
+    right: var(--mosaic-space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--mosaic-radius-sm);
+    color: var(--mosaic-text-tertiary);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-info-card-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: var(--mosaic-text);
+}
+
+.mosaic-info-card-close .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: inherit;
+}
+
+/* ==========================================================================
+   Collapsible Cards
+   ========================================================================== */
+.mosaic-card-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-card-header-collapsible {
+    cursor: pointer;
+    user-select: none;
+}
+
+.mosaic-card-collapse-btn,
+.mosaic-card-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--mosaic-radius-sm);
+    color: var(--mosaic-text-tertiary);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-card-collapse-btn:hover,
+.mosaic-card-close-btn:hover {
+    background-color: var(--mosaic-bg-alt);
+    color: var(--mosaic-text);
+}
+
+.mosaic-card-collapse-btn .dashicons {
+    transition: transform var(--mosaic-transition-normal);
+}
+
+.mosaic-card-collapsed .mosaic-card-collapse-btn .dashicons {
+    transform: rotate(-90deg);
+}
+
+.mosaic-card-collapsible-content {
+    overflow: hidden;
+    max-height: none;
+    transition: max-height var(--mosaic-transition-normal) ease-out,
+                opacity var(--mosaic-transition-normal) ease-out,
+                visibility 0s linear 0s;
+}
+
+.mosaic-card-collapsed .mosaic-card-collapsible-content {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: max-height var(--mosaic-transition-normal) ease-out,
+                opacity var(--mosaic-transition-normal) ease-out,
+                visibility 0s linear var(--mosaic-transition-normal);
+}
+
+.mosaic-card-collapsed .mosaic-card-collapsible-content .mosaic-card-body,
+.mosaic-card-collapsed .mosaic-card-collapsible-content .mosaic-card-footer {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+/* ==========================================================================
+   Accordion
+   ========================================================================== */
+.mosaic-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    overflow: hidden;
+}
+
+.mosaic-accordion-item {
+    border-bottom: 1px solid var(--mosaic-border);
+}
+
+.mosaic-accordion-item:last-child {
+    border-bottom: none;
+}
+
+.mosaic-accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--mosaic-space-lg) var(--mosaic-space-xl);
+    background-color: var(--mosaic-bg);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--mosaic-transition-fast);
+}
+
+.mosaic-accordion-header:hover {
+    background-color: var(--mosaic-bg-alt);
+}
+
+.mosaic-accordion-title {
+    font-size: var(--mosaic-font-size-base);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-accordion-icon {
+    color: var(--mosaic-text-tertiary);
+    transition: transform var(--mosaic-transition-normal);
+}
+
+.mosaic-accordion-icon .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.mosaic-accordion-item.mosaic-accordion-item-open .mosaic-accordion-icon {
+    transform: rotate(180deg);
+}
+
+.mosaic-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--mosaic-transition-normal) ease-out;
+}
+
+.mosaic-accordion-item.mosaic-accordion-item-open .mosaic-accordion-content {
+    max-height: none;
+}
+
+.mosaic-accordion-body {
+    padding: var(--mosaic-space-lg) var(--mosaic-space-xl);
+    border-top: 1px solid var(--mosaic-border);
+    background-color: var(--mosaic-bg);
+}
+
+/* Accordion Variants */
+.mosaic-accordion-flush {
+    border: none;
+    border-radius: 0;
+}
+
+.mosaic-accordion-flush .mosaic-accordion-item {
+    border-left: none;
+    border-right: none;
+}
+
+.mosaic-accordion-flush .mosaic-accordion-item:first-child {
+    border-top: 1px solid var(--mosaic-border);
 }

@@ -34,6 +34,12 @@
             </div>
         ` : '';
 
+        const closeHTML = options.closable ? `
+            <button type="button" class="mosaic-modal-close" data-action="close">
+                <span class="dashicons dashicons-no-alt"></span>
+            </button>
+        ` : '';
+
         const inputHTML = options.input ? `
             <input type="text" class="mosaic-input mosaic-dialog-input" value="${options.inputValue || ''}" placeholder="${options.inputPlaceholder || ''}">
         ` : '';
@@ -44,13 +50,20 @@
             </button>
         `).join('');
 
+        // Only show header if there's a title, icon, or close button
+        const showHeader = options.title || options.icon || options.closable;
+        const headerHTML = showHeader ? `
+            <div class="${defaults.headerClass}">
+                ${iconHTML}
+                <h2 class="mosaic-modal-title">${options.title || ''}</h2>
+                ${closeHTML}
+            </div>
+        ` : '';
+
         return `
             <div class="${defaults.overlayClass}">
                 <div class="${defaults.modalClass}">
-                    <div class="${defaults.headerClass}">
-                        ${iconHTML}
-                        <h2 class="mosaic-modal-title">${options.title || ''}</h2>
-                    </div>
+                    ${headerHTML}
                     <div class="${defaults.bodyClass}">
                         <p>${options.message}</p>
                         ${inputHTML}
@@ -103,7 +116,7 @@
                     const action = btn.dataset.action;
                     if (action === 'confirm') {
                         close(input ? input.value : true);
-                    } else if (action === 'cancel') {
+                    } else if (action === 'cancel' || action === 'close') {
                         close(input ? null : false);
                     } else {
                         close(action);
@@ -144,13 +157,15 @@
 
     /**
      * Show an alert dialog
+     * @param {string} message - The message to display
+     * @param {string|object} options - Title string or options object { title, closable }
      */
-    Mosaic.alert = function(message, title = 'Notice') {
+    Mosaic.alert = function(message, options = {}) {
+        const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title,
+            title: opts.title || '',
             message,
-            type: 'info',
-            icon: 'info',
+            closable: opts.closable || false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -160,12 +175,12 @@
     /**
      * Show a success alert
      */
-    Mosaic.success = function(message, title = 'Success') {
+    Mosaic.success = function(message, options = {}) {
+        const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title,
+            title: opts.title || '',
             message,
-            type: 'success',
-            icon: 'yes-alt',
+            closable: opts.closable || false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -175,12 +190,12 @@
     /**
      * Show a warning alert
      */
-    Mosaic.warning = function(message, title = 'Warning') {
+    Mosaic.warning = function(message, options = {}) {
+        const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title,
+            title: opts.title || '',
             message,
-            type: 'warning',
-            icon: 'warning',
+            closable: opts.closable || false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -190,12 +205,12 @@
     /**
      * Show an error alert
      */
-    Mosaic.error = function(message, title = 'Error') {
+    Mosaic.error = function(message, options = {}) {
+        const opts = typeof options === 'string' ? { title: options } : options;
         return showDialog({
-            title,
+            title: opts.title || '',
             message,
-            type: 'error',
-            icon: 'dismiss',
+            closable: opts.closable || false,
             buttons: [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]
@@ -205,15 +220,13 @@
     /**
      * Show a confirm dialog
      */
-    Mosaic.confirm = function(message, title = 'Confirm') {
+    Mosaic.confirm = function(message, title = '') {
         return showDialog({
             title,
             message,
-            type: 'warning',
-            icon: 'warning',
             buttons: [
-                { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary' },
-                { label: 'Confirm', action: 'confirm', class: 'mosaic-btn-primary' }
+                { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' },
+                { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary-outline' }
             ]
         });
     };
@@ -221,15 +234,13 @@
     /**
      * Show a destructive confirm dialog
      */
-    Mosaic.confirmDanger = function(message, title = 'Are you sure?') {
+    Mosaic.confirmDanger = function(message, title = '') {
         return showDialog({
             title,
             message,
-            type: 'alert',
-            icon: 'warning',
             buttons: [
-                { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary' },
-                { label: 'Delete', action: 'confirm', class: 'mosaic-btn-danger' }
+                { label: 'Delete', action: 'confirm', class: 'mosaic-btn-danger' },
+                { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary-outline' }
             ]
         });
     };
@@ -237,18 +248,16 @@
     /**
      * Show a prompt dialog
      */
-    Mosaic.prompt = function(message, defaultValue = '', title = 'Input') {
+    Mosaic.prompt = function(message, defaultValue = '', title = '') {
         return showDialog({
             title,
             message,
-            type: 'info',
-            icon: 'edit',
             input: true,
             inputValue: defaultValue,
             inputPlaceholder: '',
             buttons: [
-                { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary' },
-                { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
+                { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' },
+                { label: 'Cancel', action: 'cancel', class: 'mosaic-btn-secondary-outline' }
             ]
         });
     };
@@ -260,11 +269,12 @@
         return showDialog({
             title: options.title || '',
             message: options.message || '',
-            type: options.type || 'info',
-            icon: options.icon || 'info',
+            type: options.type,
+            icon: options.icon,
             input: options.input || false,
             inputValue: options.inputValue || '',
             inputPlaceholder: options.inputPlaceholder || '',
+            closable: options.closable || false,
             buttons: options.buttons || [
                 { label: 'OK', action: 'confirm', class: 'mosaic-btn-primary' }
             ]

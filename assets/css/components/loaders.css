@@ -317,3 +317,101 @@
     font-size: var(--mosaic-font-size-base);
     color: var(--mosaic-text-secondary);
 }
+
+/* ==========================================================================
+   Universal Loading State
+   Add .mosaic-loading to any container to show a loading overlay.
+   Works on tables, cards, tab content, or any element.
+   ========================================================================== */
+.mosaic-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.mosaic-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: var(--mosaic-z-dropdown);
+}
+
+.mosaic-loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    border: 3px solid var(--mosaic-border);
+    border-top-color: var(--mosaic-primary);
+    border-radius: 50%;
+    animation: mosaic-spin 0.8s linear infinite;
+    z-index: calc(var(--mosaic-z-dropdown) + 1);
+}
+
+/* Small spinner variant */
+.mosaic-loading-sm::before {
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border-width: 2px;
+}
+
+/* Large spinner variant */
+.mosaic-loading-lg::before {
+    width: 48px;
+    height: 48px;
+    margin: -24px 0 0 -24px;
+    border-width: 4px;
+}
+
+/* Dark overlay variant */
+.mosaic-loading-dark::after {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.mosaic-loading-dark::before {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+}
+
+/* Ensure proper positioning context for common containers */
+.mosaic-table.mosaic-loading,
+.mosaic-card.mosaic-loading,
+.mosaic-tab-content.mosaic-loading,
+.mosaic-card-body.mosaic-loading {
+    min-height: 100px;
+}
+
+/* Table loading - cover just the tbody */
+.mosaic-table-container.mosaic-loading {
+    min-height: 150px;
+}
+
+/* Page-level loading (entire .mosaic container) */
+.mosaic.mosaic-loading {
+    min-height: 400px;
+}
+
+.mosaic.mosaic-loading::before {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -24px 0 0 -24px;
+    width: 48px;
+    height: 48px;
+    border-width: 4px;
+}
+
+.mosaic.mosaic-loading::after {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

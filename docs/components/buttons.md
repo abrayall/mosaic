@@ -45,13 +45,31 @@ echo Mosaic::button( 'Unavailable', array(
 
 | Variant | Class | Usage |
 |---------|-------|-------|
-| Primary | `.mosaic-btn-primary` | Main actions |
-| Secondary | `.mosaic-btn-secondary` | Secondary actions |
-| Danger | `.mosaic-btn-danger` | Destructive actions |
-| Success | `.mosaic-btn-success` | Positive actions |
-| Warning | `.mosaic-btn-warning` | Cautionary actions |
-| Ghost | `.mosaic-btn-ghost` | Subtle actions |
+| Primary | `.mosaic-btn-primary` | Main actions (solid blue) |
+| Secondary | `.mosaic-btn-secondary` | Secondary actions (gray background) |
+| Secondary Outline | `.mosaic-btn-secondary-outline` | Cancel/dismiss actions (transparent with border) |
+| Danger | `.mosaic-btn-danger` | Destructive actions (solid red) |
+| Danger Outline | `.mosaic-btn-danger-outline` | Destructive secondary (red border) |
+| Success | `.mosaic-btn-success` | Positive actions (solid green) |
+| Warning | `.mosaic-btn-warning` | Cautionary actions (solid yellow) |
+| Ghost | `.mosaic-btn-ghost` | Subtle actions (blue border) |
 | Link | `.mosaic-btn-link` | Text-style buttons |
+
+### Edit and Delete Helpers
+
+For table actions, use the built-in helpers:
+
+```php
+// Edit button (solid blue, edit icon)
+echo Mosaic::edit_button();
+echo Mosaic::edit_button( 'Modify' );
+echo Mosaic::edit_button( 'Edit', array( 'href' => '/edit?id=123' ) );
+
+// Delete button (red outline, trash icon)
+echo Mosaic::delete_button();
+echo Mosaic::delete_button( 'Remove' );
+echo Mosaic::delete_button( 'Delete', array( 'href' => '/delete?id=123' ) );
+```
 
 ## Sizes
 

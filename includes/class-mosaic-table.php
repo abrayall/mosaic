@@ -39,11 +39,39 @@ class Mosaic_Table {
     private $options = array();
 
     /**
-     * Footer content
+     * Footer content (left side)
      *
      * @var string
      */
-    private $footer = '';
+    private $footer_left = '';
+
+    /**
+     * Footer content (right side)
+     *
+     * @var string
+     */
+    private $footer_right = '';
+
+    /**
+     * Show row count in footer
+     *
+     * @var bool
+     */
+    private $show_row_count = false;
+
+    /**
+     * Header title
+     *
+     * @var string
+     */
+    protected $header_title = '';
+
+    /**
+     * Header actions (right side)
+     *
+     * @var string
+     */
+    protected $header_actions = '';
 
     /**
      * Empty state content
@@ -79,11 +107,17 @@ class Mosaic_Table {
      * @return self
      */
     public function add_column( $key, $label, $options = array() ) {
+        // Auto-detect action columns and right-align them
+        $default_align = 'left';
+        if ( in_array( strtolower( $key ), array( 'actions', 'action' ), true ) ) {
+            $default_align = 'right';
+        }
+
         $this->columns[ $key ] = wp_parse_args( $options, array(
             'label'    => $label,
             'class'    => '',
             'sortable' => false,
-            'align'    => 'left', // left, center, right
+            'align'    => $default_align,
             'width'    => '',
         ) );
 
@@ -151,11 +185,39 @@ class Mosaic_Table {
     /**
      * Set footer content
      *
-     * @param string $content Footer HTML content
+     * @param string $left  Footer left content (or single content if $right is null)
+     * @param string $right Footer right content
      * @return self
      */
-    public function set_footer( $content ) {
-        $this->footer = $content;
+    public function set_footer( $left, $right = '' ) {
+        $this->footer_left = $left;
+        $this->footer_right = $right;
+
+        return $this;
+    }
+
+    /**
+     * Enable row count display in footer
+     *
+     * @param string $format Format string with %d placeholder (default: "Showing %d entries")
+     * @return self
+     */
+    public function show_row_count( $format = 'Showing %d entries' ) {
+        $this->show_row_count = $format;
+
+        return $this;
+    }
+
+    /**
+     * Set table header with title and actions
+     *
+     * @param string $title   Header title
+     * @param string $actions Actions HTML (buttons, etc.) - displayed right-aligned
+     * @return self
+     */
+    public function set_header( $title, $actions = '' ) {
+        $this->header_title = $title;
+        $this->header_actions = $actions;
 
         return $this;
     }
@@ -166,7 +228,7 @@ class Mosaic_Table {
      * @param string $title   Empty state title
      * @param string $message Empty state message
      * @param string $icon    Dashicon name
-     * @param string $action  Action button HTML
+     * @param string $action  Optional action button HTML
      * @return self
      */
     public function set_empty_state( $title, $message = '', $icon = 'admin-page', $action = '' ) {
@@ -186,6 +248,20 @@ class Mosaic_Table {
      * @return string HTML
      */
     public function render() {
+        $html = '';
+
+        // Render table header (title + actions) above the table
+        if ( $this->header_title || $this->header_actions ) {
+            $html .= '<div class="mosaic-table-header">';
+            if ( $this->header_title ) {
+                $html .= sprintf( '<h3 class="mosaic-table-title">%s</h3>', esc_html( $this->header_title ) );
+            }
+            if ( $this->header_actions ) {
+                $html .= '<div class="mosaic-table-header-actions">' . $this->header_actions . '</div>';
+            }
+            $html .= '</div>';
+        }
+
         // Build table classes
         $classes = array( 'mosaic-table' );
 
@@ -229,30 +305,31 @@ class Mosaic_Table {
         $attr_str = $this->build_attrs( $attrs );
 
         // Start table
-        $html = sprintf( '<table%s>', $attr_str );
+        $html .= sprintf( '<table%s>', $attr_str );
 
-        // Render header
-        $html .= $this->render_header();
+        // Render column headers
+        $html .= $this->render_thead();
 
         // Render body
         $html .= $this->render_body();
 
-        // Render footer
-        if ( $this->footer ) {
-            $html .= $this->render_footer();
-        }
-
         $html .= '</table>';
+
+        // Render footer (outside the table)
+        $has_footer = $this->footer_left || $this->footer_right || $this->show_row_count;
+        if ( $has_footer ) {
+            $html .= $this->render_table_footer();
+        }
 
         return $html;
     }
 
     /**
-     * Render table header
+     * Render table thead (column headers)
      *
      * @return string HTML
      */
-    private function render_header() {
+    private function render_thead() {
         $html = '<thead><tr>';
 
         foreach ( $this->columns as $key => $column ) {
@@ -370,18 +447,41 @@ class Mosaic_Table {
     }
 
     /**
-     * Render table footer
+     * Render table footer (outside the table)
      *
      * @return string HTML
      */
-    private function render_footer() {
-        $colspan = count( $this->columns );
+    private function render_table_footer() {
+        $left = $this->footer_left;
+        $right = $this->footer_right;
 
-        return sprintf(
-            '<tfoot><tr><td colspan="%d">%s</td></tr></tfoot>',
-            $colspan,
-            $this->footer
-        );
+        // Add row count if enabled
+        if ( $this->show_row_count ) {
+            $count_text = sprintf( $this->show_row_count, count( $this->rows ) );
+            if ( $right ) {
+                $right = $count_text . ' &middot; ' . $right;
+            } else {
+                $right = $count_text;
+            }
+        }
+
+        $html = '<div class="mosaic-table-footer">';
+
+        $html .= '<div class="mosaic-table-footer-left">';
+        if ( $left ) {
+            $html .= $left;
+        }
+        $html .= '</div>';
+
+        $html .= '<div class="mosaic-table-footer-right">';
+        if ( $right ) {
+            $html .= $right;
+        }
+        $html .= '</div>';
+
+        $html .= '</div>';
+
+        return $html;
     }
 
     /**

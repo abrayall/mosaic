@@ -374,3 +374,111 @@
 .mosaic-form-actions-between {
     justify-content: space-between;
 }
+
+/* ==========================================================================
+   Media Selector
+   ========================================================================== */
+.mosaic-media-selector {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--mosaic-space-lg);
+}
+
+.mosaic-media-selector-preview {
+    width: 150px;
+    height: 150px;
+    background-color: var(--mosaic-bg-alt);
+    border: 2px dashed var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    transition: all var(--mosaic-transition-normal);
+}
+
+.mosaic-media-selector-preview .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-media-selector-has-image .mosaic-media-selector-preview {
+    border-style: solid;
+    border-color: var(--mosaic-border);
+}
+
+.mosaic-media-selector-preview:hover {
+    border-color: var(--mosaic-primary);
+}
+
+.mosaic-media-selector-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-media-selector-filename {
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-secondary);
+    word-break: break-all;
+    text-align: center;
+    padding: var(--mosaic-space-sm);
+}
+
+/* Compact variant */
+.mosaic-media-selector-compact {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.mosaic-media-selector-compact .mosaic-media-selector-preview {
+    width: 100%;
+    height: 120px;
+}
+
+.mosaic-media-selector-compact .mosaic-media-selector-actions {
+    flex-direction: row;
+}
+
+/* Small preview variant */
+.mosaic-media-selector-sm .mosaic-media-selector-preview {
+    width: 80px;
+    height: 80px;
+}
+
+.mosaic-media-selector-sm .mosaic-media-selector-preview .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Large preview variant */
+.mosaic-media-selector-lg .mosaic-media-selector-preview {
+    width: 200px;
+    height: 200px;
+}
+
+@media (max-width: 782px) {
+    .mosaic-media-selector {
+        flex-direction: column;
+    }
+
+    .mosaic-media-selector-preview {
+        width: 100%;
+        height: 150px;
+    }
+
+    .mosaic-media-selector-actions {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .mosaic-media-selector-actions .mosaic-btn {
+        flex: 1;
+    }
+}

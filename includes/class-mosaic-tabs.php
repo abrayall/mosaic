@@ -45,11 +45,12 @@ class Mosaic_Tabs {
      */
     public function __construct( $options = array() ) {
         $this->options = wp_parse_args( $options, array(
-            'id'             => '',
-            'class'          => '',
-            'style'          => '', // default, pills, vertical
-            'mobile_select'  => true,
-            'overflow_menu'  => true,
+            'id'              => '',
+            'class'           => '',
+            'style'           => '', // default, pills, vertical
+            'mobile_select'   => true,
+            'overflow_menu'   => true,
+            'hash_navigation' => false,
         ) );
     }
 
@@ -135,6 +136,10 @@ class Mosaic_Tabs {
             'data-mosaic-tabs' => 'true',
         );
 
+        if ( $this->options['hash_navigation'] ) {
+            $attrs['data-mosaic-tabs-hash'] = 'true';
+        }
+
         if ( $this->options['id'] ) {
             $attrs['id'] = $this->options['id'];
         }
@@ -175,9 +180,10 @@ class Mosaic_Tabs {
             }
 
             $html .= sprintf(
-                '<button type="button" class="%s" data-tab="%s">',
+                '<button type="button" class="%s" data-tab="%s" data-label="%s">',
                 esc_attr( implode( ' ', $classes ) ),
-                esc_attr( $key )
+                esc_attr( $key ),
+                esc_attr( $tab['label'] )
             );
 
             // Icon

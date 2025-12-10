@@ -30,6 +30,7 @@
                 contentActiveClass: 'mosaic-tab-content-active',
                 overflowEnabled: true,
                 mobileSelectEnabled: true,
+                hashNavigation: false,
                 onChange: null,
                 ...options
             };
@@ -44,8 +45,11 @@
         }
 
         init() {
-            this.tabs = Array.from(this.container.querySelectorAll(this.options.tabSelector));
-            this.contents = Array.from(this.container.querySelectorAll(this.options.contentSelector));
+            // Only select tabs/content that belong to THIS container, not nested ones
+            this.tabs = Array.from(this.container.querySelectorAll(this.options.tabSelector))
+                .filter(tab => tab.closest('[data-mosaic-tabs]') === this.container);
+            this.contents = Array.from(this.container.querySelectorAll(this.options.contentSelector))
+                .filter(content => content.closest('[data-mosaic-tabs]') === this.container);
 
             // Set up click handlers
             this.tabs.forEach(tab => {
@@ -65,10 +69,22 @@
                 this.setupMobileSelect();
             }
 
-            // Activate initial tab
-            const activeTab = this.tabs.find(t => t.classList.contains(this.options.activeClass));
-            if (activeTab) {
-                this.currentTab = activeTab.dataset.tab;
+            // Set up hash navigation if enabled
+            if (this.options.hashNavigation) {
+                this.setupHashNavigation();
+            }
+
+            // Activate initial tab (check hash first if enabled)
+            let initialTab = null;
+            if (this.options.hashNavigation && window.location.hash) {
+                const hashTab = window.location.hash.substring(1);
+                initialTab = this.tabs.find(t => t.dataset.tab === hashTab);
+            }
+            if (!initialTab) {
+                initialTab = this.tabs.find(t => t.classList.contains(this.options.activeClass));
+            }
+            if (initialTab) {
+                this.activate(initialTab.dataset.tab);
             } else if (this.tabs.length > 0) {
                 this.activate(this.tabs[0].dataset.tab);
             }
@@ -121,6 +137,11 @@
                 });
             }
 
+            // Update URL hash if enabled
+            if (this.options.hashNavigation) {
+                history.replaceState(null, null, '#' + tabId);
+            }
+
             // Callback
             if (typeof this.options.onChange === 'function') {
                 this.options.onChange(tabId, previousTab);
@@ -132,35 +153,68 @@
             }));
         }
 
+        setupHashNavigation() {
+            window.addEventListener('hashchange', () => {
+                if (window.location.hash) {
+                    const hashTab = window.location.hash.substring(1);
+                    const tab = this.tabs.find(t => t.dataset.tab === hashTab);
+                    if (tab) {
+                        this.activate(hashTab);
+                    }
+                }
+            });
+        }
+
         setupOverflow() {
             const wrapper = this.container.querySelector('.mosaic-tabs-wrapper');
             if (!wrapper) return;
 
-            // Create overflow container
-            const overflowContainer = document.createElement('div');
-            overflowContainer.className = 'mosaic-tabs-overflow';
-            overflowContainer.style.display = 'none';
+            // Check if overflow container already exists (from PHP)
+            let overflowContainer = wrapper.querySelector('.mosaic-tabs-overflow');
 
-            const overflowBtn = document.createElement('button');
-            overflowBtn.className = 'mosaic-tabs-overflow-btn';
-            overflowBtn.innerHTML = 'More <span class="dashicons dashicons-arrow-down-alt2"></span>';
+            if (!overflowContainer) {
+                // Create overflow container if it doesn't exist
+                overflowContainer = document.createElement('div');
+                overflowContainer.className = 'mosaic-tabs-overflow';
+                overflowContainer.style.display = 'none';
+                wrapper.appendChild(overflowContainer);
+            }
 
-            this.overflowMenu = document.createElement('div');
-            this.overflowMenu.className = 'mosaic-tabs-overflow-menu';
+            // Create button and menu inside the container
+            let overflowBtn = overflowContainer.querySelector('.mosaic-tabs-overflow-btn');
+            if (!overflowBtn) {
+                overflowBtn = document.createElement('button');
+                overflowBtn.className = 'mosaic-tabs-overflow-btn';
+                overflowBtn.innerHTML = 'More <span class="dashicons dashicons-arrow-down-alt2"></span>';
+                overflowContainer.appendChild(overflowBtn);
+            }
 
-            overflowContainer.appendChild(overflowBtn);
-            overflowContainer.appendChild(this.overflowMenu);
-            wrapper.appendChild(overflowContainer);
+            this.overflowMenu = overflowContainer.querySelector('.mosaic-tabs-overflow-menu');
+            if (!this.overflowMenu) {
+                this.overflowMenu = document.createElement('div');
+                this.overflowMenu.className = 'mosaic-tabs-overflow-menu';
+                overflowContainer.appendChild(this.overflowMenu);
+            }
 
             // Toggle overflow menu
             overflowBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
-                this.overflowMenu.classList.toggle('mosaic-show');
+                const isOpen = this.overflowMenu.classList.contains('mosaic-show');
+                // Close all other overflow menus first
+                document.querySelectorAll('.mosaic-tabs-overflow-menu.mosaic-show').forEach(menu => {
+                    menu.classList.remove('mosaic-show');
+                });
+                if (!isOpen) {
+                    this.overflowMenu.classList.add('mosaic-show');
+                }
             });
 
             // Close on outside click
-            document.addEventListener('click', () => {
-                this.overflowMenu.classList.remove('mosaic-show');
+            document.addEventListener('click', (e) => {
+                if (!this.overflowContainer.contains(e.target)) {
+                    this.overflowMenu.classList.remove('mosaic-show');
+                }
             });
 
             this.overflowContainer = overflowContainer;
@@ -173,19 +227,34 @@
             const tabList = this.container.querySelector('.mosaic-tabs');
             if (!wrapper || !tabList) return;
 
-            const wrapperWidth = wrapper.offsetWidth - 120; // Account for overflow button
-            let totalWidth = 0;
-            const overflowTabs = [];
-
-            // Reset visibility
+            // Reset visibility first
+            this.overflowContainer.style.display = 'none';
             this.tabs.forEach(tab => {
                 tab.style.display = '';
             });
 
-            // Check which tabs overflow
+            // Calculate total width of all tabs
+            const wrapperWidth = wrapper.offsetWidth;
+            let totalWidth = 0;
             this.tabs.forEach(tab => {
                 totalWidth += tab.offsetWidth + 4; // Include gap
-                if (totalWidth > wrapperWidth) {
+            });
+
+            // If everything fits, no overflow needed
+            if (totalWidth <= wrapperWidth) {
+                this.overflowMenu.innerHTML = '';
+                return;
+            }
+
+            // Need overflow - calculate with button space reserved
+            const buttonWidth = 100; // Approximate width for "More" button
+            const availableWidth = wrapperWidth - buttonWidth;
+            const overflowTabs = [];
+            totalWidth = 0;
+
+            this.tabs.forEach(tab => {
+                totalWidth += tab.offsetWidth + 4;
+                if (totalWidth > availableWidth) {
                     overflowTabs.push(tab);
                     tab.style.display = 'none';
                 }
@@ -209,8 +278,6 @@
                     });
                     this.overflowMenu.appendChild(item);
                 });
-            } else {
-                this.overflowContainer.style.display = 'none';
             }
         }
 
@@ -280,7 +347,11 @@
      */
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-mosaic-tabs]').forEach(container => {
-            new MosaicTabs(container);
+            const options = {};
+            if (container.dataset.mosaicTabsHash !== undefined) {
+                options.hashNavigation = true;
+            }
+            new MosaicTabs(container, options);
         });
     });
 

@@ -7,13 +7,13 @@
 /* ==========================================================================
    WordPress Admin Integration
    ========================================================================== */
-.mosaic-wrap {
+.mosaic {
     max-width: 100%;
     margin: 0;
     padding: 20px;
 }
 
-.mosaic-wrap * {
+.mosaic * {
     box-sizing: border-box;
 }
 

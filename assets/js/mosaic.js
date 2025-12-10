@@ -49,7 +49,11 @@
         // Auto-init tabs
         root.querySelectorAll('[data-mosaic-tabs]').forEach(el => {
             if (!el.dataset.mosaicInitialized) {
-                Mosaic.tabs(el);
+                const options = {};
+                if (el.dataset.mosaicTabsHash !== undefined) {
+                    options.hashNavigation = true;
+                }
+                Mosaic.tabs(el, options);
                 el.dataset.mosaicInitialized = 'true';
             }
         });
@@ -67,6 +71,154 @@
                     itemSelector: el.dataset.mosaicFilterItem || '.mosaic-filter-item'
                 });
                 el.dataset.mosaicInitialized = 'true';
+            }
+        });
+
+        // Auto-init dismissible alerts
+        root.querySelectorAll('.mosaic-info-card-close').forEach(btn => {
+            if (!btn.dataset.mosaicInitialized) {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.mosaic-info-card');
+                    if (card) {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(-10px)';
+                        card.style.transition = 'all 0.2s ease-out';
+                        setTimeout(() => card.remove(), 200);
+                    }
+                });
+                btn.dataset.mosaicInitialized = 'true';
+            }
+        });
+
+        // Auto-init collapsible cards
+        root.querySelectorAll('.mosaic-card-collapsible').forEach(card => {
+            if (!card.dataset.mosaicInitialized) {
+                const header = card.querySelector('.mosaic-card-header-collapsible');
+                const collapseBtn = card.querySelector('.mosaic-card-collapse-btn');
+                const content = card.querySelector('.mosaic-card-collapsible-content');
+
+                const toggleCollapse = () => {
+                    const isCollapsed = card.classList.contains('mosaic-card-collapsed');
+                    if (isCollapsed) {
+                        // Expanding - clear all inline styles first
+                        content.style.visibility = '';
+                        content.style.opacity = '';
+                        content.style.overflow = '';
+                        card.classList.remove('mosaic-card-collapsed');
+                        // Measure and animate
+                        const height = content.scrollHeight;
+                        content.style.maxHeight = '0';
+                        requestAnimationFrame(() => {
+                            content.style.maxHeight = height + 'px';
+                            setTimeout(() => {
+                                content.style.maxHeight = '';
+                            }, 200);
+                        });
+                    } else {
+                        // Collapsing
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        requestAnimationFrame(() => {
+                            content.style.maxHeight = '0';
+                            card.classList.add('mosaic-card-collapsed');
+                        });
+                    }
+                };
+
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        if (!e.target.closest('.mosaic-card-close-btn') && !e.target.closest('button:not(.mosaic-card-collapse-btn)')) {
+                            toggleCollapse();
+                        }
+                    });
+                }
+
+                if (collapseBtn) {
+                    collapseBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleCollapse();
+                    });
+                }
+
+                // CSS handles initial collapsed state - no JS needed
+
+                card.dataset.mosaicInitialized = 'true';
+            }
+        });
+
+        // Auto-init dismissible cards
+        root.querySelectorAll('.mosaic-card-close-btn').forEach(btn => {
+            if (!btn.dataset.mosaicInitialized) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.mosaic-card');
+                    if (card) {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(-10px)';
+                        card.style.transition = 'all 0.2s ease-out';
+                        setTimeout(() => card.remove(), 200);
+                    }
+                });
+                btn.dataset.mosaicInitialized = 'true';
+            }
+        });
+
+        // Auto-init dismissible status cards
+        root.querySelectorAll('.mosaic-status-card-close').forEach(btn => {
+            if (!btn.dataset.mosaicInitialized) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.mosaic-status-card');
+                    if (card) {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(-10px)';
+                        card.style.transition = 'all 0.2s ease-out';
+                        setTimeout(() => card.remove(), 200);
+                    }
+                });
+                btn.dataset.mosaicInitialized = 'true';
+            }
+        });
+
+        // Auto-init accordions
+        root.querySelectorAll('.mosaic-accordion').forEach(accordion => {
+            if (!accordion.dataset.mosaicInitialized) {
+                const allowMultiple = accordion.dataset.multiple === 'true';
+
+                accordion.querySelectorAll('.mosaic-accordion-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const item = header.closest('.mosaic-accordion-item');
+                        const content = item.querySelector('.mosaic-accordion-content');
+                        const isOpen = item.classList.contains('mosaic-accordion-item-open');
+
+                        // Close other items if not allowing multiple
+                        if (!allowMultiple && !isOpen) {
+                            accordion.querySelectorAll('.mosaic-accordion-item-open').forEach(openItem => {
+                                const openContent = openItem.querySelector('.mosaic-accordion-content');
+                                openContent.style.maxHeight = '0';
+                                openItem.classList.remove('mosaic-accordion-item-open');
+                            });
+                        }
+
+                        // Toggle current item
+                        if (isOpen) {
+                            content.style.maxHeight = '0';
+                            item.classList.remove('mosaic-accordion-item-open');
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            item.classList.add('mosaic-accordion-item-open');
+                        }
+                    });
+                });
+
+                // Initialize open items
+                accordion.querySelectorAll('.mosaic-accordion-item-open').forEach(item => {
+                    const content = item.querySelector('.mosaic-accordion-content');
+                    if (content) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+
+                accordion.dataset.mosaicInitialized = 'true';
             }
         });
     };
@@ -155,6 +307,48 @@
      */
     Mosaic.uniqueId = function(prefix = 'mosaic') {
         return `${prefix}-${Math.random().toString(36).substr(2, 9)}`;
+    };
+
+    /**
+     * Loading state utilities
+     */
+    Mosaic.loading = function(element, show = true, options = {}) {
+        const el = typeof element === 'string' ? document.querySelector(element) : element;
+        if (!el) return;
+
+        const { size, dark } = options;
+
+        if (show) {
+            el.classList.add('mosaic-loading');
+            if (size === 'sm') el.classList.add('mosaic-loading-sm');
+            if (size === 'lg') el.classList.add('mosaic-loading-lg');
+            if (dark) el.classList.add('mosaic-loading-dark');
+        } else {
+            el.classList.remove('mosaic-loading', 'mosaic-loading-sm', 'mosaic-loading-lg', 'mosaic-loading-dark');
+        }
+
+        return el;
+    };
+
+    Mosaic.startLoading = function(element, options = {}) {
+        return Mosaic.loading(element, true, options);
+    };
+
+    Mosaic.stopLoading = function(element) {
+        return Mosaic.loading(element, false);
+    };
+
+    /**
+     * Page-level loading (covers entire .mosaic container)
+     */
+    Mosaic.startPage = function(options = {}) {
+        const page = document.querySelector('.mosaic');
+        return Mosaic.loading(page, true, options);
+    };
+
+    Mosaic.stopPage = function() {
+        const page = document.querySelector('.mosaic');
+        return Mosaic.loading(page, false);
     };
 
     // Auto-initialize on DOM ready

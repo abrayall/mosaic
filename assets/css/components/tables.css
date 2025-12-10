@@ -6,15 +6,40 @@
  */
 
 /* ==========================================================================
+   Table Header (above table)
+   ========================================================================== */
+.mosaic-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--mosaic-space-md);
+    gap: var(--mosaic-space-md);
+}
+
+.mosaic-table-title {
+    margin: 0;
+    font-size: var(--mosaic-font-size-lg);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+}
+
+.mosaic-table-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    margin-left: auto;
+}
+
+/* ==========================================================================
    Base Table
    ========================================================================== */
 .mosaic-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
     border-spacing: 0;
     background-color: var(--mosaic-bg);
     border: 1px solid var(--mosaic-border);
-    border-radius: var(--mosaic-radius-lg);
+    border-radius: var(--mosaic-radius-lg) var(--mosaic-radius-lg) 0 0;
     overflow: hidden;
 }
 
@@ -102,14 +127,28 @@
 }
 
 /* ==========================================================================
-   Table Footer
+   Table Footer (below table)
    ========================================================================== */
-.mosaic-table tfoot td {
-    background-color: var(--mosaic-bg-header);
-    padding: var(--mosaic-space-md);
-    border-top: 1px solid var(--mosaic-border);
+.mosaic-table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--mosaic-space-md);
+    padding: var(--mosaic-space-sm) 0;
     font-size: var(--mosaic-font-size-sm);
     color: var(--mosaic-text-secondary);
+}
+
+.mosaic-table-footer-left {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-table-footer-right {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
 }
 
 /* ==========================================================================
@@ -136,16 +175,19 @@
 .mosaic-table-actions {
     display: inline-flex;
     align-items: center;
-    gap: var(--mosaic-space-xs);
+    gap: var(--mosaic-space-sm);
+}
+
+/* Action buttons in tables - taller and wider */
+.mosaic-table-actions .mosaic-btn {
+    padding: 8px 16px;
+    min-height: 36px;
 }
 
 .mosaic-table-actions .mosaic-btn-icon {
-    opacity: 0.7;
-    transition: opacity var(--mosaic-transition-fast);
-}
-
-.mosaic-table-actions .mosaic-btn-icon:hover {
-    opacity: 1;
+    width: 36px;
+    height: 36px;
+    padding: 0;
 }
 
 /* ==========================================================================
@@ -284,20 +326,20 @@
 /* ==========================================================================
    WordPress Integration
    ========================================================================== */
-.mosaic-wrap .wp-list-table {
+.mosaic .wp-list-table {
     border-radius: var(--mosaic-radius-lg);
     overflow: hidden;
 }
 
-.mosaic-wrap .wp-list-table thead th {
+.mosaic .wp-list-table thead th {
     background-color: var(--mosaic-bg-header);
     border-bottom-color: var(--mosaic-border);
 }
 
-.mosaic-wrap .wp-list-table.striped > tbody > tr:nth-child(odd) {
+.mosaic .wp-list-table.striped > tbody > tr:nth-child(odd) {
     background-color: var(--mosaic-bg);
 }
 
-.mosaic-wrap .wp-list-table.striped > tbody > tr:nth-child(even) {
+.mosaic .wp-list-table.striped > tbody > tr:nth-child(even) {
     background-color: var(--mosaic-bg-alt);
 }

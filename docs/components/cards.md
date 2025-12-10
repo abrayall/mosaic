@@ -207,6 +207,195 @@ For displaying informational messages.
 </div>
 ```
 
+## Collapsible Cards
+
+Cards can be made collapsible to save space.
+
+### PHP
+
+```php
+$card = new Mosaic_Card( array(
+    'collapsible' => true,
+    'collapsed'   => false,  // Start expanded (default)
+) );
+$card->set_header( 'Collapsible Section' );
+$card->set_body( '<p>This content can be collapsed.</p>' );
+echo $card->render();
+
+// Start collapsed
+$card = new Mosaic_Card( array(
+    'collapsible' => true,
+    'collapsed'   => true,
+) );
+```
+
+### HTML
+
+```html
+<div class="mosaic-card mosaic-card-collapsible">
+    <div class="mosaic-card-header mosaic-card-header-collapsible">
+        <h3 class="mosaic-card-header-title">Collapsible Section</h3>
+        <div class="mosaic-card-header-actions">
+            <button type="button" class="mosaic-card-collapse-btn" aria-label="Toggle">
+                <span class="dashicons dashicons-arrow-down-alt2"></span>
+            </button>
+        </div>
+    </div>
+    <div class="mosaic-card-collapsible-content">
+        <div class="mosaic-card-body">
+            <p>This content can be collapsed.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Collapsed state -->
+<div class="mosaic-card mosaic-card-collapsible mosaic-card-collapsed">
+    ...
+</div>
+```
+
+## Dismissible Cards
+
+Cards can be dismissed (removed from the page).
+
+### PHP
+
+```php
+$card = new Mosaic_Card( array(
+    'dismissible' => true,
+) );
+$card->set_header( 'Dismissible Notice' );
+$card->set_body( '<p>Click the X to dismiss this card.</p>' );
+echo $card->render();
+
+// Combine with collapsible
+$card = new Mosaic_Card( array(
+    'collapsible' => true,
+    'dismissible' => true,
+) );
+```
+
+### HTML
+
+```html
+<div class="mosaic-card mosaic-card-dismissible">
+    <div class="mosaic-card-header">
+        <h3 class="mosaic-card-header-title">Dismissible Notice</h3>
+        <div class="mosaic-card-header-actions">
+            <button type="button" class="mosaic-card-close-btn" aria-label="Close">
+                <span class="dashicons dashicons-no-alt"></span>
+            </button>
+        </div>
+    </div>
+    <div class="mosaic-card-body">
+        <p>Click the X to dismiss this card.</p>
+    </div>
+</div>
+```
+
+## Accordion
+
+Accordions display collapsible content sections.
+
+### PHP
+
+```php
+$accordion = new Mosaic_Accordion();
+$accordion->add_item( 'Section One', '<p>Content for section one.</p>' );
+$accordion->add_item( 'Section Two', '<p>Content for section two.</p>' );
+$accordion->add_item( 'Section Three', '<p>Content for section three.</p>' );
+echo $accordion->render();
+```
+
+### With Options
+
+```php
+// Allow multiple items open at once
+$accordion = new Mosaic_Accordion( array(
+    'multiple' => true,
+) );
+
+// Start with an item open
+$accordion->add_item( 'First Item', 'Content...', array( 'open' => true ) );
+$accordion->add_item( 'Second Item', 'Content...' );
+
+// With icons
+$accordion->add_item( 'Settings', 'Content...', array(
+    'icon' => 'admin-generic',
+) );
+
+// Flush style (no outer border)
+$accordion = new Mosaic_Accordion( array(
+    'flush' => true,
+) );
+```
+
+### HTML
+
+```html
+<div class="mosaic-accordion">
+    <div class="mosaic-accordion-item">
+        <div class="mosaic-accordion-header">
+            <h3 class="mosaic-accordion-title">Section One</h3>
+            <span class="mosaic-accordion-icon">
+                <span class="dashicons dashicons-arrow-down-alt2"></span>
+            </span>
+        </div>
+        <div class="mosaic-accordion-content">
+            <div class="mosaic-accordion-body">
+                <p>Content for section one.</p>
+            </div>
+        </div>
+    </div>
+    <div class="mosaic-accordion-item mosaic-accordion-item-open">
+        <div class="mosaic-accordion-header">
+            <h3 class="mosaic-accordion-title">Section Two (Open)</h3>
+            <span class="mosaic-accordion-icon">
+                <span class="dashicons dashicons-arrow-down-alt2"></span>
+            </span>
+        </div>
+        <div class="mosaic-accordion-content">
+            <div class="mosaic-accordion-body">
+                <p>Content for section two.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Flush style -->
+<div class="mosaic-accordion mosaic-accordion-flush">
+    ...
+</div>
+```
+
+### Accordion Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `id` | string | `''` | Accordion ID |
+| `class` | string | `''` | Additional classes |
+| `multiple` | bool | `false` | Allow multiple items open |
+| `flush` | bool | `false` | No outer border |
+
+### Accordion Item Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `icon` | string | `''` | Dashicon name |
+| `open` | bool | `false` | Start expanded |
+
+## Card Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `id` | string | `''` | Card ID |
+| `class` | string | `''` | Additional classes |
+| `variant` | string | `''` | Style: flat, hover, interactive |
+| `active` | bool | `false` | Show active state (for interactive) |
+| `collapsible` | bool | `false` | Make card collapsible |
+| `collapsed` | bool | `false` | Start in collapsed state |
+| `dismissible` | bool | `false` | Show close button |
+
 ## Stat Card Options
 
 | Option | Type | Default | Description |
@@ -230,6 +419,9 @@ For displaying informational messages.
 | `.mosaic-card-hover` | Lift on hover |
 | `.mosaic-card-interactive` | Clickable card |
 | `.mosaic-card-active` | Active state |
+| `.mosaic-card-collapsible` | Collapsible card |
+| `.mosaic-card-collapsed` | Collapsed state |
+| `.mosaic-card-dismissible` | Dismissible card |
 | `.mosaic-stat-card` | Stat card base |
 | `.mosaic-stat-card-primary` | Primary accent |
 | `.mosaic-stat-card-success` | Success accent |
@@ -238,3 +430,7 @@ For displaying informational messages.
 | `.mosaic-status-card` | Status card base |
 | `.mosaic-metric-tile` | Metric tile |
 | `.mosaic-stats-grid` | Auto-grid for stat cards |
+| `.mosaic-accordion` | Accordion container |
+| `.mosaic-accordion-flush` | Accordion without outer border |
+| `.mosaic-accordion-item` | Accordion item |
+| `.mosaic-accordion-item-open` | Open accordion item |

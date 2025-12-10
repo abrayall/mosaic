@@ -215,6 +215,36 @@ class Mosaic {
     }
 
     /**
+     * Render an edit button (solid blue)
+     *
+     * @param string $label   Button label (default: 'Edit')
+     * @param array  $options Button options
+     * @return string HTML
+     */
+    public static function edit_button( $label = 'Edit', $options = array() ) {
+        $defaults = array(
+            'variant' => 'primary',
+            'icon'    => 'edit',
+        );
+        return self::button( $label, array_merge( $defaults, $options ) );
+    }
+
+    /**
+     * Render a delete button (red outline)
+     *
+     * @param string $label   Button label (default: 'Delete')
+     * @param array  $options Button options
+     * @return string HTML
+     */
+    public static function delete_button( $label = 'Delete', $options = array() ) {
+        $defaults = array(
+            'variant' => 'danger-outline',
+            'icon'    => 'trash',
+        );
+        return self::button( $label, array_merge( $defaults, $options ) );
+    }
+
+    /**
      * Render a badge
      *
      * @param string $label   Badge label
@@ -460,7 +490,10 @@ class Mosaic {
             'error'   => 'dismiss',
         );
 
-        $classes = array( 'mosaic-info-card' );
+        $classes = array( 'mosaic-info-card', 'mosaic-info-card-' . $type );
+        if ( $options['dismissible'] ) {
+            $classes[] = 'mosaic-info-card-dismissible';
+        }
         if ( $options['class'] ) {
             $classes[] = $options['class'];
         }
@@ -470,11 +503,17 @@ class Mosaic {
             $icon_html = sprintf( '<span class="dashicons dashicons-%s"></span>', esc_attr( $icons[ $type ] ) );
         }
 
+        $close_html = '';
+        if ( $options['dismissible'] ) {
+            $close_html = '<button type="button" class="mosaic-info-card-close"><span class="dashicons dashicons-no-alt"></span></button>';
+        }
+
         return sprintf(
-            '<div class="%s">%s<div class="mosaic-info-card-content">%s</div></div>',
+            '<div class="%s">%s<div class="mosaic-info-card-content">%s</div>%s</div>',
             esc_attr( implode( ' ', $classes ) ),
             $icon_html,
-            wp_kses_post( $message )
+            wp_kses_post( $message ),
+            $close_html
         );
     }
 
@@ -493,7 +532,7 @@ class Mosaic {
 
         $options = wp_parse_args( $options, $defaults );
 
-        $html = '<div class="wrap mosaic-wrap">';
+        $html = '<div class="wrap mosaic">';
 
         if ( $title ) {
             $html .= '<div class="mosaic-page-header">';
@@ -517,6 +556,126 @@ class Mosaic {
      */
     public static function page_end() {
         return '</div>';
+    }
+
+    /* =========================================================================
+       Media Selector
+       ========================================================================= */
+
+    /**
+     * Render a media selector control
+     *
+     * @param string $name    Input name for the attachment ID
+     * @param array  $options Options
+     * @return string HTML
+     */
+    public static function media_selector( $name, $options = array() ) {
+        $defaults = array(
+            'id'          => $name,
+            'value'       => '',
+            'label'       => '',
+            'help'        => '',
+            'button_text' => 'Select Image',
+            'remove_text' => 'Remove',
+            'type'        => 'image', // image, video, audio, file
+            'preview'     => true,
+            'class'       => '',
+        );
+
+        $options = wp_parse_args( $options, $defaults );
+
+        $attachment_id = intval( $options['value'] );
+        $preview_url = '';
+        $has_image = false;
+
+        if ( $attachment_id ) {
+            if ( $options['type'] === 'image' ) {
+                $image = wp_get_attachment_image_src( $attachment_id, 'medium' );
+                if ( $image ) {
+                    $preview_url = $image[0];
+                    $has_image = true;
+                }
+            } else {
+                $preview_url = wp_get_attachment_url( $attachment_id );
+                $has_image = ! empty( $preview_url );
+            }
+        }
+
+        $classes = array( 'mosaic-media-selector' );
+        if ( $has_image ) {
+            $classes[] = 'mosaic-media-selector-has-image';
+        }
+        if ( $options['class'] ) {
+            $classes[] = $options['class'];
+        }
+
+        $html = '';
+
+        // Label
+        if ( $options['label'] ) {
+            $html .= sprintf(
+                '<label class="mosaic-label" for="%s">%s</label>',
+                esc_attr( $options['id'] ),
+                esc_html( $options['label'] )
+            );
+        }
+
+        $html .= sprintf(
+            '<div class="%s" data-type="%s">',
+            esc_attr( implode( ' ', $classes ) ),
+            esc_attr( $options['type'] )
+        );
+
+        // Hidden input for attachment ID
+        $html .= sprintf(
+            '<input type="hidden" name="%s" id="%s" value="%s" class="mosaic-media-selector-input">',
+            esc_attr( $name ),
+            esc_attr( $options['id'] ),
+            esc_attr( $attachment_id ?: '' )
+        );
+
+        // Preview area
+        if ( $options['preview'] ) {
+            $preview_style = $has_image && $options['type'] === 'image'
+                ? sprintf( 'background-image: url(%s);', esc_url( $preview_url ) )
+                : '';
+
+            $html .= sprintf(
+                '<div class="mosaic-media-selector-preview" style="%s">',
+                $preview_style
+            );
+
+            if ( ! $has_image ) {
+                $html .= '<span class="dashicons dashicons-format-image"></span>';
+            }
+
+            $html .= '</div>';
+        }
+
+        // Buttons
+        $html .= '<div class="mosaic-media-selector-actions">';
+        $html .= sprintf(
+            '<button type="button" class="mosaic-btn mosaic-btn-secondary mosaic-media-selector-select">%s</button>',
+            esc_html( $options['button_text'] )
+        );
+        $html .= sprintf(
+            '<button type="button" class="mosaic-btn mosaic-btn-secondary-outline mosaic-media-selector-remove"%s>%s</button>',
+            $has_image ? '' : ' style="display: none;"',
+            esc_html( $options['remove_text'] )
+        );
+        $html .= '</div>';
+
+        $html .= '</div>';
+
+        // Help text
+        if ( $options['help'] ) {
+            $html .= sprintf(
+                '<p class="mosaic-help-text">%s</p>',
+                esc_html( $options['help'] )
+            );
+        }
+
+        return $html;
     }
 
     /* =========================================================================
