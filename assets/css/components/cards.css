@@ -83,6 +83,14 @@
     box-shadow: var(--mosaic-shadow-primary);
 }
 
+/* Remove focus outline on cards */
+.mosaic-card:focus,
+.mosaic-card-interactive:focus,
+.mosaic-card-hover:focus,
+.mosaic-stat-card:focus {
+    outline: none;
+}
+
 /* ==========================================================================
    Stat Card
    ========================================================================== */
@@ -170,8 +178,23 @@
 }
 
 .mosaic-stat-card-clickable.mosaic-stat-card-active {
-    border: 2px solid var(--mosaic-primary);
-    box-shadow: var(--mosaic-shadow-primary);
+    box-shadow: var(--mosaic-shadow-lg);
+}
+
+.mosaic-stat-card-clickable.mosaic-stat-card-active.mosaic-stat-card-primary {
+    border-color: var(--mosaic-primary-dark);
+}
+
+.mosaic-stat-card-clickable.mosaic-stat-card-active.mosaic-stat-card-success {
+    border-color: var(--mosaic-success-dark);
+}
+
+.mosaic-stat-card-clickable.mosaic-stat-card-active.mosaic-stat-card-warning {
+    border-color: var(--mosaic-warning-dark);
+}
+
+.mosaic-stat-card-clickable.mosaic-stat-card-active.mosaic-stat-card-critical {
+    border-color: var(--mosaic-critical-dark);
 }
 
 /* ==========================================================================
@@ -266,6 +289,10 @@
 .mosaic-status-card-close:hover {
     background-color: rgba(0, 0, 0, 0.1);
     color: var(--mosaic-text);
+}
+
+.mosaic-status-card-close:focus {
+    outline: none;
 }
 
 .mosaic-status-card-close .dashicons {
@@ -448,6 +475,10 @@
     user-select: none;
 }
 
+.mosaic-card-header-collapsible:focus {
+    outline: none;
+}
+
 .mosaic-card-collapse-btn,
 .mosaic-card-close-btn {
     display: flex;
@@ -468,6 +499,11 @@
 .mosaic-card-close-btn:hover {
     background-color: var(--mosaic-bg-alt);
     color: var(--mosaic-text);
+}
+
+.mosaic-card-collapse-btn:focus,
+.mosaic-card-close-btn:focus {
+    outline: none;
 }
 
 .mosaic-card-collapse-btn .dashicons {

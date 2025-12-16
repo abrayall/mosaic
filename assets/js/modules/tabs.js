@@ -298,28 +298,38 @@
             const wrapper = this.container.querySelector('.mosaic-tabs-wrapper');
             if (!wrapper) return;
 
-            const selectContainer = document.createElement('div');
-            selectContainer.className = 'mosaic-tabs-mobile-select';
+            // Check if mobile select already exists (rendered by PHP)
+            let selectContainer = this.container.querySelector('.mosaic-tabs-mobile-select');
 
-            this.mobileSelect = document.createElement('select');
-            this.mobileSelect.className = 'mosaic-select';
+            if (selectContainer) {
+                // Use existing select
+                this.mobileSelect = selectContainer.querySelector('select');
+            } else {
+                // Create new mobile select
+                selectContainer = document.createElement('div');
+                selectContainer.className = 'mosaic-tabs-mobile-select';
 
-            this.tabs.forEach(tab => {
-                const option = document.createElement('option');
-                option.value = tab.dataset.tab;
-                option.textContent = tab.textContent.trim();
-                if (tab.classList.contains(this.options.activeClass)) {
-                    option.selected = true;
-                }
-                this.mobileSelect.appendChild(option);
-            });
+                this.mobileSelect = document.createElement('select');
+                this.mobileSelect.className = 'mosaic-select';
 
+                this.tabs.forEach(tab => {
+                    const option = document.createElement('option');
+                    option.value = tab.dataset.tab;
+                    option.textContent = tab.textContent.trim();
+                    if (tab.classList.contains(this.options.activeClass)) {
+                        option.selected = true;
+                    }
+                    this.mobileSelect.appendChild(option);
+                });
+
+                selectContainer.appendChild(this.mobileSelect);
+                wrapper.parentNode.insertBefore(selectContainer, wrapper);
+            }
+
+            // Attach change handler
             this.mobileSelect.addEventListener('change', (e) => {
                 this.activate(e.target.value);
             });
-
-            selectContainer.appendChild(this.mobileSelect);
-            wrapper.parentNode.insertBefore(selectContainer, wrapper);
         }
 
         debounce(func, wait) {
