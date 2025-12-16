@@ -134,3 +134,70 @@
     /* --mosaic-breakpoint-lg: 1024px; */
     /* --mosaic-breakpoint-xl: 1280px; */
 }
+
+/* ==========================================================================
+   Dark Mode Theme
+   ========================================================================== */
+[data-mosaic-theme="dark"] {
+    /* Colors - Primary */
+    --mosaic-primary: #5ba3d9;
+    --mosaic-primary-hover: #7ab8e6;
+    --mosaic-primary-dark: #3d8cc4;
+    --mosaic-primary-light: #1a3a4f;
+
+    /* Colors - Status */
+    --mosaic-success: #4ade80;
+    --mosaic-success-dark: #22c55e;
+    --mosaic-success-light: #14332a;
+
+    --mosaic-warning: #fbbf24;
+    --mosaic-warning-dark: #f59e0b;
+    --mosaic-warning-light: #3d3014;
+
+    --mosaic-critical: #f87171;
+    --mosaic-critical-dark: #ef4444;
+    --mosaic-critical-light: #3d1f1f;
+
+    --mosaic-info: #60a5fa;
+    --mosaic-info-dark: #3b82f6;
+    --mosaic-info-light: #1e3a5f;
+
+    /* Colors - Neutral */
+    --mosaic-text: #ffffff;
+    --mosaic-text-secondary: #d1d5db;
+    --mosaic-text-tertiary: #b0b5bc;
+    --mosaic-text-disabled: #7a808a;
+    --mosaic-text-inverse: #1a1d21;
+
+    --mosaic-border: #3d4149;
+    --mosaic-border-light: #2d3138;
+    --mosaic-border-dark: #5f646c;
+
+    --mosaic-bg: #1a1d21;
+    --mosaic-bg-alt: #23272d;
+    --mosaic-bg-header: #2d3138;
+    --mosaic-bg-hover: #2d3138;
+
+    /* Shadows - darker for dark mode */
+    --mosaic-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --mosaic-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.4);
+    --mosaic-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.5);
+    --mosaic-shadow-xl: 0 6px 12px rgba(0, 0, 0, 0.5);
+    --mosaic-shadow-2xl: 0 10px 40px rgba(0, 0, 0, 0.6);
+    --mosaic-shadow-primary: 0 4px 8px rgba(91, 163, 217, 0.3);
+}
+
+/* Dark mode overrides for elements that don't use variables */
+[data-mosaic-theme="dark"] .mosaic h1,
+[data-mosaic-theme="dark"] .mosaic h2,
+[data-mosaic-theme="dark"] .mosaic h3,
+[data-mosaic-theme="dark"] .mosaic h4,
+[data-mosaic-theme="dark"] .mosaic h5,
+[data-mosaic-theme="dark"] .mosaic h6,
+[data-mosaic-theme="dark"] .mosaic p,
+[data-mosaic-theme="dark"] .mosaic label,
+[data-mosaic-theme="dark"] .mosaic span,
+[data-mosaic-theme="dark"] .mosaic-card-title,
+[data-mosaic-theme="dark"] .mosaic-section-title {
+    color: var(--mosaic-text);
+}

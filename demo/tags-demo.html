@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Editor - Mosaic Design System</title>
+    <link rel="stylesheet" href="../assets/css/mosaic.css">
+    <style>
+        body {
+            font-family: var(--mosaic-font-family);
+            background-color: var(--mosaic-bg-alt);
+            padding: 40px;
+            margin: 0;
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .demo-section {
+            background: var(--mosaic-bg);
+            border-radius: var(--mosaic-radius-lg);
+            padding: var(--mosaic-space-2xl);
+            margin-bottom: var(--mosaic-space-2xl);
+            box-shadow: var(--mosaic-shadow-md);
+        }
+        .demo-section h2 {
+            margin-top: 0;
+            margin-bottom: var(--mosaic-space-lg);
+            color: var(--mosaic-text);
+            font-size: var(--mosaic-font-size-xl);
+        }
+        .demo-section h3 {
+            margin-top: var(--mosaic-space-xl);
+            margin-bottom: var(--mosaic-space-md);
+            color: var(--mosaic-text-secondary);
+            font-size: var(--mosaic-font-size-base);
+            font-weight: var(--mosaic-font-weight-semibold);
+        }
+        .demo-section p {
+            color: var(--mosaic-text-tertiary);
+            font-size: var(--mosaic-font-size-sm);
+            margin-bottom: var(--mosaic-space-md);
+        }
+        .demo-row {
+            margin-bottom: var(--mosaic-space-xl);
+        }
+        .demo-label {
+            display: block;
+            margin-bottom: var(--mosaic-space-xs);
+            font-size: var(--mosaic-font-size-sm);
+            font-weight: var(--mosaic-font-weight-semibold);
+            color: var(--mosaic-text);
+        }
+        h1 {
+            color: var(--mosaic-text);
+            margin-bottom: var(--mosaic-space-lg);
+        }
+        .intro {
+            color: var(--mosaic-text-secondary);
+            margin-bottom: var(--mosaic-space-2xl);
+        }
+        .variant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--mosaic-space-lg);
+        }
+        .api-example {
+            background: var(--mosaic-bg-alt);
+            padding: var(--mosaic-space-md);
+            border-radius: var(--mosaic-radius-md);
+            font-family: var(--mosaic-font-mono);
+            font-size: var(--mosaic-font-size-sm);
+            overflow-x: auto;
+        }
+        .output-display {
+            margin-top: var(--mosaic-space-md);
+            padding: var(--mosaic-space-md);
+            background: var(--mosaic-bg-alt);
+            border-radius: var(--mosaic-radius-md);
+            font-size: var(--mosaic-font-size-sm);
+            color: var(--mosaic-text-secondary);
+        }
+        .btn-row {
+            display: flex;
+            gap: var(--mosaic-space-sm);
+            margin-top: var(--mosaic-space-md);
+        }
+        .mosaic-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--mosaic-space-sm) var(--mosaic-space-lg);
+            font-size: var(--mosaic-font-size-sm);
+            font-weight: var(--mosaic-font-weight-medium);
+            border-radius: var(--mosaic-radius-md);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all var(--mosaic-transition-fast);
+        }
+        .mosaic-btn-primary {
+            background: var(--mosaic-primary);
+            color: var(--mosaic-text-inverse);
+        }
+        .mosaic-btn-primary:hover {
+            background: var(--mosaic-primary-hover);
+        }
+        .mosaic-btn-secondary {
+            background: var(--mosaic-bg);
+            border-color: var(--mosaic-border);
+            color: var(--mosaic-text);
+        }
+        .mosaic-btn-secondary:hover {
+            background: var(--mosaic-bg-alt);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Tag Editor Component</h1>
+        <p class="intro">A flexible tag input widget with pill-shaped tags, typeahead suggestions, and full keyboard support.</p>
+
+        <!-- Basic Example -->
+        <div class="demo-section">
+            <h2>Basic Usage</h2>
+            <p>Type and press Enter or comma to add tags. Click the X to remove.</p>
+
+            <div class="demo-row">
+                <label class="demo-label">Skills</label>
+                <div id="basic-demo"
+                     data-mosaic-tags
+                     data-tags="JavaScript,React,Node.js"
+                     data-placeholder="Add a skill...">
+                </div>
+            </div>
+        </div>
+
+        <!-- With Suggestions -->
+        <div class="demo-section">
+            <h2>With Autocomplete Suggestions</h2>
+            <p>Start typing to see suggestions. Use arrow keys to navigate and Enter to select.</p>
+
+            <div class="demo-row">
+                <label class="demo-label">Programming Languages</label>
+                <div id="suggestions-demo"></div>
+            </div>
+        </div>
+
+        <!-- Variants -->
+        <div class="demo-section">
+            <h2>Color Variants</h2>
+            <p>Tags can be styled with different color variants to match your design.</p>
+
+            <div class="variant-grid">
+                <div class="demo-row">
+                    <label class="demo-label">Primary (default)</label>
+                    <div data-mosaic-tags data-tags="Primary,Tags" data-variant="primary"></div>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Success</label>
+                    <div data-mosaic-tags data-tags="Approved,Complete" data-variant="success"></div>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Warning</label>
+                    <div data-mosaic-tags data-tags="Pending,Review" data-variant="warning"></div>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Critical</label>
+                    <div data-mosaic-tags data-tags="Urgent,Blocked" data-variant="critical"></div>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Info</label>
+                    <div data-mosaic-tags data-tags="Note,Information" data-variant="info"></div>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Default (neutral)</label>
+                    <div data-mosaic-tags data-tags="Neutral,Tags" data-variant="default"></div>
+                </div>
+            </div>
+
+            <h3>Outline Variants</h3>
+            <div class="variant-grid">
+                <div class="demo-row">
+                    <label class="demo-label">Outline</label>
+                    <div data-mosaic-tags data-tags="Subtle,Style" data-variant="outline"></div>
+                </div>
+
+                <div class="demo-row">
+                    <label class="demo-label">Outline Primary</label>
+                    <div data-mosaic-tags data-tags="Soft,Primary" data-variant="outline-primary"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="demo-section">
+            <h2>Size Variants</h2>
+
+            <div class="demo-row">
+                <label class="demo-label">Small</label>
+                <div id="size-sm" class="mosaic-tag-editor-wrapper">
+                    <div class="mosaic-tag-editor mosaic-tag-editor-sm">
+                        <span class="mosaic-tag-pill mosaic-tag-pill-primary">
+                            <span class="mosaic-tag-pill-text">Small</span>
+                            <button type="button" class="mosaic-tag-pill-remove">&times;</button>
+                        </span>
+                        <span class="mosaic-tag-pill mosaic-tag-pill-primary">
+                            <span class="mosaic-tag-pill-text">Tags</span>
+                            <button type="button" class="mosaic-tag-pill-remove">&times;</button>
+                        </span>
+                        <input type="text" class="mosaic-tag-editor-input" placeholder="Add tag...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-row">
+                <label class="demo-label">Default</label>
+                <div data-mosaic-tags data-tags="Default,Size"></div>
+            </div>
+
+            <div class="demo-row">
+                <label class="demo-label">Large</label>
+                <div id="size-lg" class="mosaic-tag-editor-wrapper">
+                    <div class="mosaic-tag-editor mosaic-tag-editor-lg">
+                        <span class="mosaic-tag-pill mosaic-tag-pill-primary">
+                            <span class="mosaic-tag-pill-text">Large</span>
+                            <button type="button" class="mosaic-tag-pill-remove">&times;</button>
+                        </span>
+                        <span class="mosaic-tag-pill mosaic-tag-pill-primary">
+                            <span class="mosaic-tag-pill-text">Tags</span>
+                            <button type="button" class="mosaic-tag-pill-remove">&times;</button>
+                        </span>
+                        <input type="text" class="mosaic-tag-editor-input" placeholder="Add tag...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation -->
+        <div class="demo-section">
+            <h2>Validation & Limits</h2>
+
+            <div class="demo-row">
+                <label class="demo-label">Max 5 tags</label>
+                <div id="max-tags-demo"
+                     data-mosaic-tags
+                     data-tags="One,Two,Three"
+                     data-max-tags="5"
+                     data-placeholder="Max 5 tags allowed...">
+                </div>
+            </div>
+
+            <div class="demo-row">
+                <label class="demo-label">Max 10 characters per tag</label>
+                <div id="max-length-demo"></div>
+            </div>
+        </div>
+
+        <!-- JavaScript API -->
+        <div class="demo-section">
+            <h2>JavaScript API</h2>
+            <p>Full programmatic control over the tag editor.</p>
+
+            <div class="demo-row">
+                <label class="demo-label">Interactive Demo</label>
+                <div id="api-demo"></div>
+
+                <div class="btn-row">
+                    <button class="mosaic-btn mosaic-btn-primary" onclick="addRandomTag()">Add Random Tag</button>
+                    <button class="mosaic-btn mosaic-btn-secondary" onclick="removeLastApiTag()">Remove Last</button>
+                    <button class="mosaic-btn mosaic-btn-secondary" onclick="clearAllTags()">Clear All</button>
+                    <button class="mosaic-btn mosaic-btn-secondary" onclick="getTags()">Get Tags</button>
+                </div>
+
+                <div id="api-output" class="output-display">Output will appear here...</div>
+            </div>
+
+            <h3>Example Code</h3>
+            <pre class="api-example">
+// Initialize
+const editor = Mosaic.tagEditor('#my-container', {
+    tags: ['initial', 'tags'],
+    suggestions: ['apple', 'banana', 'cherry'],
+    maxTags: 10,
+    variant: 'primary',
+    onAdd: (tag) => console.log('Added:', tag),
+    onRemove: (tag) => console.log('Removed:', tag),
+    onChange: (tags) => console.log('Tags:', tags)
+});
+
+// API Methods
+editor.add('new-tag');
+editor.remove('old-tag');
+editor.getTags();        // ['current', 'tags']
+editor.setTags(['a', 'b']);
+editor.removeAll();
+editor.hasTag('test');   // true/false
+editor.disable();
+editor.enable();
+            </pre>
+        </div>
+
+        <!-- Read-only Mode -->
+        <div class="demo-section">
+            <h2>Read-only Mode</h2>
+            <p>Display tags without editing capability. Perfect for showing selected values.</p>
+
+            <div class="demo-row">
+                <label class="demo-label">Categories (read-only via JS)</label>
+                <div id="readonly-demo"></div>
+            </div>
+
+            <div class="demo-row">
+                <label class="demo-label">Status Tags (read-only via data attribute)</label>
+                <div data-mosaic-tags
+                     data-tags="Published,Featured,Verified"
+                     data-variant="success"
+                     data-read-only="true">
+                </div>
+            </div>
+        </div>
+
+        <!-- Show All Suggestions -->
+        <div class="demo-section">
+            <h2>Show All Suggestions on Focus</h2>
+            <p>Click inside the input to see all available options. Great for small predefined lists.</p>
+
+            <div class="demo-row">
+                <label class="demo-label">Select Categories</label>
+                <div id="show-all-demo"></div>
+            </div>
+        </div>
+
+        <!-- Restricted to Suggestions Only -->
+        <div class="demo-section">
+            <h2>Restricted Input (Suggestions Only)</h2>
+            <p>Only allow tags from the predefined list. Free text entry is disabled.</p>
+
+            <div class="demo-row">
+                <label class="demo-label">Select Department</label>
+                <div id="restricted-demo"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/modules/tags.js"></script>
+    <script>
+        // Initialize suggestions demo
+        const suggestionsEditor = Mosaic.tagEditor('#suggestions-demo', {
+            tags: ['JavaScript'],
+            suggestions: [
+                'JavaScript', 'TypeScript', 'Python', 'Ruby', 'Go',
+                'Rust', 'Java', 'C++', 'C#', 'PHP', 'Swift', 'Kotlin',
+                'Scala', 'Haskell', 'Elixir', 'Clojure'
+            ],
+            placeholder: 'Start typing a language...'
+        });
+
+        // Initialize max length demo
+        Mosaic.tagEditor('#max-length-demo', {
+            tags: ['short'],
+            maxLength: 10,
+            placeholder: 'Max 10 chars per tag...'
+        });
+
+        // Initialize API demo
+        const apiEditor = Mosaic.tagEditor('#api-demo', {
+            tags: ['example', 'tags'],
+            variant: 'primary',
+            onChange: (tags) => {
+                document.getElementById('api-output').textContent = 'Tags changed: ' + JSON.stringify(tags);
+            }
+        });
+
+        // Initialize read-only demo
+        Mosaic.tagEditor('#readonly-demo', {
+            tags: ['Technology', 'Design', 'Business', 'Marketing'],
+            variant: 'info',
+            readOnly: true
+        });
+
+        // Initialize show-all-on-focus demo
+        Mosaic.tagEditor('#show-all-demo', {
+            tags: [],
+            suggestions: [
+                'Technology', 'Design', 'Business', 'Marketing',
+                'Finance', 'Healthcare', 'Education', 'Entertainment'
+            ],
+            showAllOnFocus: true,
+            placeholder: 'Click to see all categories...'
+        });
+
+        // Initialize restricted (suggestions only) demo
+        Mosaic.tagEditor('#restricted-demo', {
+            tags: ['Engineering'],
+            suggestions: [
+                'Engineering', 'Sales', 'Marketing', 'Finance',
+                'Human Resources', 'Legal', 'Operations', 'Customer Support'
+            ],
+            allowFreeText: false,
+            showAllOnFocus: true,
+            placeholder: 'Select a department...'
+        });
+
+        // API demo functions
+        const randomWords = ['alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta'];
+
+        function addRandomTag() {
+            const word = randomWords[Math.floor(Math.random() * randomWords.length)];
+            const success = apiEditor.add(word);
+            document.getElementById('api-output').textContent = success
+                ? `Added: "${word}"`
+                : `Failed to add "${word}" (duplicate or limit reached)`;
+        }
+
+        function removeLastApiTag() {
+            const tags = apiEditor.getTags();
+            if (tags.length > 0) {
+                const removed = tags[tags.length - 1];
+                apiEditor.remove(removed);
+                document.getElementById('api-output').textContent = `Removed: "${removed}"`;
+            } else {
+                document.getElementById('api-output').textContent = 'No tags to remove';
+            }
+        }
+
+        function clearAllTags() {
+            apiEditor.removeAll();
+            document.getElementById('api-output').textContent = 'All tags cleared';
+        }
+
+        function getTags() {
+            const tags = apiEditor.getTags();
+            document.getElementById('api-output').textContent = 'Current tags: ' + JSON.stringify(tags);
+        }
+    </script>
+</body>
+</html>

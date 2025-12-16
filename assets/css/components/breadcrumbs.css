@@ -1,0 +1,116 @@
+/**
+ * Mosaic Design System - Breadcrumbs
+ *
+ * Navigation path indicators.
+ */
+
+/* ==========================================================================
+   Breadcrumbs Container
+   ========================================================================== */
+.mosaic-breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--mosaic-space-xs);
+    margin-bottom: var(--mosaic-space-lg);
+    font-size: var(--mosaic-font-size-sm);
+}
+
+/* ==========================================================================
+   Breadcrumb Items
+   ========================================================================== */
+.mosaic-breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+    color: var(--mosaic-text-secondary);
+}
+
+.mosaic-breadcrumb-item a {
+    color: var(--mosaic-text-secondary);
+    text-decoration: none;
+    transition: color var(--mosaic-transition-fast);
+}
+
+.mosaic-breadcrumb-item a:hover {
+    color: var(--mosaic-primary);
+}
+
+/* Current/active item */
+.mosaic-breadcrumb-item.mosaic-active,
+.mosaic-breadcrumb-item:last-child {
+    color: var(--mosaic-text);
+    font-weight: var(--mosaic-font-weight-medium);
+}
+
+/* ==========================================================================
+   Breadcrumb Separator
+   ========================================================================== */
+.mosaic-breadcrumb-separator {
+    color: var(--mosaic-text-tertiary);
+    margin: 0 var(--mosaic-space-xs);
+}
+
+.mosaic-breadcrumb-separator .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+/* Auto separator using ::after */
+.mosaic-breadcrumbs-auto .mosaic-breadcrumb-item:not(:last-child)::after {
+    content: '/';
+    margin-left: var(--mosaic-space-sm);
+    color: var(--mosaic-text-tertiary);
+}
+
+/* Arrow separator variant */
+.mosaic-breadcrumbs-arrows .mosaic-breadcrumb-item:not(:last-child)::after {
+    content: '›';
+    margin-left: var(--mosaic-space-sm);
+    color: var(--mosaic-text-tertiary);
+    font-size: var(--mosaic-font-size-lg);
+}
+
+/* ==========================================================================
+   Breadcrumb with Icons
+   ========================================================================== */
+.mosaic-breadcrumb-item .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
+.mosaic-breadcrumb-item a:hover .dashicons {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Breadcrumb Sizes
+   ========================================================================== */
+.mosaic-breadcrumbs-sm {
+    font-size: var(--mosaic-font-size-xs);
+}
+
+.mosaic-breadcrumbs-lg {
+    font-size: var(--mosaic-font-size-base);
+}
+
+/* ==========================================================================
+   Breadcrumb Variants
+   ========================================================================== */
+
+/* With background */
+.mosaic-breadcrumbs-bg {
+    background-color: var(--mosaic-bg-alt);
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+    border-radius: var(--mosaic-radius-md);
+}
+
+/* With border */
+.mosaic-breadcrumbs-bordered {
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+    border: 1px solid var(--mosaic-border-light);
+    border-radius: var(--mosaic-radius-md);
+}

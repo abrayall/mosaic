@@ -11,6 +11,8 @@
     max-width: 100%;
     margin: 0;
     padding: 20px;
+    background-color: var(--mosaic-bg);
+    min-height: calc(100vh - 32px);
 }
 
 .mosaic * {

@@ -57,6 +57,15 @@ echo $table->render();
 | Clipboard | - | `Mosaic.copy()` | - |
 | Progress | Yes | - | `Mosaic::progress()` |
 | Loaders | Yes | - | `Mosaic::spinner()` |
+| Tooltips | Yes | `Mosaic.tooltip()` | - |
+| Dropdowns | Yes | `Mosaic.dropdown()` | - |
+| Pagination | Yes | - | - |
+| Breadcrumbs | Yes | - | - |
+| Alerts | Yes | - | - |
+| Avatars | Yes | - | - |
+| Toast | Yes | `Mosaic.toast()` | - |
+| Tags | Yes | `Mosaic.tagEditor()` | - |
+| Theme | Yes | `Mosaic.setTheme()` | - |
 
 ## Directory Structure
 
@@ -76,7 +85,12 @@ mosaic/
 │   ├── class-mosaic-card.php
 │   ├── class-mosaic-tabs.php
 │   └── class-mosaic-form.php
+├── demo/                 # Demo plugin
+│   ├── includes/         # Demo admin pages
+│   └── plugin.properties # Wordsmith config
 ├── docs/                 # Documentation
+├── build.sh              # Build script
+├── demo.sh               # Demo deploy script
 └── mosaic.properties     # Metadata
 ```
 
@@ -90,6 +104,20 @@ See the [docs/](docs/) directory for detailed documentation:
 - [Typography](docs/typography.md)
 - [Components](docs/components/)
 
+## Demo
+
+A demo plugin is included that showcases all Mosaic components. To deploy the demo:
+
+```bash
+./demo.sh
+```
+
+This will:
+1. Build the Mosaic library
+2. Deploy the demo plugin to WordPress using Wordsmith
+
+Once deployed, the demo is available in WordPress admin under the **Mosaic** menu item. It provides interactive examples of all components including buttons, badges, tables, cards, tabs, accordions, forms, and dialogs.
+
 ## Integration
 
 Mosaic is designed to be shared across plugins. Place it as a sibling directory:
@@ -101,6 +129,28 @@ your-workspace/
 ```
 
 Then reference it via relative path in your plugin.
+
+## Selective Imports
+
+The main `mosaic.css` includes all components. For lighter builds, import only what you need:
+
+```php
+// Instead of mosaic.css, import individual components:
+$css_path = $mosaic_url . 'assets/css/';
+
+wp_enqueue_style( 'mosaic-variables', $css_path . 'variables.css' );
+wp_enqueue_style( 'mosaic-base', $css_path . 'base.css' );
+wp_enqueue_style( 'mosaic-buttons', $css_path . 'components/buttons.css' );
+wp_enqueue_style( 'mosaic-tables', $css_path . 'components/tables.css' );
+// Add only the components you need...
+```
+
+Similarly for JavaScript modules:
+```php
+// Load only the modules you need
+wp_enqueue_script( 'mosaic-dialog', $js_path . 'modules/dialog.js' );
+wp_enqueue_script( 'mosaic-tabs', $js_path . 'modules/tabs.js' );
+```
 
 ## License
 

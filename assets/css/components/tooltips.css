@@ -1,0 +1,232 @@
+/**
+ * Mosaic Design System - Tooltips
+ *
+ * Hover tooltips for buttons, icons, and other elements.
+ */
+
+/* ==========================================================================
+   Tooltip Container
+   ========================================================================== */
+.mosaic-tooltip {
+    position: relative;
+    display: inline-flex;
+}
+
+/* ==========================================================================
+   Tooltip Content
+   ========================================================================== */
+.mosaic-tooltip-content {
+    position: absolute;
+    z-index: var(--mosaic-z-tooltip);
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+    background-color: var(--mosaic-text);
+    color: var(--mosaic-text-inverse);
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-medium);
+    line-height: var(--mosaic-line-height-tight);
+    white-space: nowrap;
+    border-radius: var(--mosaic-radius-md);
+    box-shadow: var(--mosaic-shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--mosaic-transition-fast), visibility var(--mosaic-transition-fast);
+    pointer-events: none;
+}
+
+/* Show tooltip on hover */
+.mosaic-tooltip:hover .mosaic-tooltip-content,
+.mosaic-tooltip:focus-within .mosaic-tooltip-content,
+.mosaic-tooltip-content.mosaic-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   Tooltip Arrow
+   ========================================================================== */
+.mosaic-tooltip-content::after {
+    content: '';
+    position: absolute;
+    border: 6px solid transparent;
+}
+
+/* ==========================================================================
+   Tooltip Positions
+   ========================================================================== */
+
+/* Top (default) */
+.mosaic-tooltip-content,
+.mosaic-tooltip-top .mosaic-tooltip-content {
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mosaic-tooltip-content::after,
+.mosaic-tooltip-top .mosaic-tooltip-content::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--mosaic-text);
+}
+
+/* Bottom */
+.mosaic-tooltip-bottom .mosaic-tooltip-content {
+    top: calc(100% + 8px);
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mosaic-tooltip-bottom .mosaic-tooltip-content::after {
+    bottom: 100%;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: transparent;
+    border-bottom-color: var(--mosaic-text);
+}
+
+/* Left */
+.mosaic-tooltip-left .mosaic-tooltip-content {
+    right: calc(100% + 8px);
+    left: auto;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+}
+
+.mosaic-tooltip-left .mosaic-tooltip-content::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top-color: transparent;
+    border-left-color: var(--mosaic-text);
+}
+
+/* Right */
+.mosaic-tooltip-right .mosaic-tooltip-content {
+    left: calc(100% + 8px);
+    right: auto;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+}
+
+.mosaic-tooltip-right .mosaic-tooltip-content::after {
+    right: 100%;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top-color: transparent;
+    border-right-color: var(--mosaic-text);
+}
+
+/* ==========================================================================
+   Tooltip Variants
+   ========================================================================== */
+
+/* Light variant */
+.mosaic-tooltip-light .mosaic-tooltip-content {
+    background-color: var(--mosaic-bg);
+    color: var(--mosaic-text);
+    border: 1px solid var(--mosaic-border);
+}
+
+.mosaic-tooltip-light .mosaic-tooltip-content::after {
+    border-top-color: var(--mosaic-bg);
+}
+
+.mosaic-tooltip-light.mosaic-tooltip-bottom .mosaic-tooltip-content::after {
+    border-top-color: transparent;
+    border-bottom-color: var(--mosaic-bg);
+}
+
+.mosaic-tooltip-light.mosaic-tooltip-left .mosaic-tooltip-content::after {
+    border-top-color: transparent;
+    border-left-color: var(--mosaic-bg);
+}
+
+.mosaic-tooltip-light.mosaic-tooltip-right .mosaic-tooltip-content::after {
+    border-top-color: transparent;
+    border-right-color: var(--mosaic-bg);
+}
+
+/* Primary variant */
+.mosaic-tooltip-primary .mosaic-tooltip-content {
+    background-color: var(--mosaic-primary);
+}
+
+.mosaic-tooltip-primary .mosaic-tooltip-content::after {
+    border-top-color: var(--mosaic-primary);
+}
+
+.mosaic-tooltip-primary.mosaic-tooltip-bottom .mosaic-tooltip-content::after {
+    border-top-color: transparent;
+    border-bottom-color: var(--mosaic-primary);
+}
+
+/* ==========================================================================
+   Multiline Tooltips
+   ========================================================================== */
+.mosaic-tooltip-multiline .mosaic-tooltip-content {
+    white-space: normal;
+    width: 200px;
+    text-align: center;
+}
+
+.mosaic-tooltip-multiline-wide .mosaic-tooltip-content {
+    white-space: normal;
+    width: 300px;
+    text-align: left;
+}
+
+/* ==========================================================================
+   Data Attribute Tooltips (CSS-only)
+   ========================================================================== */
+[data-mosaic-tooltip] {
+    position: relative;
+}
+
+[data-mosaic-tooltip]::before {
+    content: attr(data-mosaic-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--mosaic-z-tooltip);
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+    background-color: var(--mosaic-text);
+    color: var(--mosaic-text-inverse);
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-medium);
+    line-height: var(--mosaic-line-height-tight);
+    white-space: nowrap;
+    border-radius: var(--mosaic-radius-md);
+    box-shadow: var(--mosaic-shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--mosaic-transition-fast), visibility var(--mosaic-transition-fast);
+    pointer-events: none;
+}
+
+[data-mosaic-tooltip]::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--mosaic-text);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--mosaic-transition-fast), visibility var(--mosaic-transition-fast);
+}
+
+[data-mosaic-tooltip]:hover::before,
+[data-mosaic-tooltip]:hover::after,
+[data-mosaic-tooltip]:focus::before,
+[data-mosaic-tooltip]:focus::after {
+    opacity: 1;
+    visibility: visible;
+}

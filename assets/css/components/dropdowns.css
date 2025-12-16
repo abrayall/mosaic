@@ -1,0 +1,222 @@
+/**
+ * Mosaic Design System - Dropdowns
+ *
+ * Dropdown menus for actions and navigation.
+ */
+
+/* ==========================================================================
+   Dropdown Container
+   ========================================================================== */
+.mosaic-dropdown {
+    position: relative;
+    display: inline-flex;
+}
+
+/* ==========================================================================
+   Dropdown Trigger
+   ========================================================================== */
+.mosaic-dropdown-trigger {
+    cursor: pointer;
+}
+
+/* Caret icon */
+.mosaic-dropdown-caret {
+    display: inline-flex;
+    margin-left: var(--mosaic-space-xs);
+    transition: transform var(--mosaic-transition-fast);
+}
+
+.mosaic-dropdown.mosaic-open .mosaic-dropdown-caret {
+    transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   Dropdown Menu
+   ========================================================================== */
+.mosaic-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: var(--mosaic-z-dropdown);
+    min-width: 180px;
+    margin-top: var(--mosaic-space-xs);
+    padding: var(--mosaic-space-xs) 0;
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    box-shadow: var(--mosaic-shadow-xl);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--mosaic-transition-fast),
+                visibility var(--mosaic-transition-fast),
+                transform var(--mosaic-transition-fast);
+}
+
+.mosaic-dropdown.mosaic-open .mosaic-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Right-aligned menu */
+.mosaic-dropdown-right .mosaic-dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
+/* Up direction */
+.mosaic-dropdown-up .mosaic-dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: var(--mosaic-space-xs);
+    transform: translateY(8px);
+}
+
+.mosaic-dropdown-up.mosaic-open .mosaic-dropdown-menu {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Dropdown Items
+   ========================================================================== */
+.mosaic-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    width: 100%;
+    padding: var(--mosaic-space-sm) var(--mosaic-space-lg);
+    background: none;
+    border: none;
+    font-size: var(--mosaic-font-size-base);
+    font-family: inherit;
+    color: var(--mosaic-text);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--mosaic-transition-fast),
+                color var(--mosaic-transition-fast);
+}
+
+.mosaic-dropdown-item:hover,
+.mosaic-dropdown-item:focus {
+    background-color: var(--mosaic-bg-hover);
+    color: var(--mosaic-primary);
+    outline: none;
+}
+
+.mosaic-dropdown-item:active {
+    background-color: var(--mosaic-primary-light);
+}
+
+/* Icon in dropdown item */
+.mosaic-dropdown-item .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
+.mosaic-dropdown-item:hover .dashicons {
+    opacity: 1;
+}
+
+/* Disabled item */
+.mosaic-dropdown-item:disabled,
+.mosaic-dropdown-item.mosaic-disabled {
+    color: var(--mosaic-text-disabled);
+    cursor: not-allowed;
+}
+
+.mosaic-dropdown-item:disabled:hover,
+.mosaic-dropdown-item.mosaic-disabled:hover {
+    background-color: transparent;
+    color: var(--mosaic-text-disabled);
+}
+
+/* Danger item */
+.mosaic-dropdown-item-danger {
+    color: var(--mosaic-critical);
+}
+
+.mosaic-dropdown-item-danger:hover {
+    background-color: var(--mosaic-critical-light);
+    color: var(--mosaic-critical-dark);
+}
+
+/* ==========================================================================
+   Dropdown Divider
+   ========================================================================== */
+.mosaic-dropdown-divider {
+    height: 1px;
+    margin: var(--mosaic-space-xs) 0;
+    background-color: var(--mosaic-border-light);
+}
+
+/* ==========================================================================
+   Dropdown Header
+   ========================================================================== */
+.mosaic-dropdown-header {
+    padding: var(--mosaic-space-sm) var(--mosaic-space-lg);
+    font-size: var(--mosaic-font-size-xs);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Dropdown with Checkbox/Radio
+   ========================================================================== */
+.mosaic-dropdown-check {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    width: 100%;
+    padding: var(--mosaic-space-sm) var(--mosaic-space-lg);
+    background: none;
+    border: none;
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text);
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--mosaic-transition-fast);
+}
+
+.mosaic-dropdown-check:hover {
+    background-color: var(--mosaic-bg-hover);
+}
+
+.mosaic-dropdown-check input {
+    margin: 0;
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+.mosaic-dropdown-sm .mosaic-dropdown-menu {
+    min-width: 140px;
+}
+
+.mosaic-dropdown-lg .mosaic-dropdown-menu {
+    min-width: 240px;
+}
+
+.mosaic-dropdown-xl .mosaic-dropdown-menu {
+    min-width: 320px;
+}
+
+/* Full width dropdown */
+.mosaic-dropdown-full {
+    display: flex;
+    width: 100%;
+}
+
+.mosaic-dropdown-full .mosaic-dropdown-trigger {
+    width: 100%;
+}
+
+.mosaic-dropdown-full .mosaic-dropdown-menu {
+    width: 100%;
+}

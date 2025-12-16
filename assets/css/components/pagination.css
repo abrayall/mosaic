@@ -1,0 +1,220 @@
+/**
+ * Mosaic Design System - Pagination
+ *
+ * Page navigation for tables, lists, and content.
+ */
+
+/* ==========================================================================
+   Pagination Container
+   ========================================================================== */
+.mosaic-pagination {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+    flex-wrap: wrap;
+}
+
+.mosaic-pagination-center {
+    justify-content: center;
+}
+
+.mosaic-pagination-right {
+    justify-content: flex-end;
+}
+
+.mosaic-pagination-between {
+    justify-content: space-between;
+}
+
+/* ==========================================================================
+   Pagination Items
+   ========================================================================== */
+.mosaic-pagination-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 var(--mosaic-space-sm);
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-md);
+    font-size: var(--mosaic-font-size-base);
+    font-weight: var(--mosaic-font-weight-medium);
+    color: var(--mosaic-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-pagination-item:hover {
+    background-color: var(--mosaic-bg-hover);
+    border-color: var(--mosaic-border-dark);
+    color: var(--mosaic-primary);
+}
+
+.mosaic-pagination-item:focus {
+    outline: none;
+    border-color: var(--mosaic-primary);
+    box-shadow: 0 0 0 2px var(--mosaic-primary-light);
+}
+
+/* Active state */
+.mosaic-pagination-item.mosaic-active {
+    background-color: var(--mosaic-primary);
+    border-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+}
+
+.mosaic-pagination-item.mosaic-active:hover {
+    background-color: var(--mosaic-primary-hover);
+    border-color: var(--mosaic-primary-hover);
+    color: var(--mosaic-text-inverse);
+}
+
+/* Disabled state */
+.mosaic-pagination-item:disabled,
+.mosaic-pagination-item.mosaic-disabled {
+    background-color: var(--mosaic-bg-alt);
+    border-color: var(--mosaic-border-light);
+    color: var(--mosaic-text-disabled);
+    cursor: not-allowed;
+}
+
+.mosaic-pagination-item:disabled:hover,
+.mosaic-pagination-item.mosaic-disabled:hover {
+    background-color: var(--mosaic-bg-alt);
+    border-color: var(--mosaic-border-light);
+    color: var(--mosaic-text-disabled);
+}
+
+/* ==========================================================================
+   Pagination Nav (Prev/Next)
+   ========================================================================== */
+.mosaic-pagination-prev,
+.mosaic-pagination-next {
+    gap: var(--mosaic-space-xs);
+}
+
+.mosaic-pagination-prev .dashicons,
+.mosaic-pagination-next .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* ==========================================================================
+   Pagination Ellipsis
+   ========================================================================== */
+.mosaic-pagination-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    color: var(--mosaic-text-tertiary);
+    cursor: default;
+}
+
+/* ==========================================================================
+   Pagination Info
+   ========================================================================== */
+.mosaic-pagination-info {
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-secondary);
+}
+
+.mosaic-pagination-info strong {
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text);
+}
+
+/* ==========================================================================
+   Pagination Sizes
+   ========================================================================== */
+
+/* Small */
+.mosaic-pagination-sm .mosaic-pagination-item {
+    min-width: 28px;
+    height: 28px;
+    font-size: var(--mosaic-font-size-sm);
+}
+
+.mosaic-pagination-sm .mosaic-pagination-ellipsis {
+    min-width: 28px;
+    height: 28px;
+}
+
+/* Large */
+.mosaic-pagination-lg .mosaic-pagination-item {
+    min-width: 44px;
+    height: 44px;
+    font-size: var(--mosaic-font-size-lg);
+}
+
+.mosaic-pagination-lg .mosaic-pagination-ellipsis {
+    min-width: 44px;
+    height: 44px;
+}
+
+/* ==========================================================================
+   Pagination with Per Page Select
+   ========================================================================== */
+.mosaic-pagination-per-page {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-secondary);
+}
+
+.mosaic-pagination-per-page select {
+    min-width: 70px;
+    padding: var(--mosaic-space-xs) var(--mosaic-space-sm);
+    font-size: var(--mosaic-font-size-sm);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-md);
+    background-color: var(--mosaic-bg);
+    color: var(--mosaic-text);
+    cursor: pointer;
+}
+
+.mosaic-pagination-per-page select:focus {
+    outline: none;
+    border-color: var(--mosaic-primary);
+}
+
+/* ==========================================================================
+   Simple Pagination (Prev/Next only)
+   ========================================================================== */
+.mosaic-pagination-simple {
+    display: flex;
+    align-items: center;
+    gap: var(--mosaic-space-lg);
+}
+
+.mosaic-pagination-simple .mosaic-pagination-info {
+    font-size: var(--mosaic-font-size-base);
+}
+
+/* ==========================================================================
+   Compact Pagination
+   ========================================================================== */
+.mosaic-pagination-compact .mosaic-pagination-item {
+    border-radius: 0;
+    margin-left: -1px;
+}
+
+.mosaic-pagination-compact .mosaic-pagination-item:first-child {
+    border-radius: var(--mosaic-radius-md) 0 0 var(--mosaic-radius-md);
+    margin-left: 0;
+}
+
+.mosaic-pagination-compact .mosaic-pagination-item:last-child {
+    border-radius: 0 var(--mosaic-radius-md) var(--mosaic-radius-md) 0;
+}
+
+.mosaic-pagination-compact .mosaic-pagination-item:hover,
+.mosaic-pagination-compact .mosaic-pagination-item.mosaic-active {
+    z-index: 1;
+}

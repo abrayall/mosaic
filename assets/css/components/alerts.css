@@ -1,0 +1,237 @@
+/**
+ * Mosaic Design System - Alerts & Notices
+ *
+ * Inline notification banners for messages, warnings, and errors.
+ */
+
+/* ==========================================================================
+   Alert Base
+   ========================================================================== */
+.mosaic-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--mosaic-space-md);
+    padding: var(--mosaic-space-md) var(--mosaic-space-lg);
+    background-color: var(--mosaic-bg-alt);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-lg);
+    font-size: var(--mosaic-font-size-base);
+    line-height: var(--mosaic-line-height-relaxed);
+    color: var(--mosaic-text);
+    margin-bottom: var(--mosaic-space-lg);
+}
+
+/* ==========================================================================
+   Alert Icon
+   ========================================================================== */
+.mosaic-alert-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+
+.mosaic-alert-icon .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* ==========================================================================
+   Alert Content
+   ========================================================================== */
+.mosaic-alert-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.mosaic-alert-title {
+    font-weight: var(--mosaic-font-weight-semibold);
+    margin-bottom: var(--mosaic-space-xs);
+}
+
+.mosaic-alert-message {
+    color: var(--mosaic-text-secondary);
+}
+
+.mosaic-alert-message a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.mosaic-alert-message a:hover {
+    color: var(--mosaic-text);
+}
+
+/* ==========================================================================
+   Alert Close Button
+   ========================================================================== */
+.mosaic-alert-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: var(--mosaic-radius-sm);
+    color: var(--mosaic-text-tertiary);
+    cursor: pointer;
+    transition: all var(--mosaic-transition-fast);
+}
+
+.mosaic-alert-close:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--mosaic-text);
+}
+
+.mosaic-alert-close .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* ==========================================================================
+   Alert Variants
+   ========================================================================== */
+
+/* Info */
+.mosaic-alert-info {
+    background-color: var(--mosaic-info-light);
+    border-color: var(--mosaic-info);
+}
+
+.mosaic-alert-info .mosaic-alert-icon {
+    color: var(--mosaic-info-dark);
+}
+
+.mosaic-alert-info .mosaic-alert-title {
+    color: var(--mosaic-info-dark);
+}
+
+/* Success */
+.mosaic-alert-success {
+    background-color: var(--mosaic-success-light);
+    border-color: var(--mosaic-success);
+}
+
+.mosaic-alert-success .mosaic-alert-icon {
+    color: var(--mosaic-success);
+}
+
+.mosaic-alert-success .mosaic-alert-title {
+    color: var(--mosaic-success-dark);
+}
+
+/* Warning */
+.mosaic-alert-warning {
+    background-color: var(--mosaic-warning-light);
+    border-color: var(--mosaic-warning);
+}
+
+.mosaic-alert-warning .mosaic-alert-icon {
+    color: var(--mosaic-warning-dark);
+}
+
+.mosaic-alert-warning .mosaic-alert-title {
+    color: var(--mosaic-warning-dark);
+}
+
+/* Error/Danger */
+.mosaic-alert-error,
+.mosaic-alert-danger {
+    background-color: var(--mosaic-critical-light);
+    border-color: var(--mosaic-critical);
+}
+
+.mosaic-alert-error .mosaic-alert-icon,
+.mosaic-alert-danger .mosaic-alert-icon {
+    color: var(--mosaic-critical);
+}
+
+.mosaic-alert-error .mosaic-alert-title,
+.mosaic-alert-danger .mosaic-alert-title {
+    color: var(--mosaic-critical-dark);
+}
+
+/* ==========================================================================
+   Alert with Actions
+   ========================================================================== */
+.mosaic-alert-actions {
+    display: flex;
+    gap: var(--mosaic-space-sm);
+    margin-top: var(--mosaic-space-md);
+}
+
+/* ==========================================================================
+   Compact Alert (no icon)
+   ========================================================================== */
+.mosaic-alert-compact {
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+}
+
+/* ==========================================================================
+   Inline Alert (single line)
+   ========================================================================== */
+.mosaic-alert-inline {
+    display: inline-flex;
+    margin-bottom: 0;
+    padding: var(--mosaic-space-xs) var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-sm);
+}
+
+/* ==========================================================================
+   Banner Alert (full width, no border-radius)
+   ========================================================================== */
+.mosaic-alert-banner {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* ==========================================================================
+   Alert with Left Border Accent
+   ========================================================================== */
+.mosaic-alert-accent {
+    border-left-width: 4px;
+}
+
+.mosaic-alert-accent.mosaic-alert-info {
+    border-left-color: var(--mosaic-info-dark);
+}
+
+.mosaic-alert-accent.mosaic-alert-success {
+    border-left-color: var(--mosaic-success);
+}
+
+.mosaic-alert-accent.mosaic-alert-warning {
+    border-left-color: var(--mosaic-warning-dark);
+}
+
+.mosaic-alert-accent.mosaic-alert-error,
+.mosaic-alert-accent.mosaic-alert-danger {
+    border-left-color: var(--mosaic-critical);
+}
+
+/* ==========================================================================
+   Dismissible Animation
+   ========================================================================== */
+.mosaic-alert.mosaic-dismissing {
+    animation: mosaic-alert-dismiss 0.2s ease-out forwards;
+}
+
+@keyframes mosaic-alert-dismiss {
+    to {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+}

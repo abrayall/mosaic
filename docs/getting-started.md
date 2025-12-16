@@ -2,6 +2,194 @@
 
 Mosaic is a comprehensive UI design system for WordPress plugins. It provides consistent styling, JavaScript utilities, and PHP helper classes for building professional admin interfaces.
 
+## Plugin Starter Template
+
+Copy these files to create a new plugin using Mosaic.
+
+### Directory Structure
+
+```
+your-plugin/
+├── your-plugin.php
+├── includes/
+│   └── class-your-plugin-admin.php
+└── plugin.properties
+```
+
+### plugin.properties (for Wordsmith)
+
+```properties
+name=Your Plugin
+slug=your-plugin
+description=A WordPress plugin using Mosaic
+author=Your Name
+license=GPL-2.0+
+main=your-plugin.php
+include=includes/**/*.php
+libraries:
+  - name: mosaic
+    url: ../mosaic/build
+```
+
+### your-plugin.php
+
+```php
+<?php
+/**
+ * Plugin Name: Your Plugin
+ * Description: A WordPress plugin using Mosaic
+ * Version: 1.0.0
+ * Author: Your Name
+ * License: GPL-2.0+
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+define( 'YOUR_PLUGIN_VERSION', '1.0.0' );
+define( 'YOUR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'YOUR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
+// Load Mosaic
+require_once YOUR_PLUGIN_PATH . 'mosaic/includes/class-mosaic.php';
+require_once YOUR_PLUGIN_PATH . 'mosaic/includes/class-mosaic-table.php';
+require_once YOUR_PLUGIN_PATH . 'mosaic/includes/class-mosaic-card.php';
+require_once YOUR_PLUGIN_PATH . 'mosaic/includes/class-mosaic-tabs.php';
+require_once YOUR_PLUGIN_PATH . 'mosaic/includes/class-mosaic-form.php';
+
+Mosaic::load( YOUR_PLUGIN_PATH . 'mosaic' );
+
+// Load plugin files
+require_once YOUR_PLUGIN_PATH . 'includes/class-your-plugin-admin.php';
+
+// Initialize
+add_action( 'plugins_loaded', function() {
+    if ( is_admin() ) {
+        Your_Plugin_Admin::instance();
+    }
+});
+```
+
+### includes/class-your-plugin-admin.php
+
+```php
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+class Your_Plugin_Admin {
+
+    private static $instance = null;
+
+    public static function instance() {
+        if ( null === self::$instance ) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function __construct() {
+        add_action( 'admin_menu', array( $this, 'add_menu' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+    }
+
+    public function add_menu() {
+        add_menu_page(
+            'Your Plugin',
+            'Your Plugin',
+            'manage_options',
+            'your-plugin',
+            array( $this, 'render_page' ),
+            'dashicons-admin-generic',
+            30
+        );
+    }
+
+    public function enqueue_assets( $hook ) {
+        if ( 'toplevel_page_your-plugin' !== $hook ) {
+            return;
+        }
+
+        // Enqueue Mosaic CSS
+        wp_enqueue_style(
+            'mosaic',
+            YOUR_PLUGIN_URL . 'mosaic/' . Mosaic::css(),
+            array(),
+            Mosaic::version()
+        );
+
+        // Enqueue Mosaic JS modules
+        $modules = array( 'dialog', 'tabs', 'clipboard', 'ajax', 'filters', 'theme' );
+        foreach ( $modules as $module ) {
+            wp_enqueue_script(
+                'mosaic-' . $module,
+                YOUR_PLUGIN_URL . 'mosaic/assets/js/modules/' . $module . '.js',
+                array(),
+                Mosaic::version(),
+                true
+            );
+        }
+
+        // Enqueue main Mosaic JS
+        wp_enqueue_script(
+            'mosaic',
+            YOUR_PLUGIN_URL . 'mosaic/' . Mosaic::js(),
+            array(),
+            Mosaic::version(),
+            true
+        );
+
+        // Pass data to JavaScript
+        wp_localize_script( 'mosaic', 'mosaicContext', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'your_plugin_nonce' ),
+        ) );
+    }
+
+    public function render_page() {
+        echo Mosaic::page_start( 'Your Plugin', array(
+            'icon' => 'admin-generic',
+        ) );
+
+        // Your content here
+        echo '<p>Welcome to your plugin!</p>';
+
+        // Example: Stats cards
+        echo Mosaic_Card::stats_grid( array(
+            array( 'label' => 'Total', 'value' => 42, 'icon' => 'admin-site', 'variant' => 'primary' ),
+            array( 'label' => 'Active', 'value' => 38, 'icon' => 'yes-alt', 'variant' => 'success' ),
+        ) );
+
+        // Example: Table
+        $table = new Mosaic_Table( array( 'striped' => true ) );
+        $table->set_columns( array(
+            'name'   => 'Name',
+            'status' => 'Status',
+        ) );
+        $table->add_row( array(
+            'name'   => 'Example Item',
+            'status' => Mosaic::health_badge( 'healthy' ),
+        ) );
+        echo $table->render();
+
+        echo Mosaic::page_end();
+    }
+}
+```
+
+### Deploy
+
+```bash
+cd your-plugin
+wordsmith deploy
+```
+
+Your plugin will appear in WordPress admin with the Mosaic UI.
+
+---
+
 ## Directory Structure
 
 Mosaic should be placed as a sibling directory to your plugins:

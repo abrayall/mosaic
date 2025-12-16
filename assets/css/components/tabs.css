@@ -60,13 +60,9 @@
     color: var(--mosaic-primary);
 }
 
-.mosaic-tab:focus {
-    outline: none;
-}
-
+.mosaic-tab:focus,
 .mosaic-tab:focus-visible {
-    outline: 2px solid var(--mosaic-primary);
-    outline-offset: -2px;
+    outline: none;
 }
 
 /* Active tab */

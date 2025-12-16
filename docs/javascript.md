@@ -457,6 +457,134 @@ For inline or custom layouts:
 <span class="dashicons dashicons-update mosaic-icon-spin"></span>
 ```
 
+## Filters & Search
+
+Client-side filtering and search for tables, cards, and lists.
+
+### Category Filter
+
+Filter items by category buttons:
+
+```javascript
+const filter = Mosaic.filter({
+    containerSelector: '#my-cards',
+    itemSelector: '.card',
+    onFilter: (filterValue, visibleCount, totalCount) => {
+        console.log(`Showing ${visibleCount} of ${totalCount}`);
+    }
+});
+
+// Programmatic control
+filter.filter('category-name');
+filter.reset();
+filter.getVisibleItems();
+filter.getHiddenItems();
+```
+
+### HTML Setup for Filters
+
+```html
+<!-- Filter buttons -->
+<div class="mosaic-filter-buttons">
+    <button data-filter="all" data-filter-target="#my-cards" class="mosaic-filter-active">All</button>
+    <button data-filter="active" data-filter-target="#my-cards">Active</button>
+    <button data-filter="inactive" data-filter-target="#my-cards">Inactive</button>
+</div>
+
+<!-- Filterable items -->
+<div id="my-cards">
+    <div class="card" data-filter="active">Active item</div>
+    <div class="card" data-filter="inactive">Inactive item</div>
+    <div class="card" data-filter="active,featured">Active & Featured</div>
+</div>
+```
+
+### Search
+
+Live search with debouncing and optional highlighting:
+
+```javascript
+const search = Mosaic.search({
+    inputSelector: '#search-input',
+    containerSelector: '#my-table tbody',
+    itemSelector: 'tr',
+    searchAttr: 'data-search',      // Optional: attribute to search (defaults to textContent)
+    minChars: 2,                    // Minimum characters before searching
+    debounce: 200,                  // Debounce delay in ms
+    highlightMatches: true,         // Highlight matching text
+    onSearch: (query, visibleCount, totalCount) => {
+        console.log(`Found ${visibleCount} results for "${query}"`);
+    }
+});
+
+// Programmatic control
+search.search('query');
+search.clear();
+search.getValue();
+```
+
+### HTML Setup for Search
+
+```html
+<input type="text" id="search-input" class="mosaic-input" placeholder="Search...">
+
+<table class="mosaic-table">
+    <tbody id="my-table">
+        <tr class="mosaic-search-item" data-search="john doe john@example.com">
+            <td>John Doe</td>
+            <td>john@example.com</td>
+        </tr>
+        <tr class="mosaic-search-item" data-search="jane smith jane@example.com">
+            <td>Jane Smith</td>
+            <td>jane@example.com</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+### Filter Events
+
+```javascript
+// Listen for filter changes
+container.addEventListener('mosaic:filter', (e) => {
+    console.log('Filter:', e.detail.filter);
+    console.log('Visible:', e.detail.visibleCount);
+    console.log('Total:', e.detail.totalCount);
+});
+
+// Listen for search
+container.addEventListener('mosaic:search', (e) => {
+    console.log('Query:', e.detail.query);
+    console.log('Results:', e.detail.visibleCount);
+});
+```
+
+### Filter Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `containerSelector` | `null` | Container element selector |
+| `itemSelector` | `'.mosaic-filter-item'` | Selector for filterable items |
+| `filterAttr` | `'data-filter'` | Attribute containing filter values |
+| `activeFilterClass` | `'mosaic-filter-active'` | Class for active filter button |
+| `hiddenClass` | `'mosaic-hidden'` | Class added to hidden items |
+| `animateItems` | `true` | Animate items when filtering |
+| `onFilter` | `null` | Callback function |
+
+### Search Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `inputSelector` | `null` | Search input selector |
+| `containerSelector` | `null` | Container element selector |
+| `itemSelector` | `'.mosaic-search-item'` | Selector for searchable items |
+| `searchAttr` | `'data-search'` | Attribute to search (or textContent) |
+| `minChars` | `1` | Minimum characters to trigger search |
+| `debounce` | `200` | Debounce delay in milliseconds |
+| `highlightMatches` | `false` | Highlight matching text |
+| `highlightClass` | `'mosaic-search-highlight'` | Class for highlighted text |
+| `onSearch` | `null` | Callback function |
+
 ## Re-initializing Dynamic Content
 
 When adding content dynamically, re-initialize Mosaic components:

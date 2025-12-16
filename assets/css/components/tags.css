@@ -1,0 +1,387 @@
+/**
+ * Mosaic Design System - Tag Editor
+ *
+ * Tag input widget with pill-shaped tags, similar to Bootstrap Tags Input.
+ */
+
+/* ==========================================================================
+   Tag Editor Container
+   ========================================================================== */
+.mosaic-tag-editor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+    min-height: 42px;
+    padding: var(--mosaic-space-xs) var(--mosaic-space-sm);
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border-dark);
+    border-radius: var(--mosaic-radius-md);
+    cursor: text;
+    transition: border-color var(--mosaic-transition-fast),
+                box-shadow var(--mosaic-transition-fast);
+}
+
+.mosaic-tag-editor:hover {
+    border-color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-tag-editor:focus-within {
+    border-color: var(--mosaic-primary);
+    box-shadow: 0 0 0 1px var(--mosaic-primary);
+}
+
+.mosaic-tag-editor.mosaic-disabled {
+    background-color: var(--mosaic-bg-alt);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.mosaic-tag-editor.mosaic-tag-editor-error {
+    border-color: var(--mosaic-critical);
+}
+
+.mosaic-tag-editor.mosaic-tag-editor-error:focus-within {
+    box-shadow: 0 0 0 1px var(--mosaic-critical);
+}
+
+/* ==========================================================================
+   Tag Pills
+   ========================================================================== */
+.mosaic-tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-xs);
+    padding: var(--mosaic-space-xs) var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-medium);
+    line-height: 1.4;
+    background-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+    border-radius: var(--mosaic-radius-full);
+    white-space: nowrap;
+    user-select: none;
+    animation: mosaic-tag-appear 0.15s ease-out;
+}
+
+@keyframes mosaic-tag-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mosaic-tag-pill-text {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tag remove button */
+.mosaic-tag-pill-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin-left: var(--mosaic-space-xs);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    color: inherit;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    transition: background-color var(--mosaic-transition-fast);
+}
+
+.mosaic-tag-pill-remove:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.mosaic-tag-pill-remove:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   Tag Pill Variants
+   ========================================================================== */
+
+/* Default/neutral */
+.mosaic-tag-pill-default {
+    background-color: var(--mosaic-bg-header);
+    color: var(--mosaic-text);
+}
+
+.mosaic-tag-pill-default .mosaic-tag-pill-remove {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.mosaic-tag-pill-default .mosaic-tag-pill-remove:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Primary (default) */
+.mosaic-tag-pill-primary {
+    background-color: var(--mosaic-primary);
+    color: var(--mosaic-text-inverse);
+}
+
+/* Success */
+.mosaic-tag-pill-success {
+    background-color: var(--mosaic-success);
+    color: var(--mosaic-text-inverse);
+}
+
+/* Warning */
+.mosaic-tag-pill-warning {
+    background-color: var(--mosaic-warning);
+    color: var(--mosaic-text);
+}
+
+.mosaic-tag-pill-warning .mosaic-tag-pill-remove {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.mosaic-tag-pill-warning .mosaic-tag-pill-remove:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Critical/error */
+.mosaic-tag-pill-critical,
+.mosaic-tag-pill-error {
+    background-color: var(--mosaic-critical);
+    color: var(--mosaic-text-inverse);
+}
+
+/* Info */
+.mosaic-tag-pill-info {
+    background-color: var(--mosaic-info);
+    color: var(--mosaic-text-inverse);
+}
+
+/* Outline variants */
+.mosaic-tag-pill-outline {
+    background-color: transparent;
+    border: 1px solid var(--mosaic-border-dark);
+    color: var(--mosaic-text);
+}
+
+.mosaic-tag-pill-outline .mosaic-tag-pill-remove {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.mosaic-tag-pill-outline .mosaic-tag-pill-remove:hover {
+    background: var(--mosaic-critical-light);
+    color: var(--mosaic-critical);
+}
+
+.mosaic-tag-pill-outline-primary {
+    background-color: var(--mosaic-primary-light);
+    border: 1px solid var(--mosaic-primary);
+    color: var(--mosaic-primary-dark);
+}
+
+.mosaic-tag-pill-outline-success {
+    background-color: var(--mosaic-success-light);
+    border: 1px solid var(--mosaic-success);
+    color: var(--mosaic-success-dark);
+}
+
+.mosaic-tag-pill-outline-warning {
+    background-color: var(--mosaic-warning-light);
+    border: 1px solid var(--mosaic-warning);
+    color: var(--mosaic-warning-dark);
+}
+
+.mosaic-tag-pill-outline-critical {
+    background-color: var(--mosaic-critical-light);
+    border: 1px solid var(--mosaic-critical);
+    color: var(--mosaic-critical-dark);
+}
+
+/* ==========================================================================
+   Tag Input Field
+   ========================================================================== */
+.mosaic-tag-editor-input,
+.mosaic-tag-editor-input:focus,
+.mosaic-tag-editor-input:active,
+.mosaic-tag-editor-input:hover {
+    flex: 1;
+    min-width: 120px;
+    height: auto;
+    padding: var(--mosaic-space-xs) 0 !important;
+    margin: 0 !important;
+    font-size: var(--mosaic-font-size-base) !important;
+    font-family: inherit;
+    line-height: 1.5 !important;
+    color: var(--mosaic-text);
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    width: auto;
+    min-height: 0;
+    max-height: none;
+}
+
+.mosaic-tag-editor-input::placeholder {
+    color: var(--mosaic-text-disabled);
+}
+
+.mosaic-tag-editor-input:disabled {
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Size Variants
+   ========================================================================== */
+
+/* Small */
+.mosaic-tag-editor-sm {
+    min-height: 34px;
+    padding: 2px var(--mosaic-space-xs);
+}
+
+.mosaic-tag-editor-sm .mosaic-tag-pill {
+    padding: 2px var(--mosaic-space-sm);
+    font-size: var(--mosaic-font-size-xs);
+}
+
+.mosaic-tag-editor-sm .mosaic-tag-pill-remove {
+    width: 14px;
+    height: 14px;
+    font-size: 12px;
+}
+
+.mosaic-tag-editor-sm .mosaic-tag-editor-input {
+    font-size: var(--mosaic-font-size-sm);
+}
+
+/* Large */
+.mosaic-tag-editor-lg {
+    min-height: 50px;
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+}
+
+.mosaic-tag-editor-lg .mosaic-tag-pill {
+    padding: var(--mosaic-space-sm) var(--mosaic-space-lg);
+    font-size: var(--mosaic-font-size-base);
+}
+
+.mosaic-tag-editor-lg .mosaic-tag-pill-remove {
+    width: 18px;
+    height: 18px;
+    font-size: 16px;
+}
+
+.mosaic-tag-editor-lg .mosaic-tag-editor-input {
+    font-size: var(--mosaic-font-size-lg);
+}
+
+/* ==========================================================================
+   Suggestions Dropdown
+   ========================================================================== */
+.mosaic-tag-editor-wrapper {
+    position: relative;
+}
+
+.mosaic-tag-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: var(--mosaic-z-dropdown);
+    max-height: 200px;
+    margin-top: var(--mosaic-space-xs);
+    padding: var(--mosaic-space-xs) 0;
+    background-color: var(--mosaic-bg);
+    border: 1px solid var(--mosaic-border);
+    border-radius: var(--mosaic-radius-md);
+    box-shadow: var(--mosaic-shadow-lg);
+    overflow-y: auto;
+    display: none;
+}
+
+.mosaic-tag-suggestions.mosaic-open {
+    display: block;
+}
+
+.mosaic-tag-suggestion-item {
+    padding: var(--mosaic-space-sm) var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-base);
+    color: var(--mosaic-text);
+    cursor: pointer;
+    transition: background-color var(--mosaic-transition-fast);
+}
+
+.mosaic-tag-suggestion-item:hover,
+.mosaic-tag-suggestion-item.mosaic-highlighted {
+    background-color: var(--mosaic-bg-hover);
+}
+
+.mosaic-tag-suggestion-item.mosaic-selected {
+    background-color: var(--mosaic-primary-light);
+    color: var(--mosaic-primary-dark);
+}
+
+.mosaic-tag-suggestions-empty {
+    padding: var(--mosaic-space-md);
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-tertiary);
+    text-align: center;
+}
+
+/* ==========================================================================
+   Max Tags Reached State
+   ========================================================================== */
+.mosaic-tag-editor-max-reached {
+    background-color: var(--mosaic-bg-alt);
+}
+
+.mosaic-tag-editor-max-reached .mosaic-tag-editor-input {
+    display: none;
+}
+
+/* ==========================================================================
+   Character/Tag Counter
+   ========================================================================== */
+.mosaic-tag-counter {
+    display: block;
+    margin-top: var(--mosaic-space-xs);
+    font-size: var(--mosaic-font-size-xs);
+    color: var(--mosaic-text-tertiary);
+    text-align: right;
+}
+
+.mosaic-tag-counter-warning {
+    color: var(--mosaic-warning);
+}
+
+.mosaic-tag-counter-error {
+    color: var(--mosaic-critical);
+}
+
+/* ==========================================================================
+   Read-only Display
+   ========================================================================== */
+.mosaic-tag-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--mosaic-space-xs);
+}
+
+.mosaic-tag-display .mosaic-tag-pill {
+    cursor: default;
+}
+
+.mosaic-tag-display .mosaic-tag-pill-remove {
+    display: none;
+}

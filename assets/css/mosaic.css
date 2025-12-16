@@ -22,3 +22,11 @@
 @import 'components/modals.css';
 @import 'components/progress.css';
 @import 'components/loaders.css';
+@import 'components/tooltips.css';
+@import 'components/dropdowns.css';
+@import 'components/pagination.css';
+@import 'components/breadcrumbs.css';
+@import 'components/alerts.css';
+@import 'components/avatars.css';
+@import 'components/toast.css';
+@import 'components/tags.css';

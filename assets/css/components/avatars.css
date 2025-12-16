@@ -1,0 +1,268 @@
+/**
+ * Mosaic Design System - Avatars
+ *
+ * User avatar display with images and initials fallbacks.
+ */
+
+/* ==========================================================================
+   Avatar Base
+   ========================================================================== */
+.mosaic-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--mosaic-radius-full);
+    background-color: var(--mosaic-primary-light);
+    color: var(--mosaic-primary);
+    font-size: var(--mosaic-font-size-base);
+    font-weight: var(--mosaic-font-weight-semibold);
+    text-transform: uppercase;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.mosaic-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   Avatar Sizes
+   ========================================================================== */
+.mosaic-avatar-xs {
+    width: 24px;
+    height: 24px;
+    font-size: var(--mosaic-font-size-xs);
+}
+
+.mosaic-avatar-sm {
+    width: 32px;
+    height: 32px;
+    font-size: var(--mosaic-font-size-sm);
+}
+
+.mosaic-avatar-lg {
+    width: 56px;
+    height: 56px;
+    font-size: var(--mosaic-font-size-xl);
+}
+
+.mosaic-avatar-xl {
+    width: 80px;
+    height: 80px;
+    font-size: var(--mosaic-font-size-3xl);
+}
+
+.mosaic-avatar-2xl {
+    width: 120px;
+    height: 120px;
+    font-size: var(--mosaic-font-size-5xl);
+}
+
+/* ==========================================================================
+   Avatar Colors
+   ========================================================================== */
+.mosaic-avatar-primary {
+    background-color: var(--mosaic-primary-light);
+    color: var(--mosaic-primary);
+}
+
+.mosaic-avatar-success {
+    background-color: var(--mosaic-success-light);
+    color: var(--mosaic-success);
+}
+
+.mosaic-avatar-warning {
+    background-color: var(--mosaic-warning-light);
+    color: var(--mosaic-warning-dark);
+}
+
+.mosaic-avatar-danger {
+    background-color: var(--mosaic-critical-light);
+    color: var(--mosaic-critical);
+}
+
+.mosaic-avatar-info {
+    background-color: var(--mosaic-info-light);
+    color: var(--mosaic-info-dark);
+}
+
+.mosaic-avatar-gray {
+    background-color: var(--mosaic-bg-alt);
+    color: var(--mosaic-text-secondary);
+}
+
+/* ==========================================================================
+   Avatar Shapes
+   ========================================================================== */
+.mosaic-avatar-square {
+    border-radius: var(--mosaic-radius-md);
+}
+
+.mosaic-avatar-rounded {
+    border-radius: var(--mosaic-radius-lg);
+}
+
+/* ==========================================================================
+   Avatar with Border
+   ========================================================================== */
+.mosaic-avatar-bordered {
+    border: 2px solid var(--mosaic-bg);
+    box-shadow: 0 0 0 1px var(--mosaic-border);
+}
+
+/* ==========================================================================
+   Avatar with Status Indicator
+   ========================================================================== */
+.mosaic-avatar-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+.mosaic-avatar-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: var(--mosaic-radius-full);
+    border: 2px solid var(--mosaic-bg);
+    background-color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-avatar-status-online {
+    background-color: var(--mosaic-success);
+}
+
+.mosaic-avatar-status-offline {
+    background-color: var(--mosaic-text-tertiary);
+}
+
+.mosaic-avatar-status-busy {
+    background-color: var(--mosaic-critical);
+}
+
+.mosaic-avatar-status-away {
+    background-color: var(--mosaic-warning);
+}
+
+/* Status size adjustments */
+.mosaic-avatar-xs + .mosaic-avatar-status,
+.mosaic-avatar-wrapper .mosaic-avatar-xs ~ .mosaic-avatar-status {
+    width: 8px;
+    height: 8px;
+    border-width: 1px;
+}
+
+.mosaic-avatar-sm + .mosaic-avatar-status,
+.mosaic-avatar-wrapper .mosaic-avatar-sm ~ .mosaic-avatar-status {
+    width: 10px;
+    height: 10px;
+}
+
+.mosaic-avatar-lg + .mosaic-avatar-status,
+.mosaic-avatar-wrapper .mosaic-avatar-lg ~ .mosaic-avatar-status {
+    width: 14px;
+    height: 14px;
+}
+
+.mosaic-avatar-xl + .mosaic-avatar-status,
+.mosaic-avatar-wrapper .mosaic-avatar-xl ~ .mosaic-avatar-status {
+    width: 16px;
+    height: 16px;
+    border-width: 3px;
+}
+
+/* ==========================================================================
+   Avatar Group
+   ========================================================================== */
+.mosaic-avatar-group {
+    display: inline-flex;
+    flex-direction: row-reverse;
+}
+
+.mosaic-avatar-group .mosaic-avatar {
+    margin-left: -12px;
+    border: 2px solid var(--mosaic-bg);
+    transition: transform var(--mosaic-transition-fast);
+}
+
+.mosaic-avatar-group .mosaic-avatar:last-child {
+    margin-left: 0;
+}
+
+.mosaic-avatar-group .mosaic-avatar:hover {
+    transform: translateY(-2px);
+    z-index: 1;
+}
+
+/* Group count */
+.mosaic-avatar-group-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-left: -12px;
+    border-radius: var(--mosaic-radius-full);
+    background-color: var(--mosaic-bg-alt);
+    border: 2px solid var(--mosaic-bg);
+    font-size: var(--mosaic-font-size-sm);
+    font-weight: var(--mosaic-font-weight-semibold);
+    color: var(--mosaic-text-secondary);
+}
+
+/* ==========================================================================
+   Avatar with Icon
+   ========================================================================== */
+.mosaic-avatar .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.mosaic-avatar-xs .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+.mosaic-avatar-sm .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.mosaic-avatar-lg .dashicons {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+}
+
+.mosaic-avatar-xl .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+/* ==========================================================================
+   Avatar with Name
+   ========================================================================== */
+.mosaic-avatar-name {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mosaic-space-sm);
+}
+
+.mosaic-avatar-name-text {
+    font-weight: var(--mosaic-font-weight-medium);
+    color: var(--mosaic-text);
+}
+
+.mosaic-avatar-name-subtitle {
+    font-size: var(--mosaic-font-size-sm);
+    color: var(--mosaic-text-secondary);
+}
